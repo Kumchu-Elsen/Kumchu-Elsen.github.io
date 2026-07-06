@@ -201,6 +201,13 @@
   .flow-dot:nth-child(2){animation-delay:1s}
   .flow-dot:nth-child(3){animation-delay:2s}
   @keyframes flowMove{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(268px);opacity:0}}
+  .med-dot{animation:medMove 2.6s linear infinite}
+  .med-dot.d2{animation-delay:1.3s}
+  @keyframes medMove{0%{transform:translateX(0);opacity:0}12%{opacity:1}88%{opacity:1}100%{transform:translateX(72px);opacity:0}}
+  .med-ring{animation:medPulse 3.2s ease-in-out infinite}
+  .med-ring.r2{animation-delay:.5s}
+  .med-ring.r3{animation-delay:1s}
+  @keyframes medPulse{0%,100%{opacity:.6}50%{opacity:1}}
   .nn-node{animation:nodePulse 2.4s ease-in-out infinite}
   .nn-node:nth-child(4n){animation-delay:.3s}
   .nn-node:nth-child(3n){animation-delay:.6s}
@@ -342,7 +349,7 @@
   <div class="hero-glow"></div>
   <div class="wrap hero-top">
     <div class="hero-text">
-      <span class="eyebrow">Data Scientist · ML Engineer · Columbia, SC</span>
+      <span class="eyebrow">Data Scientist · Analytics Engineer · ML Engineer · Charlotte, NC</span>
       <h1>Elsen<br><span class="accent">Kumchu.</span></h1>
       <p class="thesis">I build production-grade ML that turns messy, multi-source data into decisions.</p>
       <p class="lede">8+ years of applied quantitative analysis — dual mathematics degrees, a UT Austin AI/ML certificate, and hands-on experience taking models from ingestion to deployment.</p>
@@ -363,8 +370,8 @@
       <div class="proof-head">Selected results — from production work, not just notebooks</div>
       <div class="proof-grid">
         <div class="stat">
-          <div class="num"><span data-count="6000" data-decimals="0" data-comma="1">0</span><span class="unit">+</span></div>
-          <div class="lbl">students whose performance data shaped<br>district decisions · Richland School District 2</div>
+          <div class="num"><span data-count="3" data-decimals="0">0</span><span class="unit">layers</span></div>
+          <div class="lbl">medallion lakehouse built with dbt + Databricks<br>bronze → silver → gold · SCD Type 2 · automated tests</div>
         </div>
         <div class="stat">
           <div class="num"><span data-count="60" data-decimals="0">0</span><span class="unit">%</span></div>
@@ -394,8 +401,8 @@
       <div class="meta-card reveal">
         <h3>At a glance</h3>
         <ul>
-          <li>Based in <span>Columbia, SC</span></li>
-          <li>Open to <span>Charlotte · Remote</span></li>
+          <li>Based in <span>Charlotte, NC</span></li>
+          <li>Open to <span>Remote</span></li>
           <li>Experience <span>8+ years</span></li>
           <li>Focus <span>ML · Analytics</span></li>
           <li>Cloud <span>AWS · Azure · GCP</span></li>
@@ -413,6 +420,18 @@
       <span class="sec-num reveal">02 — Projects</span>
     </div>
     <div class="work-grid">
+
+      <a class="card reveal" href="https://github.com/Kumchu-Elsen/dbt-databricks-medallion-pipeline" target="_blank" rel="noopener">
+        <span class="corner">↗</span>
+        <div class="thumb"><svg class="thumb-svg" viewBox="0 0 480 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><line x1="140" y1="100" x2="210" y2="100" stroke="var(--line)" stroke-width="2"/><line x1="270" y1="100" x2="340" y2="100" stroke="var(--line)" stroke-width="2"/><circle class="med-ring" cx="110" cy="100" r="28" fill="none" stroke="#C87A3A" stroke-width="3"/><text x="110" y="106" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="var(--ink)">B</text><circle class="med-ring r2" cx="240" cy="100" r="28" fill="none" stroke="#9BA6B2" stroke-width="3"/><text x="240" y="106" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="var(--ink)">S</text><circle class="med-ring r3" cx="370" cy="100" r="28" fill="none" stroke="#DDA834" stroke-width="3"/><text x="370" y="106" text-anchor="middle" font-family="monospace" font-size="15" font-weight="700" fill="var(--ink)">G</text><circle class="med-dot" cx="140" cy="100" r="4.5" fill="var(--coral)"/><circle class="med-dot d2" cx="270" cy="100" r="4.5" fill="var(--coral)"/></svg></div>
+        <div class="card-body">
+          <span class="tag">Analytics Engineering · Lakehouse</span>
+          <h3>End-to-end dbt + Databricks medallion pipeline</h3>
+          <p>A full ELT lakehouse across bronze, silver, and gold layers — SCD Type 2 snapshots for history tracking, reusable Jinja macros, layered data tests, and a dev-to-prod deployment workflow.</p>
+          <div class="result">→ raw data to analytics-ready gold models</div>
+          <div class="stack">dbt · Databricks · SQL · Jinja</div>
+        </div>
+      </a>
 
       <a class="card reveal" href="https://github.com/Kumchu-Elsen/ETL_Pipeline/tree/main/etl-pipeline2" target="_blank" rel="noopener">
         <span class="corner">↗</span>

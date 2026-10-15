@@ -1,0 +1,1871 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Unit 2 Test Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Literata:opsz,wght@7..72,500;7..72,650&display=swap">
+<style>
+/* Layout: exam sheet. A bell-colored stripe tops the control bar; question and curve on the left, work table on the right; stacks on phones.
+   Band colors follow the Empirical Rule: sun = within 1 SD, tangerine = 1 to 2, raspberry = 2 to 3, violet = beyond 3. */
+:root {
+  --bg: #f2f6fb; --panel: #ffffff; --ink: #14203a; --muted: #55657c; --line: #d3dce8; --line-soft: #e7edf4;
+  --accent: #0b6a93; --accent-ink: #ffffff; --accent-soft: #dff0f8;
+  --b1: #f2b705; --b2: #f07136; --b3: #d8336f; --b4: #6c4bd6;
+  --b1-soft: #fff4cc; --b2-soft: #ffe5d8; --b3-soft: #fbdde8; --b4-soft: #e9e3fb;
+  --shade: #e0353d; --curve: #14203a;
+  --ok: #1b7a4b; --ok-soft: #e0f3e9; --bad: #b8261c; --bad-soft: #fbe6e3; --warn: #995500; --warn-soft: #fcefd9;
+  --grid: rgba(11, 106, 147, 0.06);
+  --f-display: "Literata", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0e1520; --panel: #16202e; --ink: #e6edf5; --muted: #9aa9bb; --line: #2c3a4c; --line-soft: #213040;
+  --accent: #5fb4e0; --accent-ink: #08131d; --accent-soft: #15324a;
+  --b1: #ffd43b; --b2: #ff8f5a; --b3: #f06595; --b4: #9b82f5;
+  --b1-soft: #3a3110; --b2-soft: #3d2416; --b3-soft: #3d1a29; --b4-soft: #2a2347;
+  --shade: #ff6b6b; --curve: #e6edf5;
+  --ok: #5cc58f; --ok-soft: #14301f; --bad: #f08a80; --bad-soft: #3a1c19; --warn: #e7a956; --warn-soft: #36270f;
+  --grid: rgba(95, 180, 224, 0.07); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0e1520; --panel: #16202e; --ink: #e6edf5; --muted: #9aa9bb; --line: #2c3a4c; --line-soft: #213040;
+  --accent: #5fb4e0; --accent-ink: #08131d; --accent-soft: #15324a;
+  --b1: #ffd43b; --b2: #ff8f5a; --b3: #f06595; --b4: #9b82f5;
+  --b1-soft: #3a3110; --b2-soft: #3d2416; --b3-soft: #3d1a29; --b4-soft: #2a2347;
+  --shade: #ff6b6b; --curve: #e6edf5;
+  --ok: #5cc58f; --ok-soft: #14301f; --bad: #f08a80; --bad-soft: #3a1c19; --warn: #e7a956; --warn-soft: #36270f;
+  --grid: rgba(95, 180, 224, 0.07); color-scheme: dark; }
+html, body { min-height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 650; text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: 1.9rem; } h2 { font-size: 1.35rem; } h3 { font-size: 1.05rem; }
+.num, input.cell, .mono { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+.eyebrow { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+button { font: inherit; cursor: pointer; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); padding: 8px 14px; }
+button:hover { border-color: var(--accent); }
+button:focus-visible, input:focus-visible, select:focus-visible, th:focus-visible, tr:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+button.danger { color: var(--bad); border-color: var(--bad); }
+button.danger.solid { background: var(--bad); color: var(--panel); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+input[type=text], input[type=password] { font: inherit; padding: 9px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); min-width: 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); }
+
+/* ---------- sign in / rules ---------- */
+.gate { max-width: 560px; margin: 6vh auto 0; display: grid; gap: 22px; }
+.gate .panel { padding: 26px; display: grid; gap: 16px; }
+.curve { width: 100%; height: auto; display: block; }
+.curve path.c { fill: none; stroke: var(--accent); stroke-width: 2.2; }
+.curve path.f { fill: var(--accent-soft); }
+.curve line { stroke: var(--line); }
+.curve text { fill: var(--muted); font-family: var(--f-num); font-size: 11px; }
+.idrow { display: flex; gap: 10px; flex-wrap: wrap; }
+.idrow input { flex: 1 1 180px; font-family: var(--f-num); font-size: 1.25rem; letter-spacing: 0.18em; }
+.err { color: var(--bad); min-height: 1.4em; font-size: 0.92rem; }
+.rules { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.linkish { background: none; border: none; color: var(--muted); text-decoration: underline; padding: 4px; font-size: 0.9rem; justify-self: center; }
+
+/* ---------- test top bar ---------- */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--panel); border-bottom: 1px solid var(--line); }
+.bar .in { max-width: 1180px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.timer { font-family: var(--f-num); font-size: 1.3rem; font-weight: 600; padding: 4px 10px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); min-width: 5.2ch; text-align: center; }
+.timer.low { background: var(--warn-soft); color: var(--warn); }
+.qnav { display: flex; gap: 6px; flex-wrap: wrap; flex: 1 1 260px; }
+.qnav button { width: 36px; height: 36px; padding: 0; font-family: var(--f-num); font-weight: 600; }
+.qnav button.done { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--accent); }
+.qnav button.cur { border: 2px solid var(--accent); }
+.leftc { font-size: 0.9rem; color: var(--muted); white-space: nowrap; }
+.leftc b { font-family: var(--f-num); color: var(--ink); }
+.leftc.has b { color: var(--bad); }
+.sid { font-family: var(--f-num); font-size: 0.85rem; color: var(--muted); }
+
+/* ---------- question layout ---------- */
+.qgrid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px; align-items: start; margin-top: 20px; }
+@media (max-width: 880px) { .qgrid { grid-template-columns: minmax(0, 1fr); } }
+.qcard { padding: 22px; display: grid; gap: 16px; min-width: 0; }
+.qhead { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+.pts { font-size: 0.85rem; color: var(--muted); }
+.prompt { font-size: 1.05rem; line-height: 1.6; max-width: 68ch; }
+.datagrid { overflow-x: auto; }
+.datagrid table { border-collapse: collapse; font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+.datagrid td { border: 1px solid var(--line); padding: 4px 8px; text-align: center; min-width: 2.6em; }
+.ansrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.ansrow input { width: 12ch; font-family: var(--f-num); font-size: 1.1rem; }
+.unit { color: var(--muted); }
+.opts { display: grid; gap: 8px; }
+.opt { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; }
+.opt:hover { border-color: var(--accent); }
+.opt input { accent-color: var(--accent); width: 18px; height: 18px; flex: none; }
+.opt.locked { cursor: default; }
+.fb { padding: 10px 12px; border-radius: 6px; font-weight: 500; }
+.fb.ok { background: var(--ok-soft); color: var(--ok); }
+.fb.no { background: var(--bad-soft); color: var(--bad); }
+.fb.info { background: var(--warn-soft); color: var(--warn); }
+.qfoot { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+.work { padding: 18px; display: grid; gap: 12px; min-width: 0; background-color: var(--panel);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 18px 18px; }
+.work table { width: 100%; border-collapse: collapse; }
+.work td { border-top: 1px solid var(--line-soft); padding: 6px 4px; vertical-align: middle; }
+.work td.lab { font-size: 0.92rem; padding-right: 10px; }
+.work td.val { width: 42%; }
+input.cell { box-sizing: border-box; width: 100%; padding: 7px 9px; border: 1px solid var(--line); border-radius: 5px; background: var(--panel); color: var(--ink); font-size: 0.98rem; }
+.scorebox { font-family: var(--f-num); padding: 8px 12px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.tag { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+.tag.bad { background: var(--bad-soft); color: var(--bad); }
+.tag.ok { background: var(--ok-soft); color: var(--ok); }
+
+/* ---------- overlays ---------- */
+.overlay { position: fixed; inset: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 92%, transparent); display: grid; place-items: center; padding: 16px; }
+.overlay .panel { max-width: 480px; width: 100%; padding: 26px; display: grid; gap: 14px; }
+.overlay.alarm .panel { border: 2px solid var(--bad); }
+
+/* ---------- results ---------- */
+.res { max-width: 640px; margin: 5vh auto 0; display: grid; gap: 18px; }
+.res .panel { padding: 24px; display: grid; gap: 16px; }
+.big { font-family: var(--f-display); font-size: 3rem; font-weight: 650; line-height: 1; }
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; }
+.kv div { border-top: 2px solid var(--line); padding-top: 8px; }
+.kv b { display: block; font-family: var(--f-num); font-size: 1.25rem; }
+.kv span { font-size: 0.82rem; color: var(--muted); }
+.qpts { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.qpts td, .qpts th { padding: 6px 4px; border-bottom: 1px solid var(--line-soft); text-align: left; }
+.qpts td.n { text-align: right; font-family: var(--f-num); }
+
+/* ---------- teacher ---------- */
+.thead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tools { display: flex; gap: 8px; flex-wrap: wrap; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 18px; }
+.tile { padding: 14px 16px; }
+.tile b { display: block; font-family: var(--f-display); font-size: 1.8rem; line-height: 1.1; }
+.tile span { font-size: 0.82rem; color: var(--muted); }
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+@media (max-width: 880px) { .two { grid-template-columns: minmax(0, 1fr); } }
+.box { padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart text { fill: var(--muted); font-family: var(--f-num); font-size: 11px; }
+.chart .bar { fill: var(--accent); }
+.chart .axis { stroke: var(--line); }
+.qa { display: grid; gap: 8px; }
+.qa .row { display: grid; grid-template-columns: 2.4em minmax(0, 1fr) 4.2em 5.4em; gap: 10px; align-items: center; font-size: 0.9rem; }
+.qa .track { height: 10px; background: var(--line-soft); border-radius: 99px; overflow: hidden; }
+.qa .fill { height: 100%; background: var(--accent); border-radius: 99px; }
+.qa .fill.low { background: var(--bad); }
+.tablewrap { overflow-x: auto; margin-top: 16px; }
+table.roster { border-collapse: collapse; width: 100%; font-size: 0.88rem; background: var(--panel); }
+table.roster th, table.roster td { padding: 8px 8px; border-bottom: 1px solid var(--line-soft); text-align: right; white-space: nowrap; }
+table.roster th { cursor: pointer; user-select: none; font-weight: 600; color: var(--muted); position: sticky; top: 0; background: var(--panel); }
+table.roster th:first-child, table.roster td:first-child, table.roster th:nth-child(2), table.roster td:nth-child(2) { text-align: left; }
+table.roster td { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+table.roster tbody tr { cursor: pointer; }
+table.roster tbody tr:hover { background: var(--accent-soft); }
+.rec { display: grid; gap: 16px; margin-top: 16px; }
+.rec .qrec { padding: 16px; display: grid; gap: 10px; }
+.tries { display: flex; gap: 8px; flex-wrap: wrap; }
+.try { font-family: var(--f-num); padding: 3px 9px; border-radius: 5px; font-size: 0.9rem; }
+.try.ok { background: var(--ok-soft); color: var(--ok); }
+.try.no { background: var(--bad-soft); color: var(--bad); }
+.wt { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.wt td, .wt th { padding: 5px 6px; border-bottom: 1px solid var(--line-soft); text-align: left; }
+.wt td.v { font-family: var(--f-num); }
+.mark-ok { color: var(--ok); font-weight: 700; }
+.mark-no { color: var(--bad); font-weight: 700; }
+.events { font-family: var(--f-num); font-size: 0.88rem; margin: 0; padding-left: 18px; }
+.delbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; padding: 12px 14px; }
+.note { padding: 10px 14px; border-radius: 6px; background: var(--warn-soft); color: var(--warn); font-size: 0.9rem; }
+
+/* ---------- colorful touches ---------- */
+.stripe { height: 5px; background: linear-gradient(90deg, var(--b4) 0 6%, var(--b3) 6% 16%, var(--b2) 16% 30%, var(--b1) 30% 70%, var(--b2) 70% 84%, var(--b3) 84% 94%, var(--b4) 94% 100%); }
+.chip { display: inline-block; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
+.chip.t-emp { background: var(--b1-soft); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--b1); }
+.chip.t-loc { background: var(--b3-soft); color: var(--b3); }
+.chip.t-z { background: var(--accent-soft); color: var(--accent); }
+.chip.t-pct { background: var(--b2-soft); color: var(--b2); }
+.chip.t-norm { background: var(--b4-soft); color: var(--b4); }
+.qcard { border-top: 5px solid var(--qc, var(--accent)); }
+.figwrap { overflow-x: auto; margin-inline: -4px; padding: 2px 4px; }
+.fig { position: relative; width: 100%; max-width: 860px; margin-inline: auto; }
+.fig svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ncurve .under { fill: var(--accent-soft); }
+.ncurve .band { opacity: 0.55; }
+.ncurve .band.b1 { fill: var(--b1); } .ncurve .band.b2 { fill: var(--b2); } .ncurve .band.b3 { fill: var(--b3); } .ncurve .band.b4 { fill: var(--b4); }
+.ncurve .shade { fill: var(--shade); opacity: 0.6; }
+.ncurve .curve { fill: none; stroke: var(--curve); stroke-width: 2.4; stroke-linejoin: round; }
+.ncurve .axis, .ncurve .tick { stroke: var(--curve); stroke-width: 1.4; }
+.ncurve .guide { stroke: var(--curve); stroke-opacity: 0.35; stroke-dasharray: 3 4; }
+.ncurve .guide.mid { stroke-opacity: 0.6; }
+.ncurve text { font-family: var(--f-num); font-size: 13px; fill: var(--ink); }
+.ncurve .tl.strong { font-weight: 600; }
+.ncurve .zl, .ncurve .cap { fill: var(--muted); font-size: 12px; }
+.ncurve .cap { font-style: italic; }
+.ncurve .live { fill: var(--accent); font-weight: 600; font-size: 12.5px; }
+.ncurve .mk { stroke: var(--accent); stroke-width: 2; stroke-dasharray: 5 4; }
+.ncurve .pill rect { fill: var(--panel); stroke: var(--accent); stroke-width: 1.6; }
+.ncurve .pill text { font-size: 12.5px; font-weight: 600; fill: var(--accent); }
+.ncurve .pill.alt rect { fill: var(--accent); } .ncurve .pill.alt text { fill: var(--accent-ink); }
+.ncurve .pill.shp rect { fill: var(--shade); stroke: var(--shade); } .ncurve .pill.shp text { fill: #fff; }
+.ncurve .brk { stroke-width: 3; } .ncurve .brk.b1 { stroke: var(--b1); } .ncurve .brk.b2 { stroke: var(--b2); } .ncurve .brk.b3 { stroke: var(--b3); }
+.ncurve .ah.b1 { fill: var(--b1); } .ncurve .ah.b2 { fill: var(--b2); } .ncurve .ah.b3 { fill: var(--b3); }
+.ncurve .pill.brkp rect { stroke-width: 2; } .ncurve .pill.brkp.b1 rect { stroke: var(--b1); } .ncurve .pill.brkp.b2 rect { stroke: var(--b2); } .ncurve .pill.brkp.b3 rect { stroke: var(--b3); }
+.ncurve .pill.brkp text { fill: var(--ink); }
+.ncurve .leader { stroke: var(--muted); stroke-width: 1.2; }
+.ncurve.drag { cursor: ew-resize; touch-action: none; }
+.ncurve.drag:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.dragline line { stroke: var(--shade); stroke-width: 3; }
+.dragline circle { fill: var(--shade); stroke: var(--panel); stroke-width: 2.5; }
+.dragline path { stroke: #fff; stroke-width: 1.8; fill: none; }
+.dragline.locked circle { fill: var(--muted); } .dragline.locked line { stroke: var(--muted); }
+.cbox { position: absolute; transform: translate(-50%, -50%); width: 11%; padding: 4px 1px; text-align: center; font-family: var(--f-num); font-size: clamp(11px, 1.45vw, 15px); font-weight: 600; border-radius: 6px; border: 2px solid var(--line); background: var(--panel); color: var(--ink); box-sizing: border-box; }
+.cbox.pct.b1 { border-color: var(--b1); } .cbox.pct.b2 { border-color: var(--b2); } .cbox.pct.b3 { border-color: var(--b3); } .cbox.pct.b4 { border-color: var(--b4); }
+.cbox.val { border-color: var(--accent); }
+.draghint { font-size: 0.9rem; color: var(--muted); }
+.infnote { margin: 0; font-size: 0.85rem; padding: 8px 10px; border-radius: 6px; background: var(--b1-soft); color: var(--ink); }
+details summary { cursor: pointer; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: none; border-radius: 0; padding: 8px 14px; background: var(--panel); }
+.seg button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: no-preference) { .qcard, .work { animation: rise 0.18s ease-out; } @keyframes rise { from { transform: translateY(4px); opacity: 0.6; } to { transform: none; opacity: 1; } } }
+</style>
+
+<script>window.SITE = {"api": "https://script.google.com/macros/s/AKfycbxeaL4zEHHgBkkfni_Xmkwm-O8-oUoRqtrs2Vdvel0QZOWPvJiNmRQDEDol-79riCcAtQ/exec", "mode": "review", "apps": {"review": {"key": "stats-review-1", "name": "Unit 2 Test Review"}, "test": {"key": "stats-test-1", "name": "Unit 2 Test"}}};</script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+var GEN = (function () {
+  // ---------- seeded random ----------
+  function hashStr(s) {
+    var h = 2166136261 >>> 0;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    return h >>> 0;
+  }
+  function makeRng(seed) {
+    var a = seed >>> 0;
+    function r() {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+    r.int = function (lo, hi) { return lo + Math.floor(r() * (hi - lo + 1)); };
+    r.pick = function (arr) { return arr[Math.floor(r() * arr.length)]; };
+    r.shuffle = function (arr) {
+      var a2 = arr.slice();
+      for (var i = a2.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)); var t = a2[i]; a2[i] = a2[j]; a2[j] = t; }
+      return a2;
+    };
+    r.normal = function () {
+      var u = 0, v = 0;
+      while (u === 0) u = r();
+      while (v === 0) v = r();
+      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    };
+    return r;
+  }
+
+  // ---------- normal distribution ----------
+  function erfc(x) {
+    // W. J. Cody style rational approximation via Numerical Recipes erfc (rel. error < 1.2e-7)
+    var z = Math.abs(x), t = 1 / (1 + 0.5 * z);
+    var r = t * Math.exp(-z * z - 1.26551223 + t * (1.00002368 + t * (0.37409196 + t * (0.09678418 +
+      t * (-0.18628806 + t * (0.27886807 + t * (-1.13520398 + t * (1.48851587 +
+      t * (-0.82215223 + t * 0.17087277)))))))));
+    return x >= 0 ? r : 2 - r;
+  }
+  function ncdf(z) { return 0.5 * erfc(-z / Math.SQRT2); }
+  function normalcdf(lo, hi) { return ncdf(hi) - ncdf(lo); }
+  function invNorm(p) {
+    // Acklam
+    var a = [-3.969683028665376e+01, 2.209460984245205e+02, -2.759285104469687e+02, 1.383577518672690e+02, -3.066479806614716e+01, 2.506628277459239e+00];
+    var b = [-5.447609879822406e+01, 1.615858368580409e+02, -1.556989798598866e+02, 6.680131188771972e+01, -1.328068155288572e+01];
+    var c = [-7.784894002430293e-03, -3.223964580411365e-01, -2.400758277161838e+00, -2.549732539343734e+00, 4.374664141464968e+00, 2.938163982698783e+00];
+    var d = [7.784695709041462e-03, 3.224671290700398e-01, 2.445134137142996e+00, 3.754408661907416e+00];
+    var pl = 0.02425, q, r;
+    if (p < pl) { q = Math.sqrt(-2 * Math.log(p)); return (((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    if (p > 1 - pl) { q = Math.sqrt(-2 * Math.log(1 - p)); return -(((((c[0] * q + c[1]) * q + c[2]) * q + c[3]) * q + c[4]) * q + c[5]) / ((((d[0] * q + d[1]) * q + d[2]) * q + d[3]) * q + 1); }
+    q = p - 0.5; r = q * q;
+    return (((((a[0] * r + a[1]) * r + a[2]) * r + a[3]) * r + a[4]) * r + a[5]) * q / (((((b[0] * r + b[1]) * r + b[2]) * r + b[3]) * r + b[4]) * r + 1);
+  }
+
+  // ---------- helpers ----------
+  function round(x, d) { var f = Math.pow(10, d); return Math.round(x * f + (x >= 0 ? 1e-9 : -1e-9)) / f; }
+  function fmt(x, d) {
+    if (d === undefined) d = 2;
+    var v = round(x, d);
+    var s = v.toFixed(d);
+    if (s.indexOf('.') >= 0) s = s.replace(/0+$/, '').replace(/\.$/, '');
+    if (s === '-0') s = '0';
+    return s;
+  }
+  function ord(n) { var t = n % 100, u = n % 10; return n + (t >= 11 && t <= 13 ? 'th' : u === 1 ? 'st' : u === 2 ? 'nd' : u === 3 ? 'rd' : 'th'); }
+  function sgn(z) { return (z < 0 ? '−' : '') + fmt(Math.abs(z), 2); } // display with true minus
+  function rng(lo, hi) { return { lo: lo, hi: hi }; }
+  function near(x, tol) { return { lo: x - tol, hi: x + tol }; }
+  function exact(x) { return { lo: x - 1e-9, hi: x + 1e-9 }; }
+  var NEG = { inf: -1 }, POS = { inf: 1 };
+
+  // contexts for single-variable questions (whole-number means and SDs)
+  var CONTEXTS = [
+    { dist: 'Scores on a district math exam', vals: 'exam scores', one: "A student's exam score", u: 'points', m: [70, 82], s: [4, 8], what: 'score' },
+    { dist: 'Battery lives of a certain tablet', vals: 'tablet battery lives', one: "A tablet's battery life", u: 'hours', m: [20, 36], s: [2, 4], what: 'battery life' },
+    { dist: 'Wait times at a walk-in clinic', vals: 'wait times', one: "A patient's wait time", u: 'minutes', m: [30, 50], s: [4, 8], what: 'wait time' },
+    { dist: 'The weights of apples from an orchard', vals: 'apple weights', one: "An apple's weight", u: 'grams', m: [150, 190], s: [8, 15], what: 'weight' },
+    { dist: 'The heights of adult women in a city', vals: 'heights', one: "A woman's height", u: 'inches', m: [63, 66], s: [2, 4], what: 'height' },
+    { dist: 'Daily commute times for workers in a town', vals: 'commute times', one: "A worker's commute time", u: 'minutes', m: [25, 45], s: [4, 9], what: 'commute time' },
+    { dist: 'Resting heart rates of adults at a clinic', vals: 'resting heart rates', one: "An adult's resting heart rate", u: 'beats per minute', m: [66, 78], s: [5, 10], what: 'heart rate' }
+  ];
+  var SLICES = [0.15, 2.35, 13.5, 34, 34, 13.5, 2.35, 0.15]; // (-inf,-3),(-3,-2),...,(3,inf)
+  function empPct(a, b) { // a,b integers in -3..3 or -Infinity / Infinity
+    var lo = a === -Infinity ? 0 : a + 4, hi = b === Infinity ? 8 : b + 4, s = 0;
+    for (var i = lo; i < hi; i++) s += SLICES[i];
+    return round(s, 2);
+  }
+  function stated(c, m, s) {
+    return c.dist + ' are approximately normal with a mean of ' + m + ' ' + c.u + ' and a standard deviation of ' + s + ' ' + c.u + '.';
+  }
+  function pickMS(r, c) { return { m: r.int(c.m[0], c.m[1]), s: r.int(c.s[0], c.s[1]) }; }
+
+  // ---------- Q1 empirical rule interval (MC, 4 options) ----------
+  function q1(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, k = r.int(1, 3);
+    var pct = { 1: '68', 2: '95', 3: '99.7' }[k];
+    var others = [1, 2, 3].filter(function (x) { return x !== k; });
+    function pair(a, b) { return a + ' and ' + b + ' ' + c.u; }
+    var opts = [
+      { t: pair(m - k * s, m + k * s), ok: true },
+      { t: pair(m - others[0] * s, m + others[0] * s), ok: false },
+      { t: pair(m - others[1] * s, m + others[1] * s), ok: false },
+      { t: pair(m, m + k * s), ok: false }
+    ];
+    opts = r.shuffle(opts);
+    var correct = -1;
+    opts.forEach(function (o, i) { if (o.ok) correct = i; });
+    return {
+      type: 'mc', topic: 'Empirical rule',
+      prompt: stated(c, m, s) + ' According to the Empirical Rule, about ' + pct + '% of ' + c.vals + ' fall between which two values?',
+      options: opts.map(function (o) { return o.t; }), correct: correct,
+      answerText: opts[correct].t
+    };
+  }
+
+  // ---------- Q2 empirical rule percent (number) ----------
+  function q2(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, kind, a, b, pct, ask, given;
+    var roll = r();
+    if (roll < 0.5) {
+      kind = 'between';
+      do { a = r.int(-3, 2); b = r.int(a + 1, 3); } while (a === -b || (a === 0 && b === 0));
+      pct = empPct(a, b);
+      ask = 'between ' + (m + a * s) + ' and ' + (m + b * s) + ' ' + c.u;
+      given = [a, b];
+    } else if (roll < 0.75) {
+      kind = 'above';
+      do { a = r.int(-3, 2); } while (a === 0);
+      pct = empPct(a, Infinity);
+      ask = 'greater than ' + (m + a * s) + ' ' + c.u;
+      given = [a];
+    } else {
+      kind = 'below';
+      do { b = r.int(-2, 3); } while (b === 0);
+      pct = empPct(-Infinity, b);
+      ask = 'less than ' + (m + b * s) + ' ' + c.u;
+      given = [b];
+    }
+    var rows = [
+      { key: 'mean', label: 'Mean x̄', expect: exact(m), show: String(m) },
+      { key: 'sd', label: 'Standard deviation s', expect: exact(s), show: String(s) }
+    ];
+    given.forEach(function (k, i) {
+      rows.push({ key: 'k' + i, label: (m + k * s) + ' is how many SDs from the mean? (use − for below)', expect: exact(k), show: String(k) });
+    });
+    rows.push({ key: 'pct', label: 'Percent (add the Empirical Rule pieces)', expect: near(pct, 0.02), show: fmt(pct, 2) + '%' });
+    var shLo = kind === 'below' ? -9 : given[0], shHi = kind === 'above' ? 9 : given[given.length - 1];
+    return {
+      type: 'num', topic: 'Empirical rule', unit: '%',
+      curve: { axis: 'raw', m: m, s: s, shade: [shLo, shHi] },
+      prompt: stated(c, m, s) + ' Using the Empirical Rule, about what percent of ' + c.vals + ' are ' + ask + '?',
+      accept: near(pct, 0.02), answerText: fmt(pct, 2) + '%',
+      table: { graded: false, rows: rows }
+    };
+  }
+
+  // ---------- Q3 percentage to z-score (number) ----------
+  function q3(r) {
+    var kind = r.pick(['below', 'above', 'percentile']), p, left, text;
+    if (kind === 'percentile') {
+      do { p = r.int(10, 95); } while (p === 50);
+      left = p; text = 'What z-score corresponds to the ' + ord(p) + ' percentile?';
+    } else {
+      do { p = r.int(6, 44); } while (p === 50);
+      if (r() < 0.5) p = 100 - p; // allow both small and large percents
+      if (p === 50) p = 38;
+      left = kind === 'below' ? p : 100 - p;
+      text = 'If ' + p + '% of the data lies ' + kind + ' a z-score, what is that z-score?';
+    }
+    var area = left / 100, z = invNorm(area);
+    var sh = kind === 'above' ? [z, 9] : [-9, z];
+    return {
+      type: 'num', topic: 'Percentage to z-score', unit: '',
+      curve: { axis: 'z', shade: sh, shadeLabel: (kind === 'percentile' ? left : p) + '%', markers: [{ z: z, bot: 'z = ?' }] },
+      prompt: text + ' Round to two decimal places.',
+      accept: near(z, 0.02), answerText: 'z = ' + sgn(z) + '  (invNorm(' + fmt(area, 2) + ', 0, 1))',
+      table: {
+        graded: false, rows: [
+          { key: 'left', label: 'Percent to the left (below)', expect: exact(left), show: left + '%' },
+          { key: 'area', label: 'Area to the left as a decimal', expect: exact(area), show: fmt(area, 2) },
+          { key: 'z', label: 'z = invNorm(area, 0, 1)', expect: near(z, 0.02), show: sgn(z) }
+        ]
+      }
+    };
+  }
+
+  // ---------- Q4 z-score to raw value (number) ----------
+  function q4(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, z;
+    do { z = round((r() * 2.6 + 0.2) * (r() < 0.5 ? -1 : 1), 2); } while (Math.abs(z * 100) % 100 === 0 || m + z * s < 0.3 * m);
+    var x = round(m + z * s, 2);
+    return {
+      type: 'num', topic: 'z-score to raw value', unit: c.u,
+      curve: { axis: 'both', m: m, s: s, markers: [{ z: z, top: 'x = ?', bot: 'z = ' + sgn(z) }] },
+      prompt: stated(c, m, s) + ' ' + c.one + ' has a z-score of ' + sgn(z) + '. What is the raw value x?',
+      accept: near(x, 0.02), answerText: 'x = ' + fmt(x, 2) + ' ' + c.u,
+      table: {
+        graded: false, rows: [
+          { key: 'mean', label: 'Mean x̄', expect: exact(m), show: String(m) },
+          { key: 'sd', label: 'Standard deviation s', expect: exact(s), show: String(s) },
+          { key: 'z', label: 'z-score', expect: exact(z), show: sgn(z) },
+          { key: 'x', label: 'x = mean + z × SD', expect: near(x, 0.02), show: fmt(x, 2) }
+        ]
+      }
+    };
+  }
+
+  // ---------- Q5 raw value to z-score (number) ----------
+  function q5(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, x, z;
+    do {
+      x = Math.round(m + (r() * 2.4 + 0.25) * (r() < 0.5 ? -1 : 1) * s);
+      z = (x - m) / s;
+    } while (x === m || Math.abs(z) < 0.2 || Math.abs(z) > 2.8 || x <= 0 || Math.abs(z - Math.round(z)) < 0.05);
+    return {
+      type: 'num', topic: 'Raw value to z-score', unit: '',
+      curve: { axis: 'both', m: m, s: s, markers: [{ z: z, top: 'x = ' + x, bot: 'z = ?' }] },
+      prompt: stated(c, m, s) + ' ' + c.one + ' is ' + x + ' ' + c.u + '. Find the z-score. Round to two decimal places.',
+      accept: near(z, 0.02), answerText: 'z = ' + sgn(z),
+      table: {
+        graded: false, rows: [
+          { key: 'x', label: 'Raw value x', expect: exact(x), show: String(x) },
+          { key: 'mean', label: 'Mean x̄', expect: exact(m), show: String(m) },
+          { key: 'sd', label: 'Standard deviation s', expect: exact(s), show: String(s) },
+          { key: 'diff', label: 'x − mean', expect: exact(x - m), show: (x - m < 0 ? '−' : '') + Math.abs(x - m) },
+          { key: 'z', label: 'z = (x − mean) / SD', expect: near(z, 0.02), show: sgn(z) }
+        ]
+      }
+    };
+  }
+
+  // ---------- Q6 raw value to percentage (number, graded table) ----------
+  function pickX(r, m, s, zlo, zhi) {
+    var x, z;
+    do {
+      x = Math.round(m + (r() * (zhi - zlo) + zlo) * (r() < 0.5 ? -1 : 1) * s);
+      z = (x - m) / s;
+    } while (x === m || Math.abs(z) < zlo || Math.abs(z) > zhi || x <= 0);
+    return x;
+  }
+  function q6(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, kind = r.pick(['below', 'above', 'between']);
+    var rows = [
+      { key: 'mean', label: 'Mean x̄', expect: exact(m), show: String(m) },
+      { key: 'sd', label: 'Standard deviation s', expect: exact(s), show: String(s) }
+    ];
+    var area, ask, lo, hi, curve;
+    if (kind === 'between') {
+      var x1, x2, z1, z2;
+      do { x1 = pickX(r, m, s, 0.2, 2.5); x2 = pickX(r, m, s, 0.2, 2.5); if (x1 > x2) { var t = x1; x1 = x2; x2 = t; } }
+      while ((x2 - x1) / s < 0.4);
+      z1 = (x1 - m) / s; z2 = (x2 - m) / s;
+      area = normalcdf(z1, z2);
+      ask = 'between ' + x1 + ' and ' + x2 + ' ' + c.u;
+      rows.push({ key: 'x1', label: 'Lower raw value x₁', expect: exact(x1), show: String(x1) });
+      rows.push({ key: 'x2', label: 'Upper raw value x₂', expect: exact(x2), show: String(x2) });
+      rows.push({ key: 'z1', label: 'z₁ = (x₁ − mean) / SD', expect: near(z1, 0.02), show: sgn(z1) });
+      rows.push({ key: 'z2', label: 'z₂ = (x₂ − mean) / SD', expect: near(z2, 0.02), show: sgn(z2) });
+      lo = { e: near(z1, 0.02), s: sgn(z1) }; hi = { e: near(z2, 0.02), s: sgn(z2) };
+      curve = { axis: 'both', m: m, s: s, shade: [z1, z2], markers: [{ z: z1, top: 'x = ' + x1, bot: 'z = ?' }, { z: z2, top: 'x = ' + x2, bot: 'z = ?' }] };
+    } else {
+      var x = pickX(r, m, s, 0.2, 2.5), z = (x - m) / s;
+      area = kind === 'below' ? ncdf(z) : 1 - ncdf(z);
+      ask = (kind === 'below' ? 'less than ' : 'greater than ') + x + ' ' + c.u;
+      rows.push({ key: 'x', label: 'Raw value x', expect: exact(x), show: String(x) });
+      rows.push({ key: 'z', label: 'z = (x − mean) / SD', expect: near(z, 0.02), show: sgn(z) });
+      curve = { axis: 'both', m: m, s: s, shade: kind === 'below' ? [-9, z] : [z, 9], markers: [{ z: z, top: 'x = ' + x, bot: 'z = ?' }] };
+      if (kind === 'below') { lo = { e: NEG, s: '−1E99' }; hi = { e: near(z, 0.02), s: sgn(z) }; }
+      else { lo = { e: near(z, 0.02), s: sgn(z) }; hi = { e: POS, s: '1E99' }; }
+    }
+    rows.push({ key: 'lower', label: 'normalcdf lower', expect: lo.e, show: lo.s });
+    rows.push({ key: 'upper', label: 'normalcdf upper', expect: hi.e, show: hi.s });
+    rows.push({ key: 'area', label: 'Area (decimal)', expect: near(area, 0.005), show: fmt(area, 4) });
+    rows.push({ key: 'pct', label: 'Percent', expect: near(area * 100, 0.5), show: fmt(area * 100, 2) + '%' });
+    return {
+      type: 'num', topic: 'Raw value to percentage', unit: '%', curve: curve,
+      prompt: stated(c, m, s) + ' What percent of ' + c.vals + ' are ' + ask + '? Give the percent (for example 34.46).',
+      accept: near(area * 100, 0.5), answerText: fmt(area * 100, 2) + '%',
+      table: { graded: true, infNote: true, rows: rows }
+    };
+  }
+
+  // ---------- Q7 percentage to raw value (number, graded table) ----------
+  function q7(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, kind = r.pick(['top', 'bottom', 'percentile']), q, left, ask;
+    if (kind === 'percentile') {
+      do { q = r.int(10, 95); } while (q === 50);
+      left = q; ask = 'What ' + c.what + ' is at the ' + ord(q) + ' percentile?';
+    } else {
+      q = r.int(5, 40);
+      left = kind === 'top' ? 100 - q : q;
+      ask = 'What ' + c.what + ' is the cutoff for the ' + kind + ' ' + q + '% of ' + c.vals + '?';
+    }
+    var area = left / 100, z = invNorm(area), x = m + z * s;
+    var acc = { lo: m + (z - 0.005) * s - 0.02, hi: m + (z + 0.005) * s + 0.02 };
+    var shade = kind === 'top' ? [z, 9] : [-9, z];
+    return {
+      type: 'num', topic: 'Percentage to raw value', unit: c.u,
+      curve: { axis: 'both', m: m, s: s, shade: shade, shadeLabel: (kind === 'percentile' ? left : q) + '%', markers: [{ z: z, top: 'x = ?', bot: 'z = ?' }] },
+      prompt: stated(c, m, s) + ' ' + ask + ' Round to two decimal places.',
+      accept: acc, answerText: 'x = ' + fmt(x, 2) + ' ' + c.u + '  (z = ' + sgn(z) + ')',
+      table: {
+        graded: true, rows: [
+          { key: 'left', label: 'Percent to the left (below)', expect: exact(left), show: left + '%' },
+          { key: 'area', label: 'Area to the left as a decimal', expect: exact(area), show: fmt(area, 2) },
+          { key: 'z', label: 'z = invNorm(area, 0, 1)', expect: near(z, 0.02), show: sgn(z) },
+          { key: 'mean', label: 'Mean x̄', expect: exact(m), show: String(m) },
+          { key: 'sd', label: 'Standard deviation s', expect: exact(s), show: String(s) },
+          { key: 'x', label: 'x = mean + z × SD', expect: acc, show: fmt(x, 2) }
+        ]
+      }
+    };
+  }
+
+  // ---------- Q8 is the data normal? (MC 3 options, graded table) ----------
+  var DATASETS = [
+    { t: 'Resting heart rates (beats per minute) of 40 adults at a gym', m: [62, 74], s: [6, 10], min: 40, max: 120 },
+    { t: 'Minutes 40 students spent on homework last night', m: [40, 70], s: [8, 14], min: 0, max: 200 },
+    { t: 'Scores of 40 students on a chemistry quiz (out of 100)', m: [62, 76], s: [6, 10], min: 0, max: 100 },
+    { t: 'Ages of 40 runners in a 10K race', m: [30, 40], s: [6, 10], min: 14, max: 90 },
+    { t: 'Daily high temperatures (°F) in a city over 40 days', m: [60, 80], s: [4, 8], min: 20, max: 110 }
+  ];
+  var CLASSES = ['Normal', 'Approximately Normal', 'Not Normal'];
+  function stats(v) {
+    var n = v.length, sum = 0, i;
+    for (i = 0; i < n; i++) sum += v[i];
+    var mean = sum / n, ss = 0;
+    for (i = 0; i < n; i++) ss += (v[i] - mean) * (v[i] - mean);
+    return { n: n, mean: mean, s: Math.sqrt(ss / (n - 1)) };
+  }
+  function countWithin(v, lo, hi) { var c = 0; v.forEach(function (x) { if (x >= lo && x <= hi) c++; }); return c; }
+  function classify(p1, p2, p3) {
+    var d = [Math.abs(p1 - 68), Math.abs(p2 - 95), Math.abs(p3 - 99.7)];
+    var mx = Math.max(d[0], d[1], d[2]);
+    if (mx <= 1) return 0;
+    if (mx >= 5) return 2;
+    return 1;
+  }
+  function q8(r) {
+    var ds = r.pick(DATASETS), target = r.int(0, 2), tries = 0;
+    while (true) {
+      tries++;
+      if (tries % 400 === 0) target = r.int(0, 2);
+      var M = r.int(ds.m[0], ds.m[1]), S = r.int(ds.s[0], ds.s[1]), v = [], i;
+      var shape = target === 2 ? r.pick(['uniform', 'skew', 'skewL']) : 'normal';
+      for (i = 0; i < 40; i++) {
+        var val;
+        if (shape === 'normal') val = M + S * r.normal();
+        else if (shape === 'uniform') val = M - 1.9 * S + r() * 3.8 * S;
+        else if (shape === 'skew') val = M - 1.0 * S - S * Math.log(1 - r() * 0.999);
+        else val = M + 1.0 * S + S * Math.log(1 - r() * 0.999);
+        v.push(Math.round(val));
+      }
+      if (v.some(function (x) { return x < ds.min || x > ds.max; })) continue;
+      v.sort(function (a, b) { return a - b; });
+      var st = stats(v);
+      if (st.s < 2) continue;
+      var mr = round(st.mean, 1), sr = round(st.s, 1);
+      // robustness: no data value within 0.6 of any boundary (exact or rounded stats)
+      var bad = false, counts = [], k;
+      for (k = 1; k <= 3 && !bad; k++) {
+        var B = [st.mean - k * st.s, st.mean + k * st.s, mr - k * sr, mr + k * sr];
+        for (i = 0; i < v.length && !bad; i++) {
+          if (Math.abs(v[i] - B[0]) < 0.6 || Math.abs(v[i] - B[1]) < 0.6 || Math.abs(v[i] - B[2]) < 0.6 || Math.abs(v[i] - B[3]) < 0.6) bad = true;
+        }
+        counts.push(countWithin(v, st.mean - k * st.s, st.mean + k * st.s));
+      }
+      if (bad) continue;
+      var pc = counts.map(function (cnt) { return cnt / 40 * 100; });
+      var d = [Math.abs(pc[0] - 68), Math.abs(pc[1] - 95), Math.abs(pc[2] - 99.7)];
+      var mx = Math.max(d[0], d[1], d[2]), cls;
+      if (mx <= 0.6) cls = 0; else if (mx >= 5.5) cls = 2; else if (mx >= 1.5 && mx <= 4.4) cls = 1; else continue;
+      if (cls !== target) continue;
+      // build question
+      var rows = [
+        { key: 'n', label: 'n (number of values)', expect: exact(40), show: '40' },
+        { key: 'mean', label: 'Mean x̄ (from calculator, 1 decimal)', expect: near(st.mean, 0.1), show: fmt(st.mean, 1) },
+        { key: 'sd', label: 'Standard deviation s (Sx, 1 decimal)', expect: near(st.s, 0.1), show: fmt(st.s, 1) }
+      ];
+      var tol = { 1: 0.25, 2: 0.35, 3: 0.45 };
+      for (k = 1; k <= 3; k++) {
+        var kk = k === 1 ? 's' : k + 's';
+        rows.push({ key: 'lo' + k, label: 'x̄ − ' + kk, expect: near(st.mean - k * st.s, tol[k]), show: fmt(st.mean - k * st.s, 1) });
+        rows.push({ key: 'hi' + k, label: 'x̄ + ' + kk, expect: near(st.mean + k * st.s, tol[k]), show: fmt(st.mean + k * st.s, 1) });
+        rows.push({ key: 'c' + k, label: 'Number of values between them', expect: exact(counts[k - 1]), show: String(counts[k - 1]) });
+        rows.push({ key: 'p' + k, label: 'Percent within ' + k + ' SD (count ÷ n)', expect: near(pc[k - 1], 0.5), show: fmt(pc[k - 1], 2) + '%' });
+      }
+      return {
+        type: 'mc', topic: 'Is the data normal?',
+        curve: { axis: 'symbolic', bands: true, live: true },
+        prompt: 'The data below is listed in order. ' + ds.t + '. Use your calculator to find the mean and standard deviation, then use the Empirical Rule to decide: is this data Normal, Approximately Normal, or Not Normal?',
+        data: v,
+        options: CLASSES.slice(), correct: cls,
+        answerText: CLASSES[cls] + '  (' + pc.map(function (x) { return fmt(x, 2) + '%'; }).join(', ') + ')',
+        table: { graded: true, rows: rows },
+        _tries: tries
+      };
+    }
+  }
+
+  // ---------- label the curve: Empirical Rule percents + values at 1, 2, 3 SDs (boxes) ----------
+  function qLabel(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s;
+    while (m - 3 * s <= 0) s--;
+    var boxes = [], i, cz = [-3.3, -2.5, -1.5, -0.5, 0.5, 1.5, 2.5, 3.3];
+    for (i = 0; i < 8; i++) boxes.push({ key: 'p' + i, kind: 'pct', z: cz[i], label: 'Percent in section ' + (i + 1) + ' (left to right)', expect: exact(SLICES[i]), show: fmt(SLICES[i], 2) + '%' });
+    for (i = -3; i <= 3; i++) boxes.push({ key: 'v' + (i + 3), kind: 'val', z: i, label: i === 0 ? 'Mean x̄' : 'x̄ ' + (i < 0 ? '− ' : '+ ') + (Math.abs(i) === 1 ? '' : Math.abs(i)) + 's', expect: exact(m + i * s), show: String(m + i * s) });
+    return {
+      type: 'boxes', topic: 'Empirical rule', points: 6,
+      prompt: stated(c, m, s) + ' Label the normal curve. In the boxes on the curve, type the Empirical Rule percent for each section. In the boxes under the curve, type the value at the mean and at 1, 2 and 3 standard deviations below and above the mean.',
+      curve: { axis: 'boxes', m: m, s: s, bands: true },
+      boxes: boxes,
+      answerText: 'Percents 0.15, 2.35, 13.5, 34, 34, 13.5, 2.35, 0.15; values ' + [-3, -2, -1, 0, 1, 2, 3].map(function (k) { return m + k * s; }).join(', ')
+    };
+  }
+
+  // ---------- drag the line: Empirical Rule cutoff ----------
+  function qDragCut(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s;
+    var opts = [
+      { k: 1, dir: 'above', txt: 'the highest 16%' }, { k: 2, dir: 'above', txt: 'the highest 2.5%' }, { k: 3, dir: 'above', txt: 'the highest 0.15%' },
+      { k: -1, dir: 'below', txt: 'the lowest 16%' }, { k: -2, dir: 'below', txt: 'the lowest 2.5%' }, { k: -3, dir: 'below', txt: 'the lowest 0.15%' },
+      { k: 1, dir: 'below', txt: 'the lowest 84%' }, { k: 2, dir: 'below', txt: 'the lowest 97.5%' },
+      { k: -1, dir: 'above', txt: 'the highest 84%' }, { k: -2, dir: 'above', txt: 'the highest 97.5%' }
+    ];
+    var o = r.pick(opts);
+    return {
+      type: 'drag', topic: 'Empirical rule',
+      prompt: stated(c, m, s) + ' Drag the line so the shaded region shows ' + o.txt + ' of ' + c.vals + '. Use the Empirical Rule.',
+      curve: { axis: 'raw', m: m, s: s, drag: { dir: o.dir } },
+      accept: { lo: o.k - 0.2, hi: o.k + 0.2 },
+      answerText: 'Line at ' + (m + o.k * s) + ' ' + c.u + ' (' + (o.k > 0 ? '+' : '−') + Math.abs(o.k) + ' SD), shaded ' + o.dir
+    };
+  }
+
+  // ---------- drag the line: place a raw value ----------
+  function qDragPlace(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, x, z;
+    do {
+      x = Math.round(m + (r() * 2.4 + 0.3) * (r() < 0.5 ? -1 : 1) * s);
+      z = (x - m) / s;
+    } while (Math.abs(z) < 0.3 || Math.abs(z) > 2.7 || Math.abs(z - Math.round(z)) < 0.2 || x <= 0);
+    var dir = r() < 0.5 ? 'below' : 'above';
+    var lo = Math.max(z - 0.25, Math.floor(z)), hi = Math.min(z + 0.25, Math.ceil(z));
+    return {
+      type: 'drag', topic: 'Locating a value',
+      prompt: stated(c, m, s) + ' ' + c.one + ' is ' + x + ' ' + c.u + '. Drag the line to about where ' + x + ' falls on the curve. The shaded region shows ' + c.vals + (dir === 'below' ? ' less than ' : ' greater than ') + x + '.',
+      curve: { axis: 'raw', m: m, s: s, drag: { dir: dir } },
+      accept: { lo: lo, hi: hi },
+      answerText: x + ' ' + c.u + ' is at z = ' + sgn(z) + ' (accepted ' + sgn(lo) + ' to ' + sgn(hi) + ' SD)'
+    };
+  }
+
+  // ================= full-test questions =================
+  function mcPack(r, opts) {
+    opts = r.shuffle(opts);
+    var correct = -1;
+    opts.forEach(function (o, i) { if (o.ok) correct = i; });
+    return { options: opts.map(function (o) { return o.t; }), correct: correct };
+  }
+
+  // Empirical rule: which two values (MC, 4 options)
+  function qInterval(r, c) {
+    var q = q1(r, c);
+    var m = Number(q.prompt.match(/mean of (\d+)/)[1]), s = Number(q.prompt.match(/deviation of (\d+)/)[1]);
+    q.curve = { axis: 'raw', m: m, s: s };
+    return q;
+  }
+
+  // Empirical rule backwards: find the standard deviation
+  function qFindSD(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, k = r.int(1, 2), pct = k === 1 ? '68' : '95';
+    while (m - 3 * s <= 0) s--;
+    var a = m - k * s, b = m + k * s;
+    return {
+      type: 'num', topic: 'Empirical rule', unit: c.u,
+      prompt: 'For ' + c.vals + ' that are approximately normal, about ' + pct + '% of the values are between ' + a + ' and ' + b + ' ' + c.u + '. Use the Empirical Rule to find the standard deviation.',
+      curve: { axis: 'blank', shade: [-k, k], shadeLabel: pct + '%', markers: [{ z: -k, top: String(a) }, { z: 0, top: 'x̄ = ?' }, { z: k, top: String(b) }] },
+      accept: near(s, 0.02), answerText: 's = ' + s + ' ' + c.u + '  (mean = ' + m + ')',
+      table: {
+        graded: false, rows: [
+          { key: 'lo', label: 'Lower value', expect: exact(a), show: String(a) },
+          { key: 'hi', label: 'Upper value', expect: exact(b), show: String(b) },
+          { key: 'mean', label: 'Mean = (lower + upper) ÷ 2', expect: exact(m), show: String(m) },
+          { key: 'k', label: 'How many SDs from the mean to the upper value?', expect: exact(k), show: String(k) },
+          { key: 'sd', label: 'SD = (upper − mean) ÷ number of SDs', expect: near(s, 0.02), show: String(s) }
+        ]
+      }
+    };
+  }
+
+  // Outlier: two-option question (1 try)
+  function qOutlier(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, x, z, out = r() < 0.5;
+    do {
+      var zz = out ? 2.25 + r() * 0.6 : 1.2 + r() * 0.55;
+      x = Math.round(m + zz * (r() < 0.5 ? -1 : 1) * s);
+      z = (x - m) / s;
+    } while (x <= 0 || (out ? Math.abs(z) < 2.15 || Math.abs(z) > 2.95 : Math.abs(z) < 1.1 || Math.abs(z) > 1.85));
+    var pk = mcPack(r, [{ t: 'Yes, it is an outlier', ok: out }, { t: 'No, it is not an outlier', ok: !out }]);
+    pk.options = ['Yes, it is an outlier', 'No, it is not an outlier']; pk.correct = out ? 0 : 1;
+    return {
+      type: 'mc', topic: 'Raw value to z-score',
+      prompt: stated(c, m, s) + ' In our class, a value more than 2 standard deviations away from the mean is called an outlier. ' + c.one + ' of ' + x + ' ' + c.u + ' was recorded. Is it an outlier?',
+      curve: { axis: 'raw', m: m, s: s, markers: [{ z: z, top: 'x = ' + x }] },
+      options: pk.options, correct: pk.correct,
+      answerText: (out ? 'Yes' : 'No') + ', z = ' + sgn(z),
+      table: {
+        graded: false, rows: [
+          { key: 'x', label: 'Raw value x', expect: exact(x), show: String(x) },
+          { key: 'mean', label: 'Mean x̄', expect: exact(m), show: String(m) },
+          { key: 'sd', label: 'Standard deviation s', expect: exact(s), show: String(s) },
+          { key: 'z', label: 'z = (x − mean) / SD', expect: near(z, 0.02), show: sgn(z) }
+        ]
+      }
+    };
+  }
+
+  // Interpreting a z-score (MC, 4 options)
+  function qInterpret(r, c) {
+    var p = pickMS(r, c), m = p.m, s = p.s, z;
+    do { z = round((r() * 2.2 + 0.4) * (r() < 0.5 ? -1 : 1), 2); } while (Math.abs(z * 10 - Math.round(z * 10)) < 1e-9 && false);
+    var a = fmt(Math.abs(z), 2), dir = z < 0 ? 'below' : 'above', other = z < 0 ? 'above' : 'below';
+    var pk = mcPack(r, [
+      { t: 'The ' + c.what + ' is ' + a + ' standard deviations ' + dir + ' the mean ' + c.what + ' of ' + m + ' ' + c.u + '.', ok: true },
+      { t: 'The ' + c.what + ' is ' + a + ' ' + c.u + ' ' + dir + ' the mean ' + c.what + ' of ' + m + ' ' + c.u + '.', ok: false },
+      { t: 'The ' + c.what + ' is ' + a + ' standard deviations ' + other + ' the mean ' + c.what + ' of ' + m + ' ' + c.u + '.', ok: false },
+      { t: 'The ' + c.what + ' is ' + a + '% ' + dir + ' the mean ' + c.what + ' of ' + m + ' ' + c.u + '.', ok: false }
+    ]);
+    return {
+      type: 'mc', topic: 'Raw value to z-score',
+      prompt: stated(c, m, s) + ' ' + c.one + ' has a z-score of ' + sgn(z) + '. Which statement correctly interprets this z-score?',
+      curve: { axis: 'both', m: m, s: s },
+      options: pk.options, correct: pk.correct, answerText: pk.options[pk.correct]
+    };
+  }
+
+  // Comparing two z-scores (MC, 4 options, graded table)
+  var NAMES = ['Ana', 'Ben', 'Carla', 'Dev', 'Elena', 'Femi', 'Grace', 'Hugo', 'Isha', 'Jamal', 'Kemi', 'Luis', 'Mia', 'Noah', 'Priya', 'Tomas'];
+  var SUBJECTS = ['history', 'biology', 'chemistry', 'English', 'geometry', 'Spanish', 'economics', 'physics'];
+  function qCompare(r) {
+    var nm = r.shuffle(NAMES), sb = r.shuffle(SUBJECTS), A = nm[0], B = nm[1], m1, s1, x1, m2, s2, x2, z1, z2;
+    while (true) {
+      m1 = r.int(62, 80); s1 = r.int(3, 6); m2 = r.int(62, 82); s2 = r.int(7, 12);
+      x1 = m1 + r.int(2, 3 * s1); x2 = m2 + r.int(2, 3 * s2);
+      if (x1 > 100 || x2 > 100) continue;
+      z1 = (x1 - m1) / s1; z2 = (x2 - m2) / s2;
+      if (z1 - z2 < 0.15) continue;              // person 1 (small SD) must win by z
+      if (x1 >= x2) continue;                     // but have the lower raw score
+      if (x1 - m1 >= x2 - m2) continue;           // and fewer points above the mean
+      if (z1 > 2.8 || z2 < 0.3) continue;
+      break;
+    }
+    // randomly present the winner first or second
+    var first = r() < 0.5;
+    var P = first ? { n: A, sub: sb[0], m: m1, s: s1, x: x1, z: z1 } : { n: A, sub: sb[0], m: m2, s: s2, x: x2, z: z2 };
+    var Q = first ? { n: B, sub: sb[1], m: m2, s: s2, x: x2, z: z2 } : { n: B, sub: sb[1], m: m1, s: s1, x: x1, z: z1 };
+    var W = P.z > Q.z ? P : Q, L = W === P ? Q : P;
+    var pk = mcPack(r, [
+      { t: W.n + ' did better, because ' + W.n + "'s z-score of " + sgn(W.z) + ' is higher than ' + L.n + "'s z-score of " + sgn(L.z) + '.', ok: true },
+      { t: L.n + ' did better, because ' + L.n + "'s score of " + L.x + ' is higher than ' + W.n + "'s score of " + W.x + '.', ok: false },
+      { t: L.n + ' did better, because ' + L.n + ' scored ' + (L.x - L.m) + ' points above the mean and ' + W.n + ' scored only ' + (W.x - W.m) + ' points above the mean.', ok: false },
+      { t: 'They did equally well, because both scored above the mean of their class.', ok: false }
+    ]);
+    return {
+      type: 'mc', topic: 'Comparing z-scores',
+      prompt: P.n + ' scored ' + P.x + ' on ' + (/^[aeiouAEIOU]/.test(P.sub) ? 'an ' : 'a ') + P.sub + ' test where the class mean was ' + P.m + ' and the standard deviation was ' + P.s + '. ' + Q.n + ' scored ' + Q.x + ' on ' + (/^[aeiouAEIOU]/.test(Q.sub) ? 'an ' : 'a ') + Q.sub + ' test where the class mean was ' + Q.m + ' and the standard deviation was ' + Q.s + '. Both sets of scores are approximately normal. Relative to their own class, who did better?',
+      curve: { axis: 'z' },
+      options: pk.options, correct: pk.correct, answerText: pk.options[pk.correct],
+      table: {
+        graded: true, rows: [
+          { key: 'x1', label: P.n + ': score x', expect: exact(P.x), show: String(P.x) },
+          { key: 'm1', label: P.n + ': mean', expect: exact(P.m), show: String(P.m) },
+          { key: 's1', label: P.n + ': standard deviation', expect: exact(P.s), show: String(P.s) },
+          { key: 'z1', label: P.n + ': z = (x − mean) / SD', expect: near(P.z, 0.02), show: sgn(P.z) },
+          { key: 'x2', label: Q.n + ': score x', expect: exact(Q.x), show: String(Q.x) },
+          { key: 'm2', label: Q.n + ': mean', expect: exact(Q.m), show: String(Q.m) },
+          { key: 's2', label: Q.n + ': standard deviation', expect: exact(Q.s), show: String(Q.s) },
+          { key: 'z2', label: Q.n + ': z = (x − mean) / SD', expect: near(Q.z, 0.02), show: sgn(Q.z) }
+        ]
+      }
+    };
+  }
+
+  // Area under the standard normal curve (number, decimal)
+  function qArea(r) {
+    var kind = r.pick(['below', 'above', 'between']), a, b, area, ask, sh, mk;
+    function zz(lo, hi) { var v; do { v = round((r() * (hi - lo) + lo) * (r() < 0.5 ? -1 : 1), 2); } while (Math.abs(v) < lo); return v; }
+    if (kind === 'between') {
+      do { a = zz(0.2, 2.6); b = zz(0.2, 2.6); if (a > b) { var t = a; a = b; b = t; } } while (b - a < 0.6);
+      area = normalcdf(a, b); ask = 'between z = ' + sgn(a) + ' and z = ' + sgn(b); sh = [a, b];
+      mk = [{ z: a, bot: 'z = ' + sgn(a) }, { z: b, bot: 'z = ' + sgn(b) }];
+    } else {
+      a = zz(0.15, 2.1);
+      area = kind === 'below' ? ncdf(a) : 1 - ncdf(a);
+      ask = (kind === 'below' ? 'to the left of' : 'to the right of') + ' z = ' + sgn(a); sh = kind === 'below' ? [-9, a] : [a, 9];
+      mk = [{ z: a, bot: 'z = ' + sgn(a) }];
+    }
+    var lo = kind === 'below' ? { e: NEG, s: '−1E99' } : { e: near(a, 0.001), s: sgn(a) };
+    var hi = kind === 'between' ? { e: near(b, 0.001), s: sgn(b) } : kind === 'above' ? { e: POS, s: '1E99' } : { e: near(a, 0.001), s: sgn(a) };
+    return {
+      type: 'num', topic: 'Standard normal area', unit: '',
+      prompt: 'Use your calculator to find the proportion of a standard normal distribution that lies ' + ask + '. Give the answer as a decimal to four places.',
+      curve: { axis: 'z', shade: sh, markers: mk },
+      accept: near(area, 0.005), answerText: fmt(area, 4) + '  (normalcdf(' + lo.s + ', ' + hi.s + ', 0, 1))',
+      table: {
+        graded: false, infNote: true, rows: [
+          { key: 'lower', label: 'normalcdf lower', expect: lo.e, show: lo.s },
+          { key: 'upper', label: 'normalcdf upper', expect: hi.e, show: hi.s },
+          { key: 'mu', label: 'μ (mean of z-scores)', expect: exact(0), show: '0' },
+          { key: 'sig', label: 'σ (SD of z-scores)', expect: exact(1), show: '1' },
+          { key: 'area', label: 'Area (decimal)', expect: near(area, 0.005), show: fmt(area, 4) }
+        ]
+      }
+    };
+  }
+
+  function buildTest(app, id) {
+    var r = makeRng(hashStr(app + '|' + id));
+    var ctx = r.shuffle(CONTEXTS).concat(r.shuffle(CONTEXTS));
+    var qs = [
+      qLabel(r, ctx[0]),        // 1  label the curve (boxes)
+      qInterval(r, ctx[1]),     // 2  which two values (MC)
+      q2(r, ctx[2]),            // 3  Empirical Rule percent
+      qFindSD(r, ctx[3]),       // 4  find the SD
+      qDragCut(r, ctx[4]),      // 5  drag: Empirical cutoff
+      qOutlier(r, ctx[5]),      // 6  outlier yes / no
+      qDragPlace(r, ctx[6]),    // 7  drag: locate a value
+      q5(r, ctx[7]),            // 8  raw to z
+      qInterpret(r, ctx[8]),    // 9  interpret z (MC)
+      q4(r, ctx[9]),            // 10 z to raw
+      qCompare(r),              // 11 compare z-scores (MC, graded table)
+      qArea(r),                 // 12 area under standard normal
+      q3(r),                    // 13 percent to z
+      q6(r, ctx[10]),           // 14 raw to percent (graded table)
+      q7(r, ctx[11]),           // 15 percent to raw (graded table)
+      q8(r)                     // 16 is the data normal? (graded table)
+    ];
+    qs.forEach(function (q, i) { q.n = i + 1; q.id = 'q' + (i + 1); });
+    return qs;
+  }
+
+  // ---------- grading ----------
+  function parseNum(raw) {
+    if (raw === null || raw === undefined) return null;
+    var s = String(raw).trim().replace(/[\u2212\u2013\u2014]/g, '-').replace(/,/g, '').replace(/%$/, '').replace(/\s+/g, '');
+    if (s === '') return null;
+    if (/^-?(inf|infinity|∞)$/i.test(s)) return s[0] === '-' ? -Infinity : Infinity;
+    if (!/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(s)) return NaN;
+    return Number(s);
+  }
+  function inRange(v, e) {
+    if (v === null || isNaN(v)) return false;
+    if (e.inf === -1) return v <= -1e9;
+    if (e.inf === 1) return v >= 1e9;
+    return v >= e.lo - 1e-9 && v <= e.hi + 1e-9;
+  }
+  return {
+    buildTest: buildTest, parseNum: parseNum, inRange: inRange, fmt: fmt,
+    normalcdf: normalcdf, invNorm: invNorm, ncdf: ncdf, classify: classify, stats: stats, countWithin: countWithin, empPct: empPct
+  };
+})();
+if (typeof module !== 'undefined') module.exports = GEN;
+
+</script>
+<script>
+var CURVE = (function () {
+  var W = 680, PL = 22, PR = 22, ZMIN = -3.7, ZMAX = 3.7;
+  function fitWidth(px) { return Math.max(380, Math.min(680, Math.round(px || 680))); }
+  function X(z) { return PL + (z - ZMIN) / (ZMAX - ZMIN) * (W - PL - PR); }
+  function zOfX(x) { return ZMIN + (x - PL) / (W - PL - PR) * (ZMAX - ZMIN); }
+  function phi(z) { return Math.exp(-z * z / 2); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function minus(n) { return (n < 0 ? '−' : '') + Math.abs(n); }
+
+  function layout(axis) {
+    if (axis === 'boxes') return { H: 312, B: 226, A: 168 };
+    if (axis === 'both') return { H: 284, B: 196, A: 150 };
+    if (axis === 'symbolic') return { H: 262, B: 200, A: 150 };
+    if (axis === 'z') return { H: 266, B: 196, A: 150 };
+    return { H: 238, B: 196, A: 150 };
+  }
+  function Y(L, z) { return L.B - L.A * phi(z); }
+  function curvePath(L, a, b, closed) {
+    a = Math.max(a, ZMIN); b = Math.min(b, ZMAX);
+    if (b <= a) return '';
+    var n = Math.max(8, Math.ceil((b - a) * 40)), d = '', i;
+    for (i = 0; i <= n; i++) { var z = a + (b - a) * i / n; d += (i ? 'L' : 'M') + X(z).toFixed(1) + ' ' + Y(L, z).toFixed(1); }
+    if (closed) d += 'L' + X(b).toFixed(1) + ' ' + L.B + 'L' + X(a).toFixed(1) + ' ' + L.B + 'Z';
+    return d;
+  }
+  function pill(x, y, text, cls) {
+    var w = Math.max(44, text.length * 7.6 + 16);
+    x = Math.min(Math.max(x, w / 2 + 2), W - w / 2 - 2);
+    return '<g class="pill ' + (cls || '') + '"><rect x="' + (x - w / 2).toFixed(1) + '" y="' + (y - 11) + '" width="' + w.toFixed(1) + '" height="22" rx="11"/><text x="' + x.toFixed(1) + '" y="' + (y + 4) + '" text-anchor="middle">' + esc(text) + '</text></g>';
+  }
+  var BAND = function (z) { var a = Math.abs(z); return a < 1 ? 'b1' : a < 2 ? 'b2' : a < 3 ? 'b3' : 'b4'; };
+
+  // q: question; opts: { live: {key:value}, dragZ: number|null, locked: bool }
+  function render(q, opts) {
+    opts = opts || {};
+    W = fitWidth(opts.width);
+    var c = q.curve, L = layout(c.axis), H = L.H, out = '', i, z;
+    // colored bands
+    if (c.bands) {
+      var edges = [ZMIN, -3, -2, -1, 0, 1, 2, 3, ZMAX];
+      for (i = 0; i < 8; i++) out += '<path class="band ' + BAND((edges[i] + edges[i + 1]) / 2) + '" d="' + curvePath(L, edges[i], edges[i + 1], true) + '"/>';
+    } else {
+      out += '<path class="under" d="' + curvePath(L, ZMIN, ZMAX, true) + '"/>';
+    }
+    // shaded region (fixed by the question)
+    if (c.shade) {
+      out += '<path class="shade" d="' + curvePath(L, c.shade[0], c.shade[1], true) + '"/>';
+    }
+    // drag shading placeholder
+    var sz = opts.staticZ;
+    if (c.drag) out += sz != null ? '<path class="shade" d="' + (c.drag.dir === 'below' ? curvePath(L, ZMIN, sz, true) : curvePath(L, sz, ZMAX, true)) + '"/>' : '<path class="shade" id="dragShade" d=""/>';
+    // SD guide lines
+    for (z = -3; z <= 3; z++) out += '<line class="guide' + (z === 0 ? ' mid' : '') + '" x1="' + X(z) + '" x2="' + X(z) + '" y1="' + L.B + '" y2="' + (Y(L, z) - (z === 0 ? 6 : 0)).toFixed(1) + '"/>';
+    // curve + axis
+    out += '<path class="curve" d="' + curvePath(L, ZMIN, ZMAX, false) + '"/>';
+    out += '<line class="axis" x1="' + PL + '" x2="' + (W - PR) + '" y1="' + L.B + '" y2="' + L.B + '"/>';
+    for (z = -3; z <= 3; z++) out += '<line class="tick" x1="' + X(z) + '" x2="' + X(z) + '" y1="' + L.B + '" y2="' + (L.B + 6) + '"/>';
+
+    // labels
+    if (c.axis === 'raw' || c.axis === 'both') {
+      for (z = -3; z <= 3; z++) out += '<text class="tl' + (z === 0 ? ' strong' : '') + '" x="' + X(z) + '" y="' + (L.B + 22) + '" text-anchor="middle">' + minus(c.m + z * c.s) + '</text>';
+    }
+    if (c.axis === 'z') {
+      for (z = -3; z <= 3; z++) out += '<text class="tl' + (z === 0 ? ' strong' : '') + '" x="' + X(z) + '" y="' + (L.B + 22) + '" text-anchor="middle">' + minus(z) + '</text>';
+      out += '<text class="cap" x="' + (W - PR) + '" y="' + (L.B + 22) + '" text-anchor="end">z</text>';
+    }
+    if (c.axis === 'both') {
+      for (z = -3; z <= 3; z++) out += '<text class="zl" x="' + X(z) + '" y="' + (L.B + 42) + '" text-anchor="middle">' + minus(z) + '</text>';
+      out += '<text class="cap" x="' + PL + '" y="' + (L.B + 22) + '">x</text><text class="cap" x="' + PL + '" y="' + (L.B + 42) + '">z</text>';
+    }
+    if (c.axis === 'symbolic') {
+      var sym = ['x̄−3s', 'x̄−2s', 'x̄−s', 'x̄', 'x̄+s', 'x̄+2s', 'x̄+3s'];
+      var keys = ['lo3', 'lo2', 'lo1', 'mean', 'hi1', 'hi2', 'hi3'];
+      for (i = 0; i < 7; i++) {
+        out += '<text class="tl" x="' + X(i - 3) + '" y="' + (L.B + 20) + '" text-anchor="middle">' + sym[i] + '</text>';
+        var lv = opts.live && opts.live[keys[i]] ? String(opts.live[keys[i]]).slice(0, 8) : '';
+        out += '<text class="live" id="live_' + keys[i] + '" x="' + X(i - 3) + '" y="' + (L.B + 40) + '" text-anchor="middle">' + esc(lv) + '</text>';
+      }
+      // Empirical Rule brackets
+      var br = [[1, 108, '68%', 'b1'], [2, 136, '95%', 'b2'], [3, 164, '99.7%', 'b3']];
+      br.forEach(function (b) {
+        out += '<line class="brk ' + b[3] + '" x1="' + X(-b[0]) + '" x2="' + X(b[0]) + '" y1="' + b[1] + '" y2="' + b[1] + '" marker-start="url(#arw' + b[3] + ')" marker-end="url(#arw' + b[3] + ')"/>';
+        out += pill(X(0), b[1], b[2], 'brkp ' + b[3]);
+      });
+    }
+
+    // markers (dashed line + labels)
+    var ms = (c.markers || []).slice().sort(function (a, b) { return a.z - b.z; });
+    ms.forEach(function (mk, j) {
+      var x = X(mk.z), stag = j > 0 && Math.abs(mk.z - ms[j - 1].z) < 1.0 ? 24 : 0;
+      out += '<line class="mk" x1="' + x + '" x2="' + x + '" y1="' + L.B + '" y2="' + (16 + stag + 11) + '"/>';
+      if (mk.top) out += pill(x, 16 + stag, mk.top, 'mkp');
+      if (mk.bot) {
+        var by = c.axis === 'both' ? L.B + 68 + stag : L.B + 40 + stag;
+        out += pill(x, by, mk.bot, 'mkp alt');
+      }
+    });
+    if (c.shadeLabel && c.shade) {
+      var a = Math.max(c.shade[0], -3.2), b = Math.min(c.shade[1], 3.2), mid = (a + b) / 2;
+      var tail = b - a < 0.9;
+      var ly = tail ? Math.min(Y(L, mid) - 26, L.B - 70) : L.B - 26;
+      if (tail) mid = mid < 0 ? Math.max(mid, -2.9) : Math.min(mid, 2.9);
+      out += pill(X(mid), ly, c.shadeLabel, 'shp');
+    }
+    // drag line
+    if (c.drag) {
+      out += '<g ' + (sz != null ? 'transform="translate(' + X(sz).toFixed(1) + ' 0)"' : 'id="dragLine"') + ' class="dragline' + (opts.locked ? ' locked' : '') + '"><line x1="0" x2="0" y1="' + (L.B + 4) + '" y2="22"/><circle cx="0" cy="22" r="11"/><path d="M-4 18 L-8 22 L-4 26 M4 18 L8 22 L4 26"/></g>';
+    }
+    var defs = '<defs>' + ['b1', 'b2', 'b3'].map(function (k) { return '<marker id="arw' + k + '" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah ' + k + '" d="M0 0 L10 5 L0 10 z"/></marker>'; }).join('') + '</defs>';
+    var aria = c.drag ? ' role="slider" tabindex="' + (opts.locked ? '-1' : '0') + '" aria-label="Drag the line left or right, or use the arrow keys" aria-valuemin="-3.7" aria-valuemax="3.7"' : ' role="img" aria-label="Normal curve for this question"';
+    var svg = '<svg class="ncurve' + (c.drag && sz == null ? ' drag' : '') + '"' + (sz == null && !opts.noIds ? ' id="ncurve"' : '') + ' viewBox="0 0 ' + W + ' ' + H + '" width="100%"' + aria + '>' + defs + out + '</svg>';
+
+    // label boxes (HTML inputs positioned over the drawing)
+    var boxes = '';
+    if (c.axis === 'boxes') {
+      var py = { '-3.3': 192, '-2.5': 150, '-1.5': 200, '-0.5': 150, '0.5': 150, '1.5': 200, '2.5': 150, '3.3': 192 };
+      q.boxes.forEach(function (bx) {
+        var left = X(bx.z) / W * 100, top;
+        if (bx.kind === 'pct') {
+          top = py[String(bx.z)];
+          if (Math.abs(bx.z) > 2) { // leader line to its section
+            svg = svg.replace('</svg>', '<line class="leader" x1="' + X(bx.z) + '" y1="' + (top + 14) + '" x2="' + X(bx.z > 0 ? (bx.z > 3 ? 3.25 : 2.5) : (bx.z < -3 ? -3.25 : -2.5)) + '" y2="' + (L.B - 4) + '"/></svg>');
+          }
+        } else top = L.B + 34;
+        var v = opts.live && opts.live[bx.key] != null ? opts.live[bx.key] : '';
+        boxes += '<input class="cbox ' + bx.kind + ' ' + (bx.kind === 'pct' ? BAND(bx.z) : '') + '" id="b_' + bx.key + '" data-k="' + bx.key + '" type="text" inputmode="decimal" autocomplete="off" aria-label="' + esc(bx.label) + '" placeholder="' + (bx.kind === 'pct' ? '%' : '') + '" value="' + esc(v) + '" ' + (opts.locked ? 'disabled ' : '') + 'style="left:' + left.toFixed(2) + '%;top:' + (top / H * 100).toFixed(2) + '%">';
+      });
+    }
+    return '<div class="figwrap"><div class="fig" style="aspect-ratio:' + W + ' / ' + H + ';max-width:' + Math.max(W, 860) + 'px">' + svg + boxes + '</div></div>';
+  }
+
+  // drag behaviour; onChange(z) called on every move
+  function wireDrag(q, startZ, locked, onChange) {
+    var svg = document.getElementById('ncurve'); if (!svg) return;
+    var L = layout(q.curve.axis), dir = q.curve.drag.dir, cur = startZ;
+    function place(z) {
+      z = Math.max(ZMIN + 0.02, Math.min(ZMAX - 0.02, z)); cur = z;
+      var g = document.getElementById('dragLine'); g.setAttribute('transform', 'translate(' + X(z).toFixed(1) + ' 0)');
+      var sh = document.getElementById('dragShade');
+      sh.setAttribute('d', dir === 'below' ? curvePath(L, ZMIN, z, true) : curvePath(L, z, ZMAX, true));
+    }
+    place(startZ);
+    if (locked) return;
+    function zFromEvent(e) { var r = svg.getBoundingClientRect(); return zOfX((e.clientX - r.left) / r.width * W); }
+    var dragging = false;
+    svg.addEventListener('pointerdown', function (e) { dragging = true; svg.setPointerCapture(e.pointerId); place(zFromEvent(e)); onChange(cur); e.preventDefault(); });
+    svg.addEventListener('pointermove', function (e) { if (!dragging) return; place(zFromEvent(e)); onChange(cur); });
+    svg.addEventListener('pointerup', function () { dragging = false; });
+    svg.addEventListener('pointercancel', function () { dragging = false; });
+    svg.addEventListener('keydown', function (e) {
+      var step = e.shiftKey ? 0.25 : 0.05;
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { place(cur - step); onChange(cur); e.preventDefault(); }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { place(cur + step); onChange(cur); e.preventDefault(); }
+    });
+  }
+  function setLive(key, val) { var t = document.getElementById('live_' + key); if (t) t.textContent = String(val || '').slice(0, 8); }
+  return { render: render, wireDrag: wireDrag, setLive: setLive, fitWidth: fitWidth };
+})();
+
+</script>
+<script>
+(function () {
+  'use strict';
+  // ================= settings =================
+  var SITE = window.SITE;                 // set at the top of the page: API link, mode and app keys
+  var API = SITE.api;
+  var MODE = SITE.mode;                   // 'review', 'test' or 'teacher'
+  var CUR = MODE === 'teacher' ? 'review' : MODE;
+  var APP = SITE.apps[CUR].key;           // seeds the numbers and names the Google Sheet tab
+  var DURATION_MIN = 90;                  // timer (the test is written for about 1 hour)
+  var SAVE_EVERY_MS = 15000;
+  var BLUR_GRACE_MS = 1000;
+  var TABLE_POINTS = 10, TABLE_CHECKS = 3;
+  // class list: the 100 student IDs
+  var ROSTER = ['110858','119625','126547','126811','140716','148306','148959','155994','173696','177235','201690','207453','209561','235187','245976','248238','255390','260535','289092','302760','306660','310684','313905','331981','335172','342708','346806','348522','355939','362066','420815','441309','443853','455960','492632','514754','516178','535133','537587','539054','541192','546982','552158','569721','573421','573775','579342','580284','592876','594594','596637','597934','598313','613184','654339','671774','682982','688169','702028','702811','714213','715638','720002','723198','729157','731445','738124','739979','748312','753140','774944','775247','801364','805406','805414','810033','821067','840062','845761','850136','854378','856164','862010','862356','863015','867938','881976','890499','892767','902850','931312','940566','943900','958382','963802','965347','967802','979980','981942','982214'];
+
+  var $app = document.getElementById('app');
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function now() { return Date.now(); }
+  function mmss(ms) { ms = Math.max(0, ms); var s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+  function secs(ms) { var s = Math.round(ms / 1000); return s < 60 ? s + ' s' : Math.floor(s / 60) + ' min ' + (s % 60) + ' s'; }
+  function clock(t) { return new Date(t).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' }); }
+
+  // ================= storage =================
+  var store = { mode: 'sheet' };
+  function lsGet(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function apiReady() { return /^https:\/\/script\.google(usercontent)?\.com\//.test(API); }
+  function apiGet(params) {
+    if (!apiReady()) return Promise.reject(new Error('not set up'));
+    var u = API + '?' + Object.keys(params).map(function (k) { return k + '=' + encodeURIComponent(params[k]); }).join('&') + '&t=' + now();
+    return fetch(u).then(function (r) { return r.json(); });
+  }
+  function apiPost(body) {
+    if (!apiReady()) return Promise.resolve();
+    return fetch(API, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) }).catch(function () {});
+  }
+  function localKey(id) { return 'n2.' + APP + '.' + id; }
+  function summaryOf(rec) {
+    var copy = JSON.parse(JSON.stringify(rec)), aw = awayTotals(rec), sc = rec.final || score(S.qs || qsFor(rec.id), rec);
+    copy.points = sc.total; copy.max = sc.max; copy.leaves = aw.count; copy.awayMs = aw.ms;
+    if (rec.status !== 'submitted') delete copy.submittedAt;
+    return copy;
+  }
+  function getRecord(id) {
+    var local = lsGet(localKey(id));
+    if (S.preview) return Promise.resolve(local);
+    return apiGet({ action: 'one', app: APP, id: id }).then(function (j) {
+      var remote = j && j.data ? j.data : null;
+      if (remote && local) return (local.status === 'submitted' && remote.status !== 'submitted') || (remote.status !== 'submitted' && (local.updatedAt || 0) > (remote.updatedAt || 0)) ? local : remote;
+      return remote || local;
+    }).catch(function () { return local; });
+  }
+  var writing = Promise.resolve();
+  function putRecord(rec) {
+    lsSet(localKey(rec.id), rec);
+    if (rec.preview) return Promise.resolve();
+    var body = { action: 'save', app: APP, id: rec.id, summary: summaryOf(rec) };
+    writing = writing.then(function () { return apiPost(body); });
+    return writing;
+  }
+  function deleteRecord(id) {
+    try { localStorage.removeItem(localKey(id)); } catch (e) {}
+    return apiPost({ action: 'delete', app: APP, id: id, pin: T.pin });
+  }
+  // ================= scoring =================
+  function maxTries(q) { return q.type === 'num' || q.type === 'drag' ? 3 : (q.options.length >= 3 ? 2 : 1); }
+  function ptsFor(q, idx) { var t = q.type === 'num' || q.type === 'drag' ? [3, 2, 1] : (q.options.length >= 3 ? [3, 1] : [3]); return t[idx] || 0; }
+  function dragOk(q, z) { return z !== undefined && z !== null && z !== '' && Number(z) >= q.accept.lo && Number(z) <= q.accept.hi; }
+  function isRight(q, v) {
+    if (q.type === 'num') return GEN.inRange(GEN.parseNum(v), q.accept);
+    if (q.type === 'drag') return Number(v) >= q.accept.lo && Number(v) <= q.accept.hi;
+    return Number(v) === q.correct;
+  }
+  function cellOk(row, v) { return GEN.inRange(GEN.parseNum(v), row.expect); }
+  function gradedRows(q) { return q.type === 'boxes' ? q.boxes : (q.table && q.table.graded ? q.table.rows : null); }
+  function allRows(q) { return q.type === 'boxes' ? q.boxes : (q.table ? q.table.rows : null); }
+  function gradedPts(q) { return q.type === 'boxes' ? q.points : TABLE_POINTS; }
+  function tableScore(q, rec) {
+    var cells = (rec.tbl && rec.tbl[q.id] && rec.tbl[q.id].cells) || {}, ok = 0, rows = allRows(q) || [];
+    rows.forEach(function (r) { if (cellOk(r, cells[r.key])) ok++; });
+    return { ok: ok, total: rows.length };
+  }
+  function score(qs, rec) {
+    var per = [], total = 0, max = 0;
+    qs.forEach(function (q) {
+      var ap = 0, am = 0, tp = 0, tm = 0;
+      if (q.type === 'drag') {
+        am = 3;
+        var ad = (rec.ans && rec.ans[q.id]) || {};
+        if (dragOk(q, ad.draft)) ap = 3;
+      } else if (q.type !== 'boxes') {
+        am = 3;
+        var a = (rec.ans && rec.ans[q.id]) || { tries: [] };
+        a.tries.forEach(function (t, i) { if (t.ok) ap = ptsFor(q, i); });
+      }
+      if (gradedRows(q)) { var ts = tableScore(q, rec); tm = gradedPts(q); tp = Math.round(tm * ts.ok / ts.total * 10) / 10; }
+      per.push({ ans: ap, ansMax: am, tbl: tp, tblMax: tm, pts: ap + tp, max: am + tm });
+      total += ap + tp; max += am + tm;
+    });
+    total = Math.round(total * 10) / 10;
+    return { per: per, total: total, max: max, pct: max ? Math.round(total / max * 1000) / 10 : 0 };
+  }
+  function awayTotals(rec) {
+    var list = rec.away || [], ms = 0;
+    list.forEach(function (e) { ms += e.ms || 0; });
+    return { count: list.length, ms: ms };
+  }
+
+  // ================= student flow =================
+  var S = { id: null, qs: null, rec: null, cur: 0, preview: false, timerInt: null, lastSave: 0, saveTimer: null, away: null, blurTimer: null, fsOn: false, tracking: false };
+
+  function renderSignin(msg) {
+    stopTracking();
+    $app.innerHTML =
+      '<div class="wrap"><div class="gate">' +
+      curveSvg() +
+      '<div><div class="eyebrow">Statistical Modeling · Unit 2</div><h1>The Normal Distribution</h1><p class="muted" style="margin:6px 0 0">' + esc(SITE.apps[CUR].name) + '</p></div>' +
+      '<form class="panel" id="sf" autocomplete="off">' +
+      '<label for="sidin"><b>Student ID</b><br><span class="muted">Type your 6-digit student ID.</span></label>' +
+      '<div class="idrow"><input id="sidin" type="text" inputmode="numeric" maxlength="6" placeholder="000000" aria-describedby="serr"><button class="primary" type="submit">Sign in</button></div>' +
+      '<div class="err" id="serr" role="alert">' + esc(msg || '') + '</div>' +
+      '</form>' +
+
+      '</div></div>';
+    var f = document.getElementById('sf'), inp = document.getElementById('sidin');
+    inp.focus();
+    inp.addEventListener('input', function () { inp.value = inp.value.replace(/\D/g, '').slice(0, 6); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var id = inp.value.trim();
+      if (!/^\d{6}$/.test(id)) { document.getElementById('serr').textContent = 'Enter all 6 digits of your student ID.'; return; }
+      if (ROSTER.indexOf(id) < 0) { document.getElementById('serr').textContent = 'That ID is not on the class list. Check the number with your teacher.'; return; }
+      document.getElementById('serr').textContent = 'Checking your ID…';
+      signIn(id, false);
+    });
+
+  }
+
+  function curveSvg(shadeFrom, shadeTo) {
+    var W = 520, H = 120, pts = [], fill = [], i;
+    for (i = 0; i <= 120; i++) {
+      var z = -3.5 + 7 * i / 120, x = W * i / 120, y = H - 22 - 86 * Math.exp(-z * z / 2);
+      pts.push((i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1));
+      if (z >= -1 && z <= 1) fill.push(x.toFixed(1) + ' ' + y.toFixed(1));
+    }
+    var f = 'M' + fill[0].split(' ')[0] + ' ' + (H - 22) + ' L' + fill.join(' L') + ' L' + fill[fill.length - 1].split(' ')[0] + ' ' + (H - 22) + ' Z';
+    var ticks = '';
+    for (i = -3; i <= 3; i++) { var tx = W * (i + 3.5) / 7; ticks += '<line x1="' + tx + '" x2="' + tx + '" y1="' + (H - 22) + '" y2="' + (H - 16) + '"/><text x="' + tx + '" y="' + (H - 3) + '" text-anchor="middle">' + (i === 0 ? 'x̄' : (i > 0 ? '+' : '−') + Math.abs(i) + 's') + '</text>'; }
+    return '<svg class="curve" viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Normal curve with the middle 68 percent shaded"><path class="f" d="' + f + '"/><path class="c" d="' + pts.join(' ') + '"/><line x1="0" x2="' + W + '" y1="' + (H - 22) + '" y2="' + (H - 22) + '"/>' + ticks + '</svg>';
+  }
+
+  function newRecord(id, preview) {
+    return { id: id, app: APP, preview: !!preview, status: 'new', createdAt: now(), startedAt: null, deadline: null, submittedAt: null, ans: {}, tbl: {}, away: [], cur: 0, updatedAt: now() };
+  }
+
+  function signIn(id, preview) {
+    $app.innerHTML = '<div class="wrap"><p class="muted">Loading…</p></div>';
+    getRecord(id).then(function (rec) {
+      S.id = id; S.preview = preview; S.qs = GEN.buildTest(APP, id); S.cur = 0;
+      if (!rec) rec = newRecord(id, preview);
+      S.rec = rec;
+      if (rec.status === 'submitted') return renderResults(true);
+      if (rec.status === 'started' && now() >= rec.deadline) return finish('time');
+      renderRules();
+    }).catch(function (e) { console.warn(e); renderSignin('Could not load your test. Check your internet connection and try again.'); });
+  }
+
+  function renderRules() {
+    var started = S.rec.status === 'started';
+    var left = started ? S.rec.deadline - now() : DURATION_MIN * 60000;
+    $app.innerHTML =
+      '<div class="wrap"><div class="gate"><div><div class="eyebrow">Student ' + esc(S.id) + (S.preview ? ' · preview' : '') + '</div><h1>Before you start</h1></div>' +
+      '<div class="panel"><ul class="rules">' +
+      '<li>You have <b>' + DURATION_MIN + ' minutes</b>. The timer starts when you press the button below and keeps running even if you close this page. When time runs out, your test is submitted automatically.</li>' +
+      '<li>Use your calculator for every calculation. Round z-scores to two decimal places.</li>' +
+      '<li>Drag-the-line questions have no check button. Place the line where you think it belongs and move on. It is graded when you submit.</li>' +
+      '<li>Number answers: 3 tries (3, 2 or 1 points). Questions with 3 or more choices: 2 tries (3 or 1 points). Two-choice questions: 1 try. You will see right or wrong after each try.</li>' +
+      '<li>Every question has a normal curve to help you. For infinity in normalcdf, type 1E99 or -1E99, the same as on your calculator.</li>' +
+      '<li>Fill in the work table beside each calculation question. On the starred questions the table, or the boxes on the curve, are graded, and you can check them ' + TABLE_CHECKS + ' times.</li>' +
+      '<li>The test runs in full screen. Switching tabs, minimizing, clicking outside the page, or leaving full screen is recorded with the time and how long you were away.</li>' +
+      '<li>You can submit only once.</li>' +
+      '</ul>' +
+      (started ? '<div class="note">Your test is already in progress. Time left: <b class="num">' + mmss(left) + '</b></div>' : '') +
+      '<button class="primary" id="go" type="button">' + (started ? 'Return to the test' : 'Start the test') + '</button></div>' +
+      '<button class="linkish" id="back" type="button">Not you? Sign out</button></div></div>';
+    document.getElementById('go').addEventListener('click', startTest);
+    document.getElementById('back').addEventListener('click', function () { renderSignin(); });
+  }
+
+  function enterFs() {
+    var el = document.documentElement;
+    if (!el.requestFullscreen) { S.fsOn = false; return Promise.resolve(false); }
+    return el.requestFullscreen().then(function () { S.fsOn = true; return true; }).catch(function () { S.fsOn = false; return false; });
+  }
+
+  function startTest() {
+    enterFs();
+    if (S.rec.status !== 'started') {
+      S.rec.status = 'started'; S.rec.startedAt = now(); S.rec.deadline = S.rec.startedAt + DURATION_MIN * 60000;
+      saveNow();
+    }
+    S.cur = S.rec.cur || 0;
+    startTracking();
+    renderTest();
+    clearInterval(S.timerInt);
+    S.timerInt = setInterval(tick, 500);
+    tick();
+  }
+
+  function tick() {
+    if (!S.rec || S.rec.status !== 'started') return;
+    var left = S.rec.deadline - now(), t = document.getElementById('tmr');
+    if (t) { t.textContent = mmss(left); t.classList.toggle('low', left < 5 * 60000); }
+    if (left <= 0) finish('time');
+  }
+
+  function saveSoon() {
+    S.rec.updatedAt = now();
+    var wait = SAVE_EVERY_MS - (now() - S.lastSave);
+    if (wait <= 0) return saveNow();
+    if (!S.saveTimer) S.saveTimer = setTimeout(function () { S.saveTimer = null; saveNow(); }, wait);
+  }
+  function saveNow() {
+    if (S.saveTimer) { clearTimeout(S.saveTimer); S.saveTimer = null; }
+    S.lastSave = now(); S.rec.updatedAt = now();
+    return putRecord(S.rec);
+  }
+
+  // ---------- leaving-the-screen tracking ----------
+  function startTracking() {
+    if (S.tracking) return;
+    S.tracking = true;
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('blur', onBlur);
+    window.addEventListener('focus', onFocus);
+    document.addEventListener('fullscreenchange', onFs);
+    document.addEventListener('contextmenu', noMenu);
+  }
+  function stopTracking() {
+    S.tracking = false;
+    document.removeEventListener('visibilitychange', onVis);
+    window.removeEventListener('blur', onBlur);
+    window.removeEventListener('focus', onFocus);
+    document.removeEventListener('fullscreenchange', onFs);
+    document.removeEventListener('contextmenu', noMenu);
+    clearTimeout(S.blurTimer);
+    clearInterval(S.timerInt);
+  }
+  function noMenu(e) { e.preventDefault(); }
+  function active() { return S.tracking && S.rec && S.rec.status === 'started'; }
+  function beginAway(type, at) {
+    if (!active() || S.away) return;
+    S.away = { type: type, at: at || now() };
+    S.rec.away.push({ type: type, at: S.away.at, ms: 0, open: true });
+    updateLeftCount();
+    saveNow();
+  }
+  function endAway() {
+    if (!S.away) return;
+    var e = S.rec.away[S.rec.away.length - 1];
+    if (e && e.open) { e.ms = now() - e.at; delete e.open; }
+    var info = S.away; S.away = null;
+    saveNow();
+    showCover(info, e ? e.ms : 0);
+  }
+  function onVis() {
+    if (!active()) return;
+    if (document.hidden) { clearTimeout(S.blurTimer); beginAway('Switched tab or minimized'); }
+    else if (document.hasFocus()) endAway();
+  }
+  function onBlur() {
+    if (!active() || S.away) return;
+    var at = now();
+    clearTimeout(S.blurTimer);
+    S.blurTimer = setTimeout(function () { if (!document.hasFocus() && !S.away) beginAway(document.hidden ? 'Switched tab or minimized' : 'Clicked outside the page', at); }, BLUR_GRACE_MS);
+  }
+  function onFocus() {
+    clearTimeout(S.blurTimer);
+    if (!active()) return;
+    if (S.away && S.away.type !== 'Left full screen' && !document.hidden) endAway();
+  }
+  function onFs() {
+    if (!active()) return;
+    if (document.fullscreenElement) {
+      S.fsOn = true;
+      if (S.away && S.away.type === 'Left full screen') closeFsEpisode();
+      return;
+    }
+    if (S.fsOn) {
+      S.fsOn = false;
+      if (!S.away) { beginAway('Left full screen'); showFsCover(); }
+    }
+  }
+  function closeFsEpisode() {
+    var e = S.rec.away[S.rec.away.length - 1];
+    if (e && e.open) { e.ms = now() - e.at; delete e.open; }
+    S.away = null; hideCover(); saveNow();
+  }
+  function showFsCover() {
+    hideCover();
+    var d = document.createElement('div');
+    d.className = 'overlay alarm'; d.id = 'cover';
+    d.innerHTML = '<div class="panel" role="alertdialog" aria-labelledby="cvh"><h2 id="cvh">You left full screen</h2>' +
+      '<p style="margin:0">This was recorded at <b class="num">' + clock(S.away.at) + '</b>. The time until you return is recorded too. Your teacher will see this.</p>' +
+      '<p class="muted" style="margin:0">Times left the screen: <b class="num">' + S.rec.away.length + '</b>. Your timer is still running.</p>' +
+      '<button class="primary" id="cvb" type="button">Return to full screen</button></div>';
+    document.body.appendChild(d);
+    document.getElementById('cvb').addEventListener('click', function () {
+      enterFs().then(function (ok) { if (!ok && S.away && S.away.type === 'Left full screen') closeFsEpisode(); });
+    });
+    document.getElementById('cvb').focus();
+  }
+  function showCover(info, ms) {
+    hideCover();
+    var d = document.createElement('div');
+    d.className = 'overlay alarm'; d.id = 'cover';
+    d.innerHTML = '<div class="panel" role="alertdialog" aria-labelledby="cvh"><h2 id="cvh">Leaving the screen was recorded</h2>' +
+      '<p style="margin:0">' + esc(info.type) + ' at <b class="num">' + clock(info.at) + '</b>, away for <b class="num">' + secs(ms) + '</b>. Your teacher will see this.</p>' +
+      '<p class="muted" style="margin:0">Times left the screen: <b class="num">' + S.rec.away.length + '</b>. Your timer kept running.</p>' +
+      '<button class="primary" id="cvb" type="button">Return to the test</button></div>';
+    document.body.appendChild(d);
+    document.getElementById('cvb').addEventListener('click', function () { hideCover(); if (!document.fullscreenElement) enterFs(); });
+    document.getElementById('cvb').focus();
+  }
+  function hideCover() { var c = document.getElementById('cover'); if (c) c.remove(); }
+  function updateLeftCount() {
+    var el = document.getElementById('leftc');
+    if (el) { el.innerHTML = 'Left screen: <b>' + S.rec.away.length + '</b>'; el.classList.toggle('has', S.rec.away.length > 0); }
+  }
+
+  // ---------- test rendering ----------
+  var TOPIC_CLS = { 'Empirical rule': 't-emp', 'Locating a value': 't-loc', 'Percentage to z-score': 't-z', 'z-score to raw value': 't-z', 'Raw value to z-score': 't-z', 'Raw value to percentage': 't-pct', 'Percentage to raw value': 't-pct', 'Is the data normal?': 't-norm', 'Comparing z-scores': 't-z', 'Standard normal area': 't-pct' };
+  var TOPIC_VAR = { 't-emp': '--b1', 't-loc': '--b3', 't-z': '--accent', 't-pct': '--b2', 't-norm': '--b4' };
+  function starred(q) { return !!gradedRows(q); }
+  function qDone(q) {
+    if (q.type === 'boxes') { var t = S.rec.tbl[q.id]; return !!t && q.boxes.every(function (b) { return t.cells[b.key] && String(t.cells[b.key]).trim() !== ''; }); }
+    var a = S.rec.ans[q.id]; if (!a) return false;
+    if (q.type === 'drag') return a.draft !== undefined;
+    return a.done;
+  }
+  function renderTest() {
+    var qs = S.qs, q = qs[S.cur];
+    var nav = qs.map(function (x, i) { return '<button type="button" data-go="' + i + '" class="' + (qDone(x) ? 'done ' : '') + (i === S.cur ? 'cur' : '') + '" aria-label="Question ' + (i + 1) + (qDone(x) ? ', answered' : '') + '">' + (i + 1) + (starred(x) ? '*' : '') + '</button>'; }).join('');
+    var wide = q.type === 'boxes' || q.type === 'drag';
+    $app.innerHTML =
+      '<div class="bar"><div class="in">' +
+      '<span class="timer" id="tmr" aria-label="Time left">' + mmss(S.rec.deadline - now()) + '</span>' +
+      '<nav class="qnav" aria-label="Questions">' + nav + '</nav>' +
+      '<span class="leftc" id="leftc"></span>' +
+      '<span class="sid">ID ' + esc(S.id) + '</span>' +
+      '<button class="primary" type="button" id="sub">Submit test</button>' +
+      '</div><div class="stripe"></div></div>' +
+      '<div class="wrap" style="padding-top:0"><div class="qgrid"' + (wide ? ' style="grid-template-columns:minmax(0,1fr)"' : '') + '>' + questionHtml(q) + (wide ? '' : workHtml(q)) + '</div></div>';
+    updateLeftCount();
+    wireQuestion(q);
+    $app.querySelectorAll('[data-go]').forEach(function (b) { b.addEventListener('click', function () { go(Number(b.getAttribute('data-go'))); }); });
+    document.getElementById('sub').addEventListener('click', confirmSubmit);
+    tick();
+  }
+  function go(i) { if (i < 0 || i >= S.qs.length) return; S.cur = i; S.rec.cur = i; saveSoon(); renderTest(); window.scrollTo(0, 0); }
+
+  function figWidth(q) {
+    var vw = Math.min(window.innerWidth || 1200, 1180) - 32;
+    var wide = q.type === 'boxes' || q.type === 'drag';
+    var col = wide || window.innerWidth < 880 ? vw : (vw - 20) * 1.15 / 2.15;
+    return Math.min(col - 46, 860);
+  }
+  var lastFitW = null, resizeT = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () {
+      if (!S.rec || S.rec.status !== 'started' || !document.getElementById('tmr')) return;
+      var w = CURVE.fitWidth(figWidth(S.qs[S.cur]));
+      if (lastFitW !== null && Math.abs(w - lastFitW) < 30) return;
+      var ae = document.activeElement; if (ae && ae.tagName === 'INPUT') return;
+      renderTest();
+    }, 250);
+  });
+  function liveFor(q) {
+    var t = S.rec.tbl[q.id];
+    return t ? t.cells : {};
+  }
+
+  function questionHtml(q) {
+    var a = S.rec.ans[q.id] || { tries: [], done: false };
+    var mt = q.type === 'boxes' || q.type === 'drag' ? 0 : maxTries(q), used = a.tries.length;
+    var last = a.tries[a.tries.length - 1];
+    var body = '';
+    var tc = TOPIC_CLS[q.topic] || 't-z';
+    // the curve
+    var dragZ = q.type === 'drag' ? (a.draft !== undefined ? Number(a.draft) : 0) : null;
+    var fig = CURVE.render(q, { live: liveFor(q), locked: q.type === 'boxes' || q.type === 'drag' ? false : a.done, width: figWidth(q) });
+    if (q.data) {
+      var cells = '', i;
+      for (i = 0; i < q.data.length; i++) { if (i % 10 === 0) cells += (i ? '</tr>' : '') + '<tr>'; cells += '<td>' + q.data[i] + '</td>'; }
+      body += '<div class="datagrid"><table aria-label="Data values in order"><tbody>' + cells + '</tr></tbody></table></div>';
+    }
+    if (q.type === 'num') {
+      body += '<div class="ansrow"><label for="ans" class="sr">Answer</label><input id="ans" type="text" inputmode="decimal" autocomplete="off" ' + (a.done ? 'disabled ' : '') + 'value="' + esc(a.done && last ? last.v : (a.draft || '')) + '">' + (q.unit ? '<span class="unit">' + esc(q.unit) + '</span>' : '') +
+        '<button class="primary" id="chk" type="button" ' + (a.done ? 'disabled' : '') + '>Check answer</button></div>';
+    } else if (q.type === 'mc') {
+      body += '<div class="opts" role="radiogroup">' + q.options.map(function (o, i) {
+        var checked = (a.done && last && Number(last.v) === i) || (!a.done && a.draft !== undefined && Number(a.draft) === i);
+        return '<label class="opt' + (a.done ? ' locked' : '') + '"><input type="radio" name="mc" value="' + i + '" ' + (checked ? 'checked ' : '') + (a.done ? 'disabled' : '') + '><span>' + String.fromCharCode(65 + i) + ') ' + esc(o) + '</span></label>';
+      }).join('') + '</div>' +
+        '<div class="ansrow"><button class="primary" id="chk" type="button" ' + (a.done ? 'disabled' : '') + '>Check answer</button></div>';
+    } else if (q.type === 'drag') {
+      body += '<div class="ansrow"><span class="draghint">Drag the red line, or click the curve where it belongs. Arrow keys move it a little at a time. Your line is saved as you move it and graded when you submit.</span></div>' +
+        '<div class="ansrow"><span class="tag ' + (a.draft !== undefined ? 'ok' : 'warn') + '" id="dragstat">' + (a.draft !== undefined ? 'Line placed and saved' : 'Line not moved yet') + '</span></div>';
+    } else if (q.type === 'boxes') {
+      var t = (S.rec.tbl[q.id] = S.rec.tbl[q.id] || { cells: {}, checks: [] }), left = TABLE_CHECKS - t.checks.length, lastc = t.checks[t.checks.length - 1];
+      body += '<div class="ansrow"><button class="primary" type="button" id="tchk" ' + (left <= 0 ? 'disabled' : '') + '>Check my boxes (' + left + ' ' + (left === 1 ? 'check' : 'checks') + ' left)</button>' +
+        (lastc ? '<span class="scorebox" role="status">' + lastc.ok + ' of ' + lastc.total + ' boxes correct (' + Math.round(lastc.ok / lastc.total * 100) + '%)</span>' : '') + '</div>' +
+        '<p class="muted" style="margin:0;font-size:0.86rem">The boxes are graded again when you submit, so keep fixing them. Type percents without the % sign.</p>';
+    }
+    var fb = '';
+    if (S.flash && S.flash.q === q.id) { fb = '<div class="fb info" role="status">' + esc(S.flash.msg) + '</div>'; S.flash = null; }
+    else if (last && q.type !== 'boxes' && q.type !== 'drag') {
+      if (last.ok) fb = '<div class="fb ok" role="status">Correct. You earned ' + ptsFor(q, a.tries.length - 1) + ' of 3 points.</div>';
+      else if (a.done) fb = '<div class="fb no" role="status">Not correct. No tries left on this question.</div>';
+      else fb = '<div class="fb no" role="status">Not correct. ' + (mt - used) + ' ' + (mt - used === 1 ? 'try' : 'tries') + ' left.</div>';
+    }
+    var triesTxt = a.done || q.type === 'boxes' || q.type === 'drag' ? '' : '<span class="muted">' + (mt - used) + ' of ' + mt + ' ' + (mt === 1 ? 'try' : 'tries') + ' left</span>';
+    var ptsTxt = q.type === 'boxes' ? q.points + ' points, graded box by box' : q.type === 'drag' ? '3 points, graded when you submit' : '3 points' + (starred(q) ? ' + ' + TABLE_POINTS + ' for the work table' : '');
+    S._dragZ = dragZ; lastFitW = CURVE.fitWidth(figWidth(q));
+    return '<section class="panel qcard" aria-labelledby="qh" style="--qc:var(' + TOPIC_VAR[tc] + ')">' +
+      '<div class="qhead"><div style="display:grid;gap:6px"><span class="chip ' + tc + '">' + esc(q.topic) + '</span><h2 id="qh">Question ' + q.n + ' of ' + S.qs.length + (starred(q) ? ' *' : '') + '</h2></div>' +
+      '<span class="pts">' + ptsTxt + '</span></div>' +
+      '<div class="prompt">' + q.prompt + '</div>' + fig + body + fb + triesTxt +
+      '<div class="qfoot"><button type="button" id="prev" ' + (S.cur === 0 ? 'disabled' : '') + '>Previous</button><button type="button" id="next" ' + (S.cur === S.qs.length - 1 ? 'disabled' : '') + '>Next</button></div>' +
+      '</section>';
+  }
+
+  function workHtml(q) {
+    if (!q.table) return '<aside class="panel work"><div class="eyebrow">Work table</div><p class="muted" style="margin:0">No work table for this question.</p></aside>';
+    var t = (S.rec.tbl[q.id] = S.rec.tbl[q.id] || { cells: {}, checks: [] });
+    var rows = q.table.rows.map(function (r) {
+      return '<tr><td class="lab"><label for="c_' + r.key + '">' + esc(r.label) + '</label></td><td class="val"><input class="cell" id="c_' + r.key + '" data-k="' + r.key + '" type="text" inputmode="decimal" autocomplete="off" value="' + esc(t.cells[r.key] || '') + '"></td></tr>';
+    }).join('');
+    var g = q.table.graded, left = TABLE_CHECKS - t.checks.length, lastc = t.checks[t.checks.length - 1];
+    return '<aside class="panel work" aria-label="Work table"><div class="qhead"><div class="eyebrow">Show your work</div>' + (g ? '<span class="tag">Graded · ' + TABLE_POINTS + ' pts</span>' : '<span class="tag warn">Not graded</span>') + '</div>' +
+      '<table><tbody>' + rows + '</tbody></table>' +
+      (q.table.infNote ? '<p class="infnote">No lower or upper bound? Type <b class="mono">-1E99</b> for negative infinity or <b class="mono">1E99</b> for infinity, the same as on your calculator. You can also type <b class="mono">-inf</b> or <b class="mono">inf</b>.</p>' : '') +
+      (g ? '<div class="ansrow"><button type="button" id="tchk" ' + (left <= 0 ? 'disabled' : '') + '>Check my table (' + left + ' ' + (left === 1 ? 'check' : 'checks') + ' left)</button></div>' +
+        (lastc ? '<div class="scorebox" role="status">' + lastc.ok + ' of ' + lastc.total + ' cells correct (' + Math.round(lastc.ok / lastc.total * 100) + '%)</div>' : '') +
+        '<p class="muted" style="margin:0;font-size:0.86rem">The table is graded again when you submit, so keep fixing it.</p>' : '') +
+      '</aside>';
+  }
+
+  var LIVE_KEYS = { lo3: 1, lo2: 1, lo1: 1, mean: 1, hi1: 1, hi2: 1, hi3: 1 };
+  function wireQuestion(q) {
+    var a = (S.rec.ans[q.id] = S.rec.ans[q.id] || { tries: [], done: false });
+    document.getElementById('prev').addEventListener('click', function () { go(S.cur - 1); });
+    document.getElementById('next').addEventListener('click', function () { go(S.cur + 1); });
+    var ans = document.getElementById('ans');
+    if (ans) {
+      ans.addEventListener('input', function () { a.draft = ans.value; saveSoon(); });
+      ans.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); checkAnswer(q); } });
+    }
+    $app.querySelectorAll('input[name=mc]').forEach(function (r) { r.addEventListener('change', function () { a.draft = r.value; saveSoon(); }); });
+    var chk = document.getElementById('chk');
+    if (chk) chk.addEventListener('click', function () { checkAnswer(q); });
+    if (q.type === 'drag') {
+      CURVE.wireDrag(q, S._dragZ, false, function (z) {
+        var first = a.draft === undefined;
+        a.draft = Math.round(z * 1000) / 1000; saveSoon();
+        if (first) {
+          var st = document.getElementById('dragstat'); if (st) { st.textContent = 'Line placed and saved'; st.className = 'tag ok'; }
+          var b = $app.querySelector('[data-go="' + S.cur + '"]'); if (b) b.classList.add('done');
+        }
+      });
+    }
+    $app.querySelectorAll('input.cell, input.cbox').forEach(function (inp) {
+      inp.addEventListener('input', function () {
+        var k = inp.getAttribute('data-k');
+        S.rec.tbl[q.id].cells[k] = inp.value;
+        if (q.curve && q.curve.live && LIVE_KEYS[k]) CURVE.setLive(k, inp.value);
+        if (q.type === 'boxes') { var b = $app.querySelector('[data-go="' + S.cur + '"]'); if (b) b.classList.toggle('done', qDone(q)); }
+        saveSoon();
+      });
+    });
+    var tchk = document.getElementById('tchk');
+    if (tchk) tchk.addEventListener('click', function () {
+      var t = S.rec.tbl[q.id];
+      if (t.checks.length >= TABLE_CHECKS) return;
+      var sc = tableScore(q, S.rec);
+      t.checks.push({ at: now(), ok: sc.ok, total: sc.total });
+      saveSoon(); renderTest();
+    });
+  }
+
+  function checkAnswer(q) {
+    var a = S.rec.ans[q.id];
+    if (a.done) return;
+    var v;
+    if (q.type === 'num') {
+      v = (document.getElementById('ans').value || '').trim();
+      var n = GEN.parseNum(v);
+      if (n === null) { S.flash = { q: q.id, msg: 'Type an answer first.' }; return renderTest(); }
+      if (isNaN(n)) { S.flash = { q: q.id, msg: 'Type a number only, for example 12.34 or −0.85.' }; return renderTest(); }
+      var repeat = a.tries.some(function (t) { return !t.ok && GEN.parseNum(t.v) === n; });
+      if (repeat) { S.flash = { q: q.id, msg: 'You already tried that answer. It did not use a try. Try a different answer.' }; return renderTest(); }
+    } else if (q.type === 'drag') {
+      if (a.draft === undefined) { S.flash = { q: q.id, msg: 'Move the line first.' }; return renderTest(); }
+      v = Number(a.draft);
+      if (a.tries.some(function (t) { return !t.ok && Math.abs(Number(t.v) - v) < 0.03; })) { S.flash = { q: q.id, msg: 'Your line is in the same place as a try that was not correct. It did not use a try. Move it and check again.' }; return renderTest(); }
+    } else {
+      var sel = $app.querySelector('input[name=mc]:checked');
+      if (!sel) { S.flash = { q: q.id, msg: 'Choose an answer first.' }; return renderTest(); }
+      v = sel.value;
+      if (a.tries.some(function (t) { return !t.ok && String(t.v) === v; })) { S.flash = { q: q.id, msg: 'You already tried that choice. It did not use a try. Pick a different one.' }; return renderTest(); }
+    }
+    var ok = isRight(q, v);
+    a.tries.push({ v: v, ok: ok, at: now() });
+    if (ok || a.tries.length >= maxTries(q)) a.done = true;
+    if (q.type !== 'drag' || a.done) delete a.draft;
+    saveSoon();
+    renderTest();
+  }
+
+  function confirmSubmit() {
+    var open = S.qs.filter(function (q) { return !qDone(q); }).length;
+    var d = document.createElement('div');
+    d.className = 'overlay'; d.id = 'conf';
+    d.innerHTML = '<div class="panel" role="dialog" aria-labelledby="cfh"><h2 id="cfh">Submit your test?</h2>' +
+      (open ? '<p style="margin:0">You still have <b>' + open + '</b> unanswered ' + (open === 1 ? 'question' : 'questions') + '.</p>' : '<p style="margin:0">You have answered every question.</p>') +
+      '<p class="muted" style="margin:0">After you submit you cannot change anything.</p>' +
+      '<div class="tools"><button class="primary" id="cfy" type="button">Submit now</button><button id="cfn" type="button">Keep working</button></div></div>';
+    document.body.appendChild(d);
+    document.getElementById('cfn').addEventListener('click', function () { d.remove(); });
+    document.getElementById('cfy').addEventListener('click', function () { d.remove(); finish('student'); });
+    document.getElementById('cfn').focus();
+  }
+
+  function finish(how) {
+    if (!S.rec || S.rec.status === 'submitted') return;
+    if (S.away) { var e = S.rec.away[S.rec.away.length - 1]; if (e && e.open) { e.ms = now() - e.at; delete e.open; } S.away = null; }
+    S.rec.status = 'submitted';
+    S.rec.submittedAt = how === 'time' ? Math.min(now(), S.rec.deadline || now()) : now();
+    S.rec.submittedBy = how;
+    S.rec.final = score(S.qs, S.rec);
+    stopTracking(); hideCover();
+    var c = document.getElementById('conf'); if (c) c.remove();
+    if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(function () {});
+    saveNow().then(function () { renderResults(false, how); });
+  }
+
+  function renderResults(already, how) {
+    stopTracking();
+    var sc = score(S.qs, S.rec), aw = awayTotals(S.rec);
+    var used = (S.rec.submittedAt || now()) - (S.rec.startedAt || now());
+    var rows = S.qs.map(function (q, i) { var p = sc.per[i]; return '<tr><td>Question ' + q.n + (starred(q) ? ' *' : '') + '</td><td class="n">' + GEN.fmt(p.pts, 1) + ' / ' + p.max + '</td></tr>'; }).join('');
+    $app.innerHTML = '<div class="wrap"><div class="res">' +
+      '<div><div class="eyebrow">Student ' + esc(S.id) + (S.preview ? ' · preview' : '') + '</div><h1>' + (already ? 'You have already finished' : (how === 'time' ? 'Time is up. Your test was submitted.' : 'Your test is submitted')) + '</h1></div>' +
+      '<div class="panel"><div><span class="big">' + GEN.fmt(sc.pct, 1) + '%</span></div>' +
+      '<div class="kv"><div><b>' + GEN.fmt(sc.total, 1) + ' / ' + sc.max + '</b><span>Points</span></div><div><b>' + aw.count + '</b><span>Times left the screen</span></div><div><b>' + mmss(used) + '</b><span>Time used</span></div></div>' +
+      '<details><summary>Points by question</summary><table class="qpts"><tbody>' + rows + '</tbody></table></details></div>' +
+      (S.preview ? '<button class="primary" id="tback" type="button">Back to the teacher view</button>' : '<button id="out" type="button">Sign out</button>') +
+      '</div></div>';
+    var b = document.getElementById('tback'); if (b) b.addEventListener('click', function () { S.rec = null; renderTeacher(); });
+    var o = document.getElementById('out'); if (o) o.addEventListener('click', function () { S.rec = null; renderSignin(); });
+  }
+
+  // ================= teacher =================
+  var T = { unlocked: false, pin: '', conn: 'connecting', lastPull: 0, recs: [], unsub: null, sort: { k: 'id', dir: 1 }, view: 'class', sel: null, delArm: false, qsCache: {} };
+  function qsFor(id) { if (!T.qsCache[id]) T.qsCache[id] = GEN.buildTest(APP, id); return T.qsCache[id]; }
+
+  function renderPin() {
+    if (T.unlocked) return renderTeacher();
+    $app.innerHTML = '<div class="wrap"><div class="gate">' + curveSvg() + '<div><div class="eyebrow">Statistical Modeling · Unit 2</div><h1>Teacher results</h1><p class="muted" style="margin:6px 0 0">Enter your teacher PIN to see every student’s results for the Test Review and the Test.</p></div>' +
+      '<form class="panel" id="pf" autocomplete="off"><label for="pin"><b>Teacher PIN</b></label><div class="idrow"><input id="pin" type="password" inputmode="numeric" maxlength="12"><button class="primary" type="submit">Open results</button></div><div class="err" id="perr" role="alert"></div></form></div></div>';
+    var p = document.getElementById('pin'), err = document.getElementById('perr'); p.focus();
+    document.getElementById('pf').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = p.value.trim();
+      if (!v) { err.textContent = 'Type your PIN.'; return; }
+      if (!apiReady()) { err.textContent = 'The results sheet link is missing from this page.'; return; }
+      err.textContent = 'Checking…';
+      apiGet({ action: 'all', app: APP, pin: v }).then(function (j) {
+        if (j.error) { err.textContent = j.error === 'pin' ? 'That PIN is not correct.' : 'The results sheet answered with an error: ' + j.error; return; }
+        T.pin = v; T.unlocked = true; T.recs = (j.records || []).filter(Boolean); T.conn = 'on'; T.lastPull = now(); renderTeacher();
+      }).catch(function () { err.textContent = 'Could not reach the results sheet. Check your internet connection.'; });
+    });
+  }
+
+  function pull() {
+    var app = APP;
+    return apiGet({ action: 'all', app: app, pin: T.pin }).then(function (j) {
+      if (app !== APP) return;
+      if (j.error) { T.conn = 'error'; return; }
+      T.recs = (j.records || []).filter(function (r) { return r && r.id; });
+      T.conn = 'on'; T.lastPull = now();
+    }).catch(function () { T.conn = 'error'; }).then(function () { if (T.unlocked && document.getElementById('tview')) drawTeacher(); });
+  }
+  function startWatch() {
+    if (T.unsub) return;
+    T.unsub = setInterval(function () { if (document.getElementById('tview')) pull(); }, 20000);
+  }
+  function setApp(k) {
+    if (k === CUR) return;
+    CUR = k; APP = SITE.apps[k].key; T.qsCache = {}; T.recs = []; T.sel = null; T.view = 'class'; T.conn = 'connecting';
+    drawTeacher(); pull();
+  }
+
+  function rowData(rec) {
+    var qs = qsFor(rec.id), sc = rec.status === 'submitted' && rec.final ? rec.final : score(qs, rec), aw = awayTotals(rec);
+    var end = rec.status === 'submitted' ? rec.submittedAt : (rec.startedAt ? Math.min(now(), rec.deadline) : null);
+    var mins = rec.startedAt && end ? (end - rec.startedAt) / 60000 : null;
+    var status = rec.status === 'started' && now() >= rec.deadline ? 'expired' : rec.status;
+    return { rec: rec, id: rec.id, status: status, sc: sc, aw: aw, mins: mins };
+  }
+  function median(a) { if (!a.length) return null; var b = a.slice().sort(function (x, y) { return x - y; }), m = Math.floor(b.length / 2); return b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2; }
+
+  function renderTeacher() {
+    stopTracking();
+    startWatch();
+    T.view = T.view || 'class';
+    $app.innerHTML = '<div class="wrap" id="tview"></div>';
+    drawTeacher();
+    if (now() - T.lastPull > 5000) pull();
+  }
+
+  function drawTeacher() {
+    var host = document.getElementById('tview');
+    if (!host) return;
+    if (T.view === 'record' && T.sel) return drawRecord(host);
+    var rows = T.recs.map(rowData);
+    var real = rows.filter(function (r) { return !r.rec.preview; });
+    var sub = real.filter(function (r) { return r.status === 'submitted' || r.status === 'expired'; });
+    var started = real.filter(function (r) { return r.status !== 'new'; });
+    var pcts = sub.map(function (r) { return r.sc.pct; });
+    var avg = pcts.length ? pcts.reduce(function (a, b) { return a + b; }, 0) / pcts.length : null;
+    function pc(v) { return v === null ? '-' : GEN.fmt(v, 1) + '%'; }
+
+    // question analysis across submitted students (or started if none submitted)
+    var base = sub.length ? sub : started;
+    var sample = qsFor(ROSTER[0]);
+    var nq = sample.length, qa = [];
+    for (var i = 0; i < nq; i++) {
+      var tot = 0, mx = 0;
+      base.forEach(function (r) { tot += r.sc.per[i].pts; mx += r.sc.per[i].max; });
+      qa.push(mx ? tot / mx * 100 : null);
+    }
+    var qaHtml = qa.map(function (v, i) {
+      return '<div class="row"><span class="mono">Q' + (i + 1) + '</span><div class="track" title="' + esc(sample[i].topic) + '"><div class="fill' + (v !== null && v < 50 ? ' low' : '') + '" style="width:' + (v === null ? 0 : v.toFixed(1)) + '%"></div></div><span class="mono">' + (v === null ? '-' : Math.round(v) + '%') + '</span>' + (v !== null && v < 50 ? '<span class="tag bad">Reteach</span>' : '<span class="muted" style="font-size:0.8rem">' + esc(shortTopic(sample[i].topic)) + '</span>') + '</div>';
+    }).join('');
+
+    // sorting
+    var k = T.sort.k, dir = T.sort.dir;
+    function keyOf(r) {
+      if (k === 'id') return r.id; if (k === 'status') return r.status; if (k === 'total') return r.sc.total; if (k === 'pct') return r.sc.pct;
+      if (k === 'left') return r.aw.count; if (k === 'away') return r.aw.ms; if (k === 'mins') return r.mins === null ? -1 : r.mins;
+      if (k.charAt(0) === 'q') return r.sc.per[Number(k.slice(1)) - 1].pts;
+      return 0;
+    }
+    rows.sort(function (a, b) { var x = keyOf(a), y = keyOf(b); return (x < y ? -1 : x > y ? 1 : 0) * dir; });
+    var cols = [['id', 'Student ID'], ['status', 'Status']];
+    for (i = 1; i <= nq; i++) cols.push(['q' + i, 'Q' + i + (starred(sample[i - 1]) ? '*' : '')]);
+    cols = cols.concat([['total', 'Points'], ['pct', '%'], ['left', 'Left screen'], ['away', 'Time away'], ['mins', 'Minutes']]);
+    var th = cols.map(function (c) { return '<th tabindex="0" data-sort="' + c[0] + '" aria-sort="' + (k === c[0] ? (dir > 0 ? 'ascending' : 'descending') : 'none') + '">' + c[1] + (k === c[0] ? (dir > 0 ? ' ▲' : ' ▼') : '') + '</th>'; }).join('');
+    var trs = rows.map(function (r) {
+      var st = r.status === 'submitted' ? '<span class="tag ok">Submitted</span>' : r.status === 'expired' ? '<span class="tag ok">Time up</span>' : r.status === 'started' ? '<span class="tag warn">In progress</span>' : '<span class="tag">Signed in</span>';
+      return '<tr tabindex="0" data-id="' + esc(r.id) + '"><td>' + esc(r.id) + (r.rec.preview ? ' <span class="tag">Preview</span>' : '') + '</td><td>' + st + '</td>' +
+        r.sc.per.map(function (p) { return '<td>' + GEN.fmt(p.pts, 1) + '</td>'; }).join('') +
+        '<td>' + GEN.fmt(r.sc.total, 1) + ' / ' + r.sc.max + '</td><td>' + GEN.fmt(r.sc.pct, 1) + '</td><td>' + r.aw.count + '</td><td>' + (r.aw.ms ? secs(r.aw.ms) : '0 s') + '</td><td>' + (r.mins === null ? '-' : r.mins.toFixed(1)) + '</td></tr>';
+    }).join('');
+
+    host.innerHTML =
+      '<div class="thead"><div><div class="eyebrow">Teacher view · ' + esc(SITE.apps[CUR].name) + '</div><h1>Class results</h1></div>' +
+      '<div class="tools"><div class="seg" role="tablist">' + Object.keys(SITE.apps).map(function (k) { return '<button type="button" role="tab" data-app="' + k + '" aria-selected="' + (k === CUR) + '">' + esc(SITE.apps[k].name) + '</button>'; }).join('') + '</div></div></div>' +
+      '<div class="thead" style="margin-top:10px"><span class="muted" style="font-size:0.9rem">' + (T.conn === 'on' ? '<span style="color:var(--ok)">● Live.</span> ' + T.recs.length + ' student record' + (T.recs.length === 1 ? '' : 's') + '. Refreshes every 20 seconds. Last update ' + clock(T.lastPull) + '.' : T.conn === 'error' ? '<span style="color:var(--bad)">Could not reach the results sheet.</span> It will try again in 20 seconds.' : 'Connecting to the results sheet…') + '</span>' +
+      '<div class="tools"><button class="primary" id="prevw" type="button">Preview as a student</button><button id="rnow" type="button">Refresh now</button><button id="csv" type="button">Download CSV</button><button id="lock" type="button">Lock</button></div></div>' +
+      '<div class="tiles">' +
+      tile(sub.length + ' / ' + started.length, 'Submitted / started') + tile(pc(avg), 'Class average') + tile(pc(median(pcts)), 'Median') +
+      tile(pc(pcts.length ? Math.max.apply(null, pcts) : null), 'Highest') + tile(pc(pcts.length ? Math.min.apply(null, pcts) : null), 'Lowest') +
+      '</div>' +
+      '<div class="two"><div class="panel box chart"><h3>Score distribution</h3><span class="muted" style="font-size:0.85rem">Submitted tests, percent of points</span>' + histSvg(pcts) + '</div>' +
+      '<div class="panel box"><h3>Question analysis</h3><span class="muted" style="font-size:0.85rem">Average percent of points per question' + (sub.length ? '' : ' (students in progress)') + '. Under 50% is flagged.</span><div class="qa">' + qaHtml + '</div></div></div>' +
+      '<div class="tablewrap panel"><table class="roster"><thead><tr>' + th + '</tr></thead><tbody>' + (trs || '<tr><td colspan="' + cols.length + '" style="text-align:left;font-family:var(--f-body)" class="muted">No students yet. Records appear here as soon as a student signs in and starts. Use Preview as a student to try it.</td></tr>') + '</tbody></table></div>' +
+      '<details style="margin-top:16px"><summary>Class list (' + ROSTER.length + ' student IDs)</summary><p class="mono" style="margin:8px 0 0">' + ROSTER.join(' · ') + '</p></details>';
+
+    host.querySelectorAll('th[data-sort]').forEach(function (h) {
+      function s() { var key = h.getAttribute('data-sort'); if (T.sort.k === key) T.sort.dir *= -1; else { T.sort.k = key; T.sort.dir = key === 'id' || key === 'status' ? 1 : -1; } drawTeacher(); }
+      h.addEventListener('click', s); h.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); s(); } });
+    });
+    host.querySelectorAll('tr[data-id]').forEach(function (tr) {
+      function o() { T.sel = tr.getAttribute('data-id'); T.view = 'record'; T.delArm = false; drawTeacher(); window.scrollTo(0, 0); }
+      tr.addEventListener('click', o); tr.addEventListener('keydown', function (e) { if (e.key === 'Enter') o(); });
+    });
+    document.getElementById('prevw').addEventListener('click', function () {
+      var id = 'P' + String(Math.floor(10000 + Math.random() * 90000));
+      S.preview = true; signIn(id, true);
+    });
+    document.getElementById('csv').addEventListener('click', function () { downloadCsv(rows); });
+    document.getElementById('lock').addEventListener('click', function () { T.unlocked = false; T.pin = ''; renderPin(); });
+    document.getElementById('rnow').addEventListener('click', function () { pull(); });
+    host.querySelectorAll('[data-app]').forEach(function (b) { b.addEventListener('click', function () { setApp(b.getAttribute('data-app')); }); });
+  }
+  function shortTopic(t) { return t; }
+  function tile(v, l) { return '<div class="panel tile"><b>' + v + '</b><span>' + l + '</span></div>'; }
+  function histSvg(p) {
+    var bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    p.forEach(function (v) { bins[Math.min(9, Math.floor(v / 10))]++; });
+    var W = 440, H = 190, L = 28, B = 28, mx = Math.max(1, Math.max.apply(null, bins)), bw = (W - L - 6) / 10, out = '';
+    var step = mx <= 5 ? 1 : Math.ceil(mx / 5);
+    for (var g = 0; g <= mx; g += step) { var gy = H - B - (H - B - 12) * g / mx; out += '<line class="axis" x1="' + L + '" x2="' + W + '" y1="' + gy + '" y2="' + gy + '" stroke-dasharray="' + (g ? '2 3' : '') + '"/><text x="' + (L - 6) + '" y="' + (gy + 4) + '" text-anchor="end">' + g + '</text>'; }
+    bins.forEach(function (c, i) {
+      var h = (H - B - 12) * c / mx, x = L + i * bw + 3;
+      if (c) out += '<rect class="bar" x="' + x + '" y="' + (H - B - h) + '" width="' + (bw - 6) + '" height="' + h + '" rx="2"><title>' + (i * 10) + '–' + (i * 10 + 10) + '%: ' + c + '</title></rect>';
+      out += '<text x="' + (L + i * bw + bw / 2) + '" y="' + (H - B + 15) + '" text-anchor="middle">' + (i * 10) + '</text>';
+    });
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Histogram of student percentages">' + out + '</svg>';
+  }
+
+  function downloadCsv(rows) {
+    var head = ['Student ID', 'Status', 'Preview'];
+    for (var i = 1; i <= qsFor(ROSTER[0]).length; i++) head.push('Q' + i);
+    head = head.concat(['Points', 'Max points', 'Percent', 'Times left screen', 'Seconds away', 'Minutes used']);
+    var lines = [head.join(',')];
+    rows.forEach(function (r) {
+      var l = [r.id, r.status, r.rec.preview ? 'yes' : 'no'];
+      r.sc.per.forEach(function (p) { l.push(GEN.fmt(p.pts, 1)); });
+      l = l.concat([GEN.fmt(r.sc.total, 1), r.sc.max, GEN.fmt(r.sc.pct, 1), r.aw.count, Math.round(r.aw.ms / 1000), r.mins === null ? '' : r.mins.toFixed(1)]);
+      lines.push(l.join(','));
+    });
+    var data = lines.join('\n');
+    var link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([data], { type: 'text/csv' }));
+    link.download = APP + '-results.csv';
+    document.body.appendChild(link); link.click(); link.remove();
+  }
+  function showCsvText(data) {
+    var d = document.createElement('div');
+    d.className = 'overlay';
+    d.innerHTML = '<div class="panel"><h2>Copy the CSV</h2><p class="muted" style="margin:0">The download did not open here. Copy this text into a spreadsheet.</p><textarea id="csvt" rows="10" style="width:100%;font-family:var(--f-num);font-size:12px;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px">' + esc(data) + '</textarea><div class="tools"><button class="primary" id="csvc" type="button">Copy</button><button id="csvx" type="button">Close</button></div></div>';
+    document.body.appendChild(d);
+    document.getElementById('csvx').addEventListener('click', function () { d.remove(); });
+    document.getElementById('csvc').addEventListener('click', function () {
+      var t = document.getElementById('csvt');
+      (navigator.clipboard ? navigator.clipboard.writeText(data) : Promise.reject()).then(function () { document.getElementById('csvc').textContent = 'Copied'; }).catch(function () { t.select(); });
+    });
+  }
+
+  function drawRecord(host) {
+    var rec = T.recs.filter(function (r) { return r.id === T.sel; })[0];
+    if (!rec) { T.view = 'class'; return drawTeacher(); }
+    var r = rowData(rec), qs = qsFor(rec.id);
+    var ev = (rec.away || []).map(function (e) { return '<li>' + clock(e.at) + ' · ' + esc(e.type) + ' · ' + (e.open ? 'still away' : secs(e.ms || 0)) + '</li>'; }).join('');
+    var qh = qs.map(function (q, i) {
+      var a = (rec.ans && rec.ans[q.id]) || { tries: [] }, p = r.sc.per[i];
+      function rawOf(z) { return GEN.fmt(q.curve.m + z * q.curve.s, 1); }
+      var tries = q.type === 'drag' ? (a.draft !== undefined ? '<span class="try ' + (dragOk(q, a.draft) ? 'ok' : 'no') + '">Final line at about ' + rawOf(Number(a.draft)) + ' (z \u2248 ' + GEN.fmt(Number(a.draft), 2) + ')' + (dragOk(q, a.draft) ? ' \u2713' : ' \u2717') + '</span>' : '<span class="muted">Line never moved</span>') : a.tries.length ? a.tries.map(function (t, j) {
+        var shown = q.type === 'mc' ? String.fromCharCode(65 + Number(t.v)) + ') ' + q.options[Number(t.v)] :
+          q.type === 'drag' ? 'line at about ' + rawOf(Number(t.v)) + ' (z \u2248 ' + GEN.fmt(Number(t.v), 2) + ')' : t.v + (q.unit === '%' ? '%' : '');
+        return '<span class="try ' + (t.ok ? 'ok' : 'no') + '">' + (j + 1) + '. ' + esc(shown) + (t.ok ? ' \u2713' : ' \u2717') + '</span>';
+      }).join('') : '<span class="muted">No answer checked' + (a.draft !== undefined && a.draft !== '' ? ' (' + (q.type === 'drag' ? 'line left at about ' + rawOf(Number(a.draft)) : 'typed but not checked: ' + esc(a.draft)) + ')' : '') + '</span>';
+      var tbl = '', rowsAll = allRows(q);
+      if (rowsAll) {
+        var t = (rec.tbl && rec.tbl[q.id]) || { cells: {}, checks: [] }, ts = tableScore(q, rec);
+        tbl = '<table class="wt"><thead><tr><th>' + (q.type === 'boxes' ? 'Box' : 'Step') + '</th><th>Student</th><th>Correct</th><th></th></tr></thead><tbody>' + rowsAll.map(function (row) {
+          var v = t.cells[row.key], ok = cellOk(row, v);
+          return '<tr><td>' + esc(row.label) + '</td><td class="v">' + (v ? esc(v) : '<span class="muted">blank</span>') + '</td><td class="v">' + esc(row.show) + '</td><td>' + (ok ? '<span class="mark-ok">\u2713</span>' : '<span class="mark-no">\u2717</span>') + '</td></tr>';
+        }).join('') + '</tbody></table>' +
+          '<span class="muted" style="font-size:0.86rem">' + (gradedRows(q) ? 'Graded: ' + ts.ok + ' of ' + ts.total + ' correct, ' + GEN.fmt(p.tbl, 1) + ' / ' + gradedPts(q) + ' points. Checks used: ' + (t.checks || []).length + ' of ' + TABLE_CHECKS + (t.checks && t.checks.length ? ' (' + t.checks.map(function (c) { return c.ok + '/' + c.total; }).join(', ') + ')' : '') : 'Work table, not graded: ' + ts.ok + ' of ' + ts.total + ' cells correct.') + '</span>';
+      }
+      var lastT = a.tries[a.tries.length - 1];
+      var fig = q.type === 'drag' ? CURVE.render(q, { staticZ: a.draft !== undefined ? Number(a.draft) : 0, locked: a.draft === undefined, noIds: true }) : '';
+      var data = q.data ? '<p class="mono muted" style="margin:0;font-size:0.85rem">Data: ' + q.data.join(', ') + '</p>' : '';
+      var opts = q.type === 'mc' ? '<p class="muted" style="margin:0;font-size:0.88rem">' + q.options.map(function (o, j) { return String.fromCharCode(65 + j) + ') ' + esc(o); }).join(' \u00b7 ') + '</p>' : '';
+      return '<section class="panel qrec"><div class="qhead"><h3>Question ' + q.n + ' \u00b7 ' + esc(q.topic) + '</h3><span class="mono">' + GEN.fmt(p.pts, 1) + ' / ' + p.max + '</span></div>' +
+        '<div>' + q.prompt + '</div>' + data + opts + fig +
+        (q.type === 'boxes' ? '' : '<div><div class="eyebrow">' + (q.type === 'drag' ? 'Answer' : 'Tries') + '</div><div class="tries">' + tries + '</div></div>') +
+        '<div><span class="eyebrow">Correct answer</span> <span class="mono">' + esc(q.answerText) + '</span></div>' + tbl + '</section>';
+    }).join('');
+    host.innerHTML =
+      '<div class="thead"><div><div class="eyebrow">Student record' + (rec.preview ? ' · preview' : '') + '</div><h1 class="mono">' + esc(rec.id) + '</h1></div><div class="tools"><button id="rback" type="button">Back to the class</button></div></div>' +
+      '<div class="panel delbar" style="margin-top:14px">' + (T.delArm ?
+        '<span>Delete this record for good? The student could then take the test again.</span><button class="danger solid" id="rdelY" type="button">Yes, delete</button><button id="rdelN" type="button">Cancel</button>' :
+        '<button class="danger" id="rdel" type="button">Delete this record</button><span class="muted" style="font-size:0.86rem">Lets this student start over.</span>') + '</div>' +
+      '<div class="tiles">' + tile(GEN.fmt(r.sc.total, 1) + ' / ' + r.sc.max, 'Points') + tile(GEN.fmt(r.sc.pct, 1) + '%', 'Percent') + tile(r.aw.count, 'Times left the screen') + tile(r.aw.ms ? secs(r.aw.ms) : '0 s', 'Time away') + tile(r.mins === null ? '-' : r.mins.toFixed(1), 'Minutes used') + '</div>' +
+      '<div class="panel box" style="margin-top:16px"><h3>Status</h3><p style="margin:0">' + (rec.status === 'submitted' ? 'Submitted at ' + clock(rec.submittedAt) + (rec.submittedBy === 'time' ? ' (time ran out)' : '') : rec.status === 'started' ? 'In progress, started at ' + clock(rec.startedAt) + ', time left ' + mmss(rec.deadline - now()) : 'Signed in, not started') + '</p>' +
+      '<h3>Times away</h3>' + (ev ? '<ol class="events">' + ev + '</ol>' : '<p class="muted" style="margin:0">None recorded.</p>') + '</div>' +
+      '<div class="rec">' + qh + '</div>';
+    document.getElementById('rback').addEventListener('click', function () { T.view = 'class'; T.sel = null; drawTeacher(); });
+    var d1 = document.getElementById('rdel'); if (d1) d1.addEventListener('click', function () { T.delArm = true; drawTeacher(); });
+    var dn = document.getElementById('rdelN'); if (dn) dn.addEventListener('click', function () { T.delArm = false; drawTeacher(); });
+    var dy = document.getElementById('rdelY'); if (dy) dy.addEventListener('click', function () {
+      dy.disabled = true;
+      deleteRecord(rec.id).then(function () { T.view = 'class'; T.sel = null; T.delArm = false; T.recs = T.recs.filter(function (x) { return x.id !== rec.id; }); drawTeacher(); setTimeout(pull, 2500); });
+    });
+  }
+
+  if (MODE === 'teacher') renderPin(); else renderSignin();
+})();
+</script>
+
+</body>
+</html>

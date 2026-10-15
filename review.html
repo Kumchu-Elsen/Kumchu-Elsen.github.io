@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Unit 6 Test Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+/* Layout: unit header, lesson strip, concept ring, then a two-panel workbench (explanation | live picture) */
+:root{
+  --bg:#f3f5f9;--panel:#ffffff;--sunk:#eceff6;--fg:#1a2032;--muted:#5a6379;--line:#d9deea;
+  --accent:#2747c9;--on-accent:#ffffff;--accent-soft:#e5eaff;--amber:#c97412;--amber-soft:#fcefd9;
+  --ok:#1b7f45;--ok-soft:#e0f2e7;--bad:#c22f2f;--bad-soft:#fbe5e5;--warn:#9a620e;--warn-soft:#fbefd8;
+  --c1:#2747c9;--c2:#d4800f;--c3:#0f8a75;--c4:#be3a75;--c5:#7452e0;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,"Segoe UI",sans-serif;
+  --body:"Atkinson Hyperlegible",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1220;--panel:#161b2b;--sunk:#1d2336;--fg:#e5e8f1;--muted:#9aa3b8;--line:#2b3247;
+  --accent:#8099ff;--on-accent:#0e1220;--accent-soft:#232c4f;--amber:#f0a447;--amber-soft:#3a2c17;
+  --ok:#52c48a;--ok-soft:#173326;--bad:#ff7d7d;--bad-soft:#3d1d22;--warn:#e8b462;--warn-soft:#3a2f18;
+  --c1:#8099ff;--c2:#f0a447;--c3:#43c9b0;--c4:#f07fb1;--c5:#ab95ff;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1220;--panel:#161b2b;--sunk:#1d2336;--fg:#e5e8f1;--muted:#9aa3b8;--line:#2b3247;
+  --accent:#8099ff;--on-accent:#0e1220;--accent-soft:#232c4f;--amber:#f0a447;--amber-soft:#3a2c17;
+  --ok:#52c48a;--ok-soft:#173326;--bad:#ff7d7d;--bad-soft:#3d1d22;--warn:#e8b462;--warn-soft:#3a2f18;
+  --c1:#8099ff;--c2:#f0a447;--c3:#43c9b0;--c4:#f07fb1;--c5:#ab95ff;color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.5}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+.app{max-width:1380px;margin:0 auto;padding:18px 16px 56px;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)} .cap{font-size:13px;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:inherit;font-size:14px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:8px;padding:7px 13px;display:inline-flex;align-items:center;gap:6px;line-height:1.2}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn:focus-visible,.seg button:focus-visible,.lchip:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent)}
+.btn.sm{padding:4px 9px;font-size:13px}
+.in{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);font-variant-numeric:tabular-nums}
+.in.ok{border-color:var(--ok);box-shadow:0 0 0 1px var(--ok)} .in.bad{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+select.in{max-width:100%}
+/* header */
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.brand h1{font-size:28px;font-weight:700;letter-spacing:-.01em}
+.brand .unit{font-family:var(--display);font-weight:500;color:var(--accent)}
+.idchip{font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:999px;padding:5px 11px;background:var(--panel)}
+/* lesson strip */
+.strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.lchip{flex:0 0 auto;font:inherit;cursor:pointer;text-align:left;border:1px solid var(--line);background:var(--panel);color:var(--fg);border-radius:10px;padding:8px 12px;display:flex;flex-direction:column;gap:2px;min-width:150px}
+.lchip .code{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lchip .t{font-weight:700;font-size:14px}
+.lchip .pb{height:4px;border-radius:9px;background:var(--sunk);overflow:hidden;margin-top:4px}
+.lchip .pb i{display:block;height:100%;background:var(--ok)}
+.lchip[aria-current=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--accent-soft)}
+/* ring */
+.ringrow{display:flex;flex-wrap:wrap;gap:22px;align-items:center}
+.ringbox{width:250px;max-width:100%;flex:0 0 auto}
+.ringbox svg{display:block;width:100%;height:auto}
+.ringinfo{flex:1 1 20rem;min-width:0;display:flex;flex-direction:column;gap:8px}
+.ringinfo h2{font-size:24px}
+.bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--ok);border-radius:99px;transition:width .5s ease}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50%;display:inline-block;border:2px solid}
+/* workbench */
+.bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,27rem),1fr));gap:14px;align-items:start}
+.lefthead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:3px;background:var(--sunk)}
+.seg button{font:inherit;font-size:14px;cursor:pointer;border:0;border-radius:999px;padding:7px 18px;background:transparent;color:var(--muted)}
+.seg button[aria-selected=true]{background:var(--accent);color:var(--on-accent);font-weight:700}
+.stepno{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.ctitle{font-size:26px;font-weight:700;margin:2px 0 10px}
+.p{margin:0 0 10px;max-width:68ch}
+.key{border-left:4px solid var(--accent);background:var(--accent-soft);padding:9px 13px;border-radius:0 8px 8px 0;margin:6px 0 14px;font-weight:700}
+.sec{margin-top:14px} .sec h3{font-size:17px;margin-bottom:6px}
+.lines{margin:6px 0 0;padding-left:18px} .lines li{margin:3px 0}
+.nav{display:flex;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.tw{overflow-x:auto;margin:8px 0}
+.tbl{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:13.5px;min-width:100%}
+.tbl th,.tbl td{padding:6px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl th{color:var(--muted);font-weight:700;font-size:12.5px}
+.tbl tr.tot td{font-weight:700;border-top:2px solid var(--line)}
+.tbl td.hi{background:var(--amber-soft);font-weight:700}
+.tbl td.ok{color:var(--ok);font-weight:700} .tbl td.bad{color:var(--bad);font-weight:700}
+.pt th,.pt td{text-align:center}
+.pt th:first-child,.pt td:first-child{text-align:left}
+.pt .on{background:var(--accent-soft)}
+.pt td.hl .cand{box-shadow:0 0 0 3px var(--amber)}
+.cand{display:inline-grid;place-items:center;min-width:26px;height:26px;padding:0 6px;border-radius:7px;font-weight:700;font-size:13px;color:var(--panel);background:var(--cc,var(--c1))}
+.cand.off{background:var(--sunk);color:var(--muted);text-decoration:line-through}
+.cand.ghost{background:transparent;color:var(--cc);border:2px solid var(--cc)}
+/* try */
+.try{border:1.5px dashed var(--accent);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px}
+.prompt{font-weight:700;font-size:16px;line-height:1.45}
+.fb{border-radius:8px;padding:9px 13px;border-left:4px solid;line-height:1.5}
+.fb.ok{border-color:var(--ok);background:var(--ok-soft)} .fb.bad{border-color:var(--bad);background:var(--bad-soft)} .fb.info{border-color:var(--accent);background:var(--accent-soft)}
+.fb b{font-weight:700} .fb.ok b{color:var(--ok)} .fb.bad b{color:var(--bad)}
+.choice.right{border-color:var(--ok)!important;color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.choice.wrong{border-color:var(--bad)!important;color:var(--bad);box-shadow:inset 0 0 0 1px var(--bad)}
+/* right */
+.rhead h2{font-size:19px}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.note{font-size:13px;color:var(--amber);font-weight:700}
+.vis{position:relative;min-height:240px}
+.vis svg{display:block;overflow:visible;max-width:100%}
+.vis svg text{font-family:var(--body);font-size:12px;fill:var(--muted)}
+.vis svg text.lbl{fill:var(--fg)} .vis svg text.strong{fill:var(--fg);font-weight:700}
+.vis svg .grid line{stroke:var(--line)}
+.readout{margin-top:10px;padding:10px 13px;border-radius:8px;background:var(--sunk);line-height:1.55;font-variant-numeric:tabular-nums}
+.good{color:var(--ok);font-weight:700} .warnt{color:var(--bad);font-weight:700}
+.range{width:100%;accent-color:var(--accent)}
+.tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.14);padding:6px 10px;font-size:12.5px;display:none;z-index:5;white-space:nowrap}
+.tip .s{color:var(--muted)}
+.edit{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,12.5rem),1fr));gap:8px;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:var(--sunk)}
+.edit label{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.edit .pair{display:flex;gap:5px}
+.edit input{font:inherit;font-size:13px;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg);min-width:0;width:100%}
+.ballots{display:flex;flex-wrap:wrap;gap:8px}
+.ballot{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:6px 8px 7px;display:flex;flex-direction:column;gap:4px;align-items:center;min-width:46px}
+.ballot .no{font-size:11px;color:var(--muted)}
+.stacks{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.stack{display:flex;flex-direction:column;align-items:center;gap:6px}
+.stack .pile{position:relative;width:62px}
+.stack .count{font-family:var(--display);font-size:22px;font-weight:700}
+.mcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));gap:10px}
+.mcard{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.mcard .w{font-family:var(--display);font-size:22px;font-weight:700}
+/* sign in / home / report */
+.signin{max-width:32rem;margin:6vh auto 0;width:100%;display:flex;flex-direction:column;gap:12px;padding:28px}
+.signin h1{font-size:30px}
+.signin .in{font-size:22px;letter-spacing:.1em;width:100%;font-family:var(--mono)}
+.err{color:var(--bad);font-size:13.5px;min-height:1.3em}
+.homegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:12px}
+.lcard{display:flex;flex-direction:column;gap:8px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.lcard:hover{border-color:var(--accent)}
+.lcard h3{font-size:19px}
+.sechead{display:flex;align-items:baseline;gap:10px;margin:8px 0 2px}
+.sechead h2{font-size:20px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:10px;margin:12px 0}
+.kpi{border:1px solid var(--line);border-radius:10px;padding:10px 13px}
+.kpi .v{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;border-radius:99px;padding:1px 9px;font-size:12px;font-weight:700}
+.pill.m{background:var(--ok);color:var(--panel)} .pill.d{background:var(--ok-soft);color:var(--ok)} .pill.s{background:var(--warn-soft);color:var(--warn)} .pill.n{background:var(--sunk);color:var(--muted)}
+.log{max-height:240px;overflow:auto;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:4px 10px}
+.log div{padding:4px 0;border-bottom:1px dashed var(--line);display:flex;gap:12px}
+.log time{color:var(--muted);font-variant-numeric:tabular-nums;flex:0 0 auto}
+.idgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(6.5rem,1fr));gap:6px;font-family:var(--mono);font-size:13px}
+.idgrid span{border:1px solid var(--line);border-radius:6px;padding:3px 8px;text-align:center}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--bad);border-radius:8px;background:var(--bad-soft)}
+@media (prefers-reduced-motion:no-preference){.pop{animation:pop .35s ease-out}@keyframes pop{from{opacity:.001;transform:translateY(5px)}to{opacity:1;transform:none}}}
+</style>
+<style>
+.tbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;box-shadow:0 4px 14px rgba(0,0,0,.06)}
+.clock{font-family:var(--display);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.clock.warn{color:var(--warn)} .clock.bad{color:var(--bad)}
+.leaves{font-size:13px;font-weight:700;border-radius:999px;padding:4px 11px;background:var(--sunk);color:var(--muted)}
+.leaves.on{background:var(--bad-soft);color:var(--bad)}
+.dots{display:flex;flex-wrap:wrap;gap:6px}
+.dot{font:inherit;font-size:13px;font-weight:700;width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer;display:grid;place-items:center}
+.dot.cur{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.dot.ok{background:var(--ok);border-color:var(--ok);color:var(--panel)}
+.dot.out{background:var(--bad);border-color:var(--bad);color:var(--panel)}
+.dot.tried{border-color:var(--warn);background:var(--warn-soft)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));gap:14px;align-items:start}
+.qnum{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.tries{display:inline-flex;gap:5px;align-items:center;font-size:13px;color:var(--muted)}
+.tries i{width:12px;height:12px;border-radius:50%;background:var(--accent);display:inline-block}
+.tries i.used{background:var(--bad)} .tries i.okd{background:var(--ok)}
+.scratch{width:100%;min-height:260px;font:inherit;font-family:var(--mono);font-size:14px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--sunk);color:var(--fg);resize:vertical}
+.alert{border-radius:var(--r);padding:12px 16px;border:1.5px solid var(--bad);background:var(--bad-soft);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.alert b{color:var(--bad)}
+.rules{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:66ch}
+.code{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:.06em;padding:12px 16px;border:2px dashed var(--accent);border-radius:10px;background:var(--accent-soft);display:inline-block;user-select:all}
+.cover{position:fixed;inset:0;z-index:50;background:color-mix(in srgb,var(--bg) 92%,transparent);display:grid;place-items:center;padding:16px}
+.cover .card{max-width:30rem;display:flex;flex-direction:column;gap:12px;text-align:left}
+.wtbl th[scope=row]{text-align:left;font-weight:700;color:var(--fg);font-size:13px;white-space:normal;min-width:9rem}
+.wtbl td{padding:4px 5px}
+.qgrid.wide{grid-template-columns:1fr}
+.wcell{font:inherit;font-size:13.5px;width:5.6rem;padding:5px 6px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--fg);text-align:right;font-variant-numeric:tabular-nums}
+.wcell:focus{outline:2px solid var(--accent);outline-offset:0}
+.wtbl td.pre{color:var(--muted);font-weight:700}
+.wtbl td.ro{min-width:4rem}
+.wtbl td.tot{font-weight:700;color:var(--accent);background:var(--sunk);min-width:4.5rem}
+.wtbl tr.fin th,.wtbl tr.fin td{background:var(--accent-soft)}
+.divin{display:flex;flex-direction:column;gap:3px}
+.scratch{min-height:110px}
+.hb{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.hbr{display:grid;grid-template-columns:minmax(6rem,14rem) 1fr auto;gap:10px;align-items:center;font-size:13px}
+.hbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbt{height:14px;background:var(--sunk);border-radius:7px;overflow:hidden}
+.hbt i{display:block;height:100%;border-radius:7px}
+.hbv{font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap}
+@media (max-width:560px){.hbr{grid-template-columns:1fr auto}.hbt{grid-column:1/-1;grid-row:2}}
+.wtbl tr.choose td{background:var(--amber-soft);text-align:left}
+.tscore{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;border:1.5px solid var(--accent);background:var(--accent-soft);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.tsv{font-family:var(--display);font-size:20px;font-weight:700}
+.roval{display:inline-block;min-width:3.5rem;padding:3px 6px;border-radius:5px;text-align:right}
+.roval.mok{background:var(--ok-soft);color:var(--ok);font-weight:700}
+.roval.mbad{background:var(--bad-soft);color:var(--bad);font-weight:700}
+.choice.triedc{text-decoration:line-through}
+</style></head>
+<body style="margin:0">
+<div class="app">
+  <section class="card signin" id="v-signin" hidden></section>
+  <section class="card" id="v-intro" hidden></section>
+  <div id="v-test" hidden style="display:flex;flex-direction:column;gap:12px"></div>
+  <section class="card" id="v-done" hidden></section>
+  <section class="card" id="v-teacher" hidden></section>
+</div>
+<div class="cover" id="cover" hidden></div>
+<script>
+(function(){
+
+const IDS=["110858", "119625", "126547", "126811", "140716", "148306", "148959", "155994", "173696", "177235", "201690", "207453", "209561", "235187", "245976", "248238", "255390", "260535", "289092", "302760", "306660", "310684", "313905", "331981", "335172", "342708", "346806", "348522", "355939", "362066", "420815", "441309", "443853", "455960", "492632", "514754", "516178", "535133", "537587", "539054", "541192", "546982", "552158", "569721", "573421", "573775", "579342", "580284", "592876", "594594", "596637", "597934", "598313", "613184", "654339", "671774", "682982", "688169", "702028", "702811", "714213", "715638", "720002", "723198", "729157", "731445", "738124", "739979", "748312", "753140", "774944", "775247", "801364", "805406", "805414", "810033", "821067", "840062", "845761", "850136", "854378", "856164", "862010", "862356", "863015", "867938", "881976", "890499", "892767", "902850", "931312", "940566", "943900", "958382", "963802", "965347", "967802", "979980", "981942", "982214"];
+/* ================= CONTENT (from the Unit 6 guided notes) ================= */
+const SC={};
+function V(id,title,context,names,cols,extra){const cands=Object.keys(names);SC[id]=Object.assign({id,kind:'vote',title,context,cands,names,cols:cols.map(([n,r])=>({n,r:r.split('')}))},extra||{});return SC[id];}
+function A(id,title,context,seats,unit,states,extra){SC[id]=Object.assign({id,kind:'app',title,context,seats,unit,states:states.map(([name,pop])=>({name,pop}))},extra||{});return SC[id];}
+function colsFromBallots(b){const m=new Map();b.forEach(r=>{m.set(r,(m.get(r)||0)+1);});return[...m].map(([r,n])=>[n,r]);}
+const CHESS=['ABC','BCA','ABC','CBA','BCA','ABC','ACB','CBA','BCA','ABC','CBA','BCA','ABC'];
+V('chess','Chess Club president','The 13 members of the Chess Club rank Ava (A), Ben (B) and Cruz (C) for president.',{A:'Ava',B:'Ben',C:'Cruz'},colsFromBallots(CHESS),{ballots:CHESS.map(s=>s.split(''))});
+V('robotics','Robotics Club captain','The 41 members of the Robotics Club rank Avery (A), Brooks (B), Chen (C) and Diaz (D) for team captain.',{A:'Avery',B:'Brooks',C:'Chen',D:'Diaz'},[[14,'ADBC'],[10,'CDBA'],[8,'BDAC'],[5,'CBAD'],[4,'BCDA']]);
+V('exit23','Exit ticket election','Twenty-three voters rank A, B and C.',{A:'Candidate A',B:'Candidate B',C:'Candidate C'},[[10,'ABC'],[8,'BCA'],[5,'CBA']]);
+V('committee','Hiring committee','A 13-member committee ranks four finalists, A, B, C and D, using the Borda count method.',{A:'Finalist A',B:'Finalist B',C:'Finalist C',D:'Finalist D'},[[7,'ABCD'],[4,'CBDA'],[2,'BCDA']]);
+V('salsa','Salsa taste test','Twenty-two students taste-test and rank three brands of salsa, A, B and C.',{A:'Brand A',B:'Brand B',C:'Brand C'},[[9,'ABC'],[7,'CBA'],[6,'BAC']]);
+V('straw','Club president straw vote','Seventy-one members hold a straw vote using plurality with elimination. Then the 11 voters in the last column move C from second to first.',{A:'Candidate A',B:'Candidate B',C:'Candidate C'},[[23,'CBA'],[20,'ACB'],[17,'BAC'],[11,'BCA']],{afterTitle:'Reelection',after:[[34,'CBA'],[20,'ACB'],[17,'BAC']].map(([n,r])=>({n,r:r.split('')}))});
+V('iia','Nineteen-voter election','Nineteen voters rank A, B and C. The winner is chosen by the plurality method.',{A:'Candidate A',B:'Candidate B',C:'Candidate C'},[[8,'ABC'],[6,'BCA'],[5,'CBA']],{remove:'C'});
+V('mascot','School mascot vote','Students rank four mascot ideas: Hawk (H), Lion (L), Otter (O) and Fox (F).',{H:'Hawk',L:'Lion',O:'Otter',F:'Fox'},[[18,'HLFO'],[15,'OFLH'],[11,'LFOH'],[9,'FLOH'],[4,'OLFH']]);
+V('trip','Senior trip','The senior class ranks three trip choices: Beach (B), City (C) and Mountains (M).',{B:'Beach',C:'City',M:'Mountains'},[[42,'BMC'],[35,'CMB'],[20,'MCB'],[8,'MBC']]);
+V('lunch','Lunch menu','A homeroom ranks pizza (P), tacos (T), salad (S) and noodles (N) for Friday lunch.',{P:'Pizza',T:'Tacos',S:'Salad',N:'Noodles'},[[8,'PTNS'],[7,'TNPS'],[5,'SNTP'],[3,'NTSP']]);
+
+A('district','Teaching assistants','A school district is assigning 50 new teaching assistants to five schools, A through E, in proportion to enrollment.',50,'students',[['A',1710],['B',2940],['C',470],['D',6350],['E',3530]],{div:{J:287,A:319,W:308}});
+A('ambulance','County ambulances','A county has 10 ambulances to apportion among three towns.',10,'residents',[['Town A',620],['Town B',1070],['Town C',1310]]);
+A('art','Art school senate','An art school with 1,000 students has a 30-seat student senate shared among three departments by Hamilton’s method.',30,'students',[['A',345],['B',506],['C',149]]);
+A('popcountry','Fifteen-seat congress','A country has 15 seats in congress shared among three states by Hamilton’s method. Ten years later the populations have changed.',15,'people',[['A',1000],['B',4280],['C',4720]],{after:[1120,4720,4780]});
+A('counselors','District counselors','East High and West High share 50 counselors, about one per 200 students. Then North High opens with 1,650 students and the district hires 8 more counselors.',50,'students',[['East',1890],['West',8110]],{add:{name:'North',pop:1650,seats:8}});
+A('parador','Republic of Parador','The Republic of Parador has a 250-seat congress to share among six states.',250,'people',[['A',1646000],['B',6936000],['C',154000],['D',2091000],['E',685000],['F',988000]]);
+A('county','County commission','A county commission has 30 seats to share among five towns by population.',30,'residents',[['Ashford',5200],['Brookline',9600],['Cedar Falls',2300],['Dunmore',7400],['Elkton',1500]]);
+A('council','Student council','A student council has 25 seats shared among four grade levels.',25,'students',[['Grade 9',412],['Grade 10',375],['Grade 11',340],['Grade 12',298]]);
+A('hospital','Hospital nurses','A hospital assigns 50 new nurses to three shifts by average patient count.',50,'patients',[['Day',234],['Evening',486],['Night',280]]);
+A('buses','School bus routes','A district has 60 buses to share among five zones by riders.',60,'riders',[['North',5120],['East',3880],['South',2940],['West',1460],['Central',600]]);
+A('laptops','Laptop carts','24 laptop carts are shared among four schools by enrollment.',24,'students',[['Central High',1820],['Oak Middle',940],['Pine Elementary',620],['River Academy',320]]);
+A('tutors','Math tutors','20 tutors are shared among five classes by number of students who signed up.',20,'students',[['Algebra I',95],['Geometry',63],['Algebra II',41],['Precalculus',26],['Statistics',15]]);
+A('labs','Lab microscopes','16 microscopes are shared among four science classes by enrollment.',16,'students',[['Biology',158],['Chemistry',123],['Physics',67],['Earth Science',52]]);
+
+const VPOOL=['robotics','exit23','committee','salsa','iia','mascot','trip','lunch'];
+const APOOL=['district','ambulance','county','council','hospital','buses','laptops','tutors','labs','parador','art'];
+
+const LESSONS=[
+{id:'plurality',sec:'13.1',code:'13.1 · Day 1',title:'Preference tables and plurality',blurb:'Organize ballots into a preference table, read the table, and find the plurality winner.',concepts:[
+ {t:'Preference ballots',x:['A preference ballot asks each voter to rank all of the candidates in order of preference, from first choice to last choice.','Why rank instead of choosing one name? A single vote hides a voter’s second and third choices, and those choices can decide an election.'],k:'A ballot is a full ranking: first choice, second choice, third choice.',sc:'chess',ex:'ballots',q:'ballot_first',v:'ballots'},
+ {t:'Building a preference table',x:['A preference table groups identical ballots together and records how many voters submitted each ranking.','Step 1: sort the ballots into stacks of identical rankings. Step 2: count each stack and write the count in the top row.','Check: the numbers in the top row must add up to the number of voters.'],k:'Top row = how many voters cast that exact ranking.',sc:'chess',ex:'buildtable',q:'ballot_stack',v:'ballots',vo:{sorted:true}},
+ {t:'Reading a preference table',x:['Each column is one group of identical ballots. The number on top says how many voters cast it.','To count voters who prefer one candidate to another, look down each column. If the first candidate appears above the second, add that column’s number of votes.'],k:'Prefer X to Y: add the columns where X sits above Y.',sc:'robotics',ex:'reading',q:'read',v:'table'},
+ {t:'The plurality method',x:['The candidate with the most first-place votes is the winner. Only the first row of the table matters.'],k:'Plurality: most first-place votes wins.',sc:'robotics',ex:'plurality',q:'plurality',v:'plurality'},
+ {t:'Plurality vs. majority',x:['A candidate has a majority when he or she receives more than half of the votes.','With 41 voters, a majority is 21 or more votes. With 60 voters, a majority is 31 or more votes.','“Most votes” is not the same as “more than half the votes.” A plurality winner may or may not have a majority.'],k:'Majority = more than half. Plurality = most.',sc:'robotics',ex:'majority',q:'majority',v:'plurality',vo:{second:true}}
+]},
+{id:'borda',sec:'13.1',code:'13.1 · Day 2',title:'Borda count and elimination',blurb:'Score ballots with Borda points, run plurality with elimination, and see different methods pick different winners.',concepts:[
+ {t:'Borda count points',x:['Each voter ranks every candidate. With n candidates, a first-place vote is worth n points, a second-place vote is worth n − 1 points, and so on, down to a last-place vote, which is worth 1 point.','Multiply each column’s number of votes by the points for each place.'],k:'Points = (number of votes) × (points for that place).',sc:'robotics',ex:'bordapts',q:'borda_pts',v:'borda'},
+ {t:'The Borda winner',x:['Read down each column and add each candidate’s points. The candidate with the most points wins.','Check your arithmetic: every ballot hands out the same number of points (4 + 3 + 2 + 1 = 10 with four candidates), so the grand total must be voters × 10.'],k:'Most total points wins.',sc:'robotics',ex:'bordatotal',q:'borda',v:'borda'},
+ {t:'Plurality with elimination',x:['(1) If a candidate has a majority of first-place votes, that candidate wins.','(2) If not, eliminate the candidate with the fewest first-place votes.','(3) Cross that candidate out of every column and move the candidates below it up one place.','(4) Recount and repeat until someone has a majority.'],k:'No majority? Drop the last-place candidate and recount.',sc:'robotics',ex:'elim1',q:'elim_first',v:'elim'},
+ {t:'Finishing the elimination',x:['After each elimination, rebuild the table. Votes from the eliminated candidate move to the next choice on those ballots.','Keep going until one candidate has more than half of the votes.'],k:'Votes move up to the next surviving choice.',sc:'robotics',ex:'elimall',q:'elim',v:'elim'},
+ {t:'Same ballots, different winners',x:['The three methods read the same ballots in different ways. Plurality looks only at first choices. Borda rewards being ranked high by many voters. Elimination lets votes transfer.','That is why one election can produce different winners.'],k:'The method you choose can change the winner.',sc:'robotics',ex:'methods3',q:'method3',v:'methods',vo:{methods:['plurality','borda','elim']}}
+]},
+{id:'pairwise',sec:'13.1',code:'13.1 · Day 3',title:'Pairwise comparison',blurb:'Compare every pair of candidates one-on-one, count the matchups, and compare all four voting methods.',concepts:[
+ {t:'One-on-one matchups',x:['In the pairwise comparison method, every candidate is compared one-on-one with every other candidate, like a round-robin tournament.','For each matchup, ignore every other candidate and ask: which of these two does each voter rank higher?'],k:'Shortcut: the two counts in a matchup add to the number of voters.',sc:'robotics',ex:'h2h',q:'h2h',v:'pairwise'},
+ {t:'How many comparisons?',x:['With n candidates, the number of comparisons is C = n(n − 1) / 2.','Each candidate meets the other n − 1 candidates, and dividing by 2 avoids counting A vs. B and B vs. A twice.'],k:'C = n(n − 1) / 2',sc:'robotics',ex:'ncomp',q:'ncomp',v:'graph'},
+ {t:'Awarding points',x:['For each pair X and Y, count the voters who rank X above Y and those who rank Y above X.','The candidate preferred by more voters earns 1 point. If they tie, each earns ½ point.'],k:'Win a matchup = 1 point. Tie = ½ point each.',sc:'robotics',ex:'pwtable',q:'pw_pts',v:'pairwise'},
+ {t:'The pairwise winner',x:['After all comparisons, the candidate with the most points wins.','Check: the total of all points equals the number of comparisons.'],k:'Most matchup points wins.',sc:'robotics',ex:'pwwinner',q:'pairwise',v:'pairwise'},
+ {t:'One election, four winners',x:['The Robotics Club election has a different winner under each of the four methods.','Which candidate deserves to be captain? Each method measures a different idea of “most preferred.” In 13.2 we judge methods with fairness criteria, and every method breaks at least one.'],k:'Four methods, four different winners.',sc:'robotics',ex:'methods4',q:'method4',v:'methods',vo:{methods:['plurality','borda','elim','pairwise']}}
+]},
+{id:'voting-flaws',sec:'13.2',code:'13.2',title:'Flaws of voting methods',blurb:'Judge voting methods with the majority, head-to-head, monotonicity and irrelevant alternatives criteria.',concepts:[
+ {t:'The majority criterion',x:['If a candidate receives a majority of first-place votes, then that candidate should win the election.','In the hiring committee, A has 7 of 13 first-place votes, a majority. The Borda count still picks B.'],k:'The Borda count method can violate the majority criterion.',sc:'committee',ex:'crit_majority',q:'crit_majority',v:'critmaj'},
+ {t:'The head-to-head criterion',x:['If a candidate is favored when compared one-on-one with every other candidate, then that candidate should win the election.','In the salsa test, B beats A 13 to 9 and beats C 15 to 7, yet plurality picks A.'],k:'Plurality (and Borda, and elimination) can violate head-to-head.',sc:'salsa',ex:'crit_h2h',q:'crit_h2h',v:'pairwise'},
+ {t:'The monotonicity criterion',x:['If a candidate wins an election and, in a reelection, the only changes are changes that favor that candidate, then that candidate should win the reelection.','In the straw vote, C wins by plurality with elimination. Eleven voters then move C up to first, and C loses.'],k:'Plurality with elimination can violate monotonicity.',sc:'straw',ex:'crit_mono',q:'crit_mono',v:'mono'},
+ {t:'Irrelevant alternatives',x:['If a candidate wins an election and, in a recount, the only change is that one or more of the other candidates are removed from the ballot, then that candidate should still win.','In the nineteen-voter election, A wins by plurality. C withdraws and B wins.'],k:'Removing a loser should not change the winner.',sc:'iia',ex:'crit_iia',q:'crit_iia',v:'iia'},
+ {t:'Arrow’s Impossibility Theorem',x:['Kenneth Arrow proved in 1951 that it is mathematically impossible for any democratic voting system with three or more candidates to satisfy all four fairness criteria.','The table shows which methods always satisfy each criterion and which may not.'],k:'No voting method is perfect.',sc:'robotics',ex:'arrow',q:'arrow',v:'arrow'}
+]},
+{id:'quotas',sec:'13.3',code:'13.3 · Day 1',title:'Standard divisors and quotas',blurb:'Find standard divisors, standard quotas, lower and upper quotas, and meet the quota rule.',concepts:[
+ {t:'What is apportionment?',x:['To apportion means to divide identical, indivisible items (seats, buses, staff) among groups in proportion to each group’s population.','The U.S. Constitution requires that seats in the House of Representatives be apportioned among the states this way.'],k:'Fixed number of whole items, shared in proportion to size.',sc:'district',ex:'what',q:'total',v:'shares'},
+ {t:'The standard divisor',x:['standard divisor = total population ÷ number of items to allocate','It tells you how many people one item represents. Keep the decimals.'],k:'SD = total population ÷ items',sc:'district',ex:'sd',q:'sd',v:'shares'},
+ {t:'The standard quota',x:['standard quota of a group = group’s population ÷ standard divisor. Round to the nearest hundredth.','The standard quotas always add up to the number of items.'],k:'Quota = population ÷ SD',sc:'district',ex:'quota',q:'quota',v:'quotas'},
+ {t:'Lower and upper quotas',x:['Lower quota: the standard quota rounded down to the nearest whole number.','Upper quota: the standard quota rounded up.'],k:'21.17 has lower quota 21 and upper quota 22.',sc:'district',ex:'lowerupper',q:'lowerupper',v:'quotarule'},
+ {t:'The apportionment problem',x:['Can School A receive 5.70 teaching assistants? No. We need whole numbers.','Try rounding each standard quota the usual way: 6 + 10 + 2 + 21 + 12 = 51. That is not 50.','The apportionment problem is to find a method for rounding standard quotas into whole numbers so that the sum is the total number of items.'],k:'Ordinary rounding does not always use exactly the right number of items.',sc:'district',ex:'roundsum',q:'roundsum',v:'quotarule'},
+ {t:'The quota rule',x:['A group’s apportionment should be either its lower quota or its upper quota. A method that always does this satisfies the quota rule.','School D has standard quota 21.17. Under the quota rule, D should receive 21 or 22 teaching assistants.'],k:'Lower quota ≤ apportionment ≤ upper quota',sc:'district',ex:'quotarule',q:'quotarule',v:'quotarule'}
+]},
+{id:'hamilton-jefferson',sec:'13.3',code:'13.3 · Day 2',title:'Hamilton’s and Jefferson’s methods',blurb:'Apportion with Hamilton’s method, then with Jefferson’s modified divisor, and check the quota rule.',concepts:[
+ {t:'Hamilton: lower quotas first',x:['(1) Find each standard quota. (2) Give each group its lower quota.','Because we rounded down, the lower quotas usually add up to less than the total. The gap is the surplus.'],k:'Surplus = items − (sum of lower quotas)',sc:'district',ex:'h_lower',q:'lower',v:'quotas'},
+ {t:'Hamilton: hand out the surplus',x:['(3) Give the surplus items, one at a time, to the groups with the largest decimal parts.','No group gets more than one surplus item.'],k:'Largest decimal parts get the leftover items.',sc:'district',ex:'h_surplus',q:'surplus',v:'handout'},
+ {t:'Hamilton’s final apportionment',x:['Each group’s final count is its lower quota plus any surplus item it won.','Hamilton’s method always satisfies the quota rule, because every group gets its lower quota or one more.'],k:'Final = lower quota (+1 if it won a surplus item)',sc:'district',ex:'h_final',q:'final_h',v:'handout',vo:{full:true}},
+ {t:'Jefferson: the modified divisor',x:['Choose a modified divisor, d. Compute each modified quota = population ÷ d, and round every modified quota down.','Rounding down always loses seats, so Jefferson’s modified divisor is smaller than the standard divisor.'],k:'Modified quota = population ÷ d, rounded down',sc:'district',ex:'j_mq',q:'mq',v:'divisor',vo:{m:'J'}},
+ {t:'Jefferson: test a divisor',x:['Add up the rounded-down modified quotas. If the sum is exactly the number of items, stop.','If the sum is too small, make d smaller. If it is too large, make d larger.'],k:'Too few → lower d. Too many → raise d.',sc:'district',ex:'j_test',q:'test_J',v:'divisor',vo:{m:'J'}},
+ {t:'Jefferson’s final apportionment',x:['Once a divisor works, each group gets its rounded-down modified quota.','For the district, d = 287 works. Compared with Hamilton, School D gains an assistant and School A loses one.'],k:'Final = ⌊population ÷ d⌋ for a working d',sc:'district',ex:'j_final',q:'final_J',v:'divisor',vo:{m:'J',work:true}},
+ {t:'Jefferson favors large groups',x:['Shrinking the divisor helps big groups the most. Jefferson’s method can even give a group more than its upper quota, which violates the quota rule.','In the Republic of Parador, state B has quota 138.72, so its upper quota is 139. Jefferson gives B 140.'],k:'Jefferson can break the quota rule.',sc:'parador',ex:'j_bias',q:'bias',v:'compare',vo:{methods:['H','J']}}
+]},
+{id:'adams-webster',sec:'13.3',code:'13.3 · Day 3',title:'Adams’s and Webster’s methods',blurb:'Round up with Adams, round to nearest with Webster, and compare all four apportionment methods.',concepts:[
+ {t:'Three ways to round',x:['All three divisor methods use a modified divisor d. They differ only in how they round each modified quota.','Jefferson rounds down, so d is usually smaller than the SD. Adams rounds up, so d is usually larger. Webster rounds to the nearest whole number, so d may be either.'],k:'Down (Jefferson) · Up (Adams) · Nearest (Webster)',sc:'district',ex:'rounding',q:'roundway',v:'divisor',vo:{m:'A',pick:true}},
+ {t:'Adams’s method',x:['Find a modified divisor d so that when every modified quota is rounded up, the sum is the number of items.','If the sum is too large, make d larger. With d = 300 the district uses 52 assistants, so try d = 319.'],k:'Round every modified quota up.',sc:'district',ex:'a_test',q:'test_A',v:'divisor',vo:{m:'A'}},
+ {t:'Adams’s final apportionment',x:['With d = 319 the rounded-up quotas add to exactly 50.','Adams’s method favors small groups, since rounding up helps a small group the most.'],k:'Adams favors small groups.',sc:'district',ex:'a_final',q:'final_A',v:'divisor',vo:{m:'A',work:true}},
+ {t:'Webster’s method',x:['Find a modified divisor d so that when every modified quota is rounded to the nearest whole number (0.5 or more rounds up), the sum is the number of items.','With d = 300 the district uses 51 assistants, so try d = 308.'],k:'Round every modified quota to the nearest whole number.',sc:'district',ex:'w_test',q:'test_W',v:'divisor',vo:{m:'W'}},
+ {t:'Webster’s final apportionment',x:['With d = 308 the rounded quotas add to exactly 50.','Webster’s method does not systematically favor large or small groups.'],k:'Webster is the most even-handed divisor method.',sc:'district',ex:'w_final',q:'final_W',v:'divisor',vo:{m:'W',work:true}},
+ {t:'Comparing the four methods',x:['Same enrollments, four answers. Schools C and D change the most across methods.','School D would prefer Jefferson, which favors large groups. School C would prefer Adams, which favors small groups.'],k:'The method decides who gets the borderline items.',sc:'district',ex:'cmp4',q:'cmp4',v:'compare',vo:{methods:['H','J','A','W']}}
+]},
+{id:'apportionment-flaws',sec:'13.4',code:'13.4',title:'Flaws of apportionment',blurb:'See the Alabama, population and new-states paradoxes, and Balinski and Young’s Impossibility Theorem.',concepts:[
+ {t:'The Alabama paradox',x:['An increase in the total number of items to be apportioned results in the loss of an item for a group.','The art school senate grows from 30 to 31 seats. Department C drops from 5 seats to 4.'],k:'More seats can mean fewer seats for one group.',sc:'art',ex:'alabama',q:'alabama',v:'alabama'},
+ {t:'The population paradox',x:['Group A loses items to group B, even though the population of group A grew at a faster rate than that of group B.','Percent increase = (new − original) ÷ original × 100%.'],k:'Faster growth, yet a lost seat.',sc:'popcountry',ex:'population',q:'popparadox',v:'population'},
+ {t:'The new-states paradox',x:['The addition of a new group changes the apportionments of the other groups.','North High opens and the district hires its fair share of 8 new counselors, yet East and West High change too.'],k:'Adding a group can shift seats between the old groups.',sc:'counselors',ex:'newstates',q:'newstates',v:'newstates'},
+ {t:'Balinski and Young’s theorem',x:['In 1980, Balinski and Young proved there is no perfect apportionment method.','Any method that does not violate the quota rule must produce paradoxes, and any method that does not produce paradoxes must violate the quota rule.'],k:'No apportionment method is perfect.',sc:'district',ex:'by',q:'by',v:'bytable'},
+ {t:'Matching causes to paradoxes',x:['Alabama paradox: caused by more seats.','Population paradox: caused by uneven growth.','New-states paradox: caused by a new group.'],k:'More seats · uneven growth · a new group',sc:'district',ex:'match',q:'match',v:'bytable'}
+]}
+];
+
+/* ================= HELPERS ================= */
+function h(tag,a,...kids){const e=document.createElement(tag);if(a)for(const k in a){const v=a[k];if(v==null||v===false)continue;if(k==='class')e.className=v;else if(k==='text')e.textContent=v;else if(k==='style')e.setAttribute('style',v);else if(k.slice(0,2)==='on')e.addEventListener(k.slice(2),v);else e.setAttribute(k,v===true?'':v);}kids.flat(4).forEach(c=>{if(c==null||c===false)return;e.append(c.nodeType?c:document.createTextNode(String(c)));});return e;}
+function clear(e){while(e.firstChild)e.removeChild(e.firstChild);return e;}
+const fInt=d3.format(','),f2=d3.format(',.2f'),fPct=d3.format('.0%'),f1p=d3.format('.2f');
+const fmtN=v=>Math.abs(v-Math.round(v))<1e-9?fInt(Math.round(v)):f2(v);
+const fHalf=v=>Math.abs(v-Math.round(v))<1e-9?String(Math.round(v)):(Math.floor(v)?Math.floor(v)+'½':'½');
+const rnd=n=>Math.floor(Math.random()*n);
+const pick=a=>a[rnd(a.length)];
+const ORD=['First','Second','Third','Fourth','Fifth'];
+const CC=i=>`var(--c${(i%5)+1})`;
+function perms(a){if(a.length<=1)return[a.slice()];const o=[];a.forEach((x,i)=>perms(a.filter((_,j)=>j!==i)).forEach(p=>o.push([x,...p])));return o;}
+
+/* ================= VOTING ENGINE ================= */
+const total=sc=>d3.sum(sc.cols,c=>c.n);
+const majOf=N=>Math.floor(N/2)+1;
+const cname=(sc,c)=>sc.names&&sc.names[c]&&!/^Candidate |^Brand |^Finalist /.test(sc.names[c])?`${c} (${sc.names[c]})`:c;
+function firsts(sc,act,cols){cols=cols||sc.cols;const t={};act.forEach(c=>t[c]=0);cols.forEach(col=>{const f=col.r.find(x=>act.includes(x));if(f)t[f]+=col.n;});return t;}
+function topOf(t,act){const mx=d3.max(act,c=>t[c]);return act.filter(c=>t[c]===mx);}
+function plurality(sc,act,cols){act=act||sc.cands;const t=firsts(sc,act,cols);return{t,win:topOf(t,act)};}
+function borda(sc){const k=sc.cands.length,t={};sc.cands.forEach(c=>t[c]=0);sc.cols.forEach(col=>col.r.forEach((c,i)=>{t[c]+=col.n*(k-i);}));return{t,k,win:topOf(t,sc.cands)};}
+function elimination(sc,cols){cols=cols||sc.cols;let act=sc.cands.slice();const N=d3.sum(cols,c=>c.n),rounds=[];
+  for(let g=0;g<10;g++){const t=firsts(sc,act,cols);const w=act.filter(c=>t[c]>N/2);const mn=d3.min(act,c=>t[c]);const out=w.length?[]:act.filter(c=>t[c]===mn);
+    rounds.push({act:act.slice(),t,w:w[0]||null,out});if(w.length)return{rounds,win:[w[0]]};if(out.length===act.length)return{rounds,win:act.slice()};
+    act=act.filter(c=>!out.includes(c));if(act.length===1){rounds.push({act:act.slice(),t:firsts(sc,act,cols),w:act[0],out:[]});return{rounds,win:act.slice()};}}
+  return{rounds,win:[]};}
+function prefCount(sc,x,y,cols){return d3.sum((cols||sc.cols).filter(c=>c.r.indexOf(x)<c.r.indexOf(y)),c=>c.n);}
+function pairwise(sc){const cs=sc.cands,N=total(sc),pts={},m=[];cs.forEach(c=>pts[c]=0);
+  for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++){const a=cs[i],b=cs[j],na=prefCount(sc,a,b),nb=N-na,w=na>nb?a:nb>na?b:null;if(w)pts[w]+=1;else{pts[a]+=.5;pts[b]+=.5;}m.push({a,b,na,nb,w});}
+  return{pts,m,win:topOf(pts,cs)};}
+function condorcet(sc){return sc.cands.find(x=>sc.cands.every(y=>y===x||prefCount(sc,x,y)>prefCount(sc,y,x)))||null;}
+function majHolder(sc){const t=firsts(sc,sc.cands),N=total(sc);return sc.cands.find(c=>t[c]>N/2)||null;}
+const VM={plurality:{name:'Plurality',low:'plurality',f:sc=>plurality(sc).win},borda:{name:'Borda count',low:'Borda count',f:sc=>borda(sc).win},elim:{name:'Plurality with elimination',low:'plurality with elimination',f:sc=>elimination(sc).win},pairwise:{name:'Pairwise comparison',low:'pairwise comparison',f:sc=>pairwise(sc).win}};
+function withRemoved(sc,removed){const act=sc.cands.filter(c=>!removed.includes(c));return{...sc,allCands:sc.allCands||sc.cands,cands:act,cols:sc.cols.map(c=>({n:c.n,r:c.r.filter(x=>act.includes(x))}))};}
+function mergeCols(cols){const m=new Map();cols.forEach(c=>{const k=c.r.join('');m.set(k,(m.get(k)||0)+c.n);});return[...m].map(([k,n])=>({n,r:k.split('')}));}
+function mkVote(cands,cols,title,ctx){const names={};cands.forEach(c=>names[c]='Candidate '+c);const sc={id:'random',kind:'vote',title:title||'Random election',cands,names,cols};sc.context=ctx||`${total(sc)} voters rank ${cands.length} candidates.`;return sc;}
+function randVote(o={}){const nc=o.nc||3+rnd(2),ncol=o.ncol||(3+rnd(3)),cands='ABCDE'.slice(0,nc).split('');const ps=d3.shuffle(perms(cands)).slice(0,ncol);
+  return mkVote(cands,ps.map(r=>({n:(o.min||2)+rnd(o.span||17),r})));}
+function randBallots(){const cands=['A','B','C'],ps=d3.shuffle(perms(cands)).slice(0,3+rnd(2)),N=9+rnd(8),b=[];ps.forEach(p=>b.push(p));while(b.length<N)b.push(pick(ps));const bal=d3.shuffle(b.slice());
+  const sc=mkVote(cands,mergeColsOrdered(bal),'Random ballots',`${N} club members rank candidates A, B and C.`);sc.ballots=bal;return sc;}
+function mergeColsOrdered(bal){const m=new Map();bal.forEach(r=>{const k=r.join('');m.set(k,(m.get(k)||0)+1);});return[...m].map(([k,n])=>({n,r:k.split('')}));}
+function ballotsOf(sc){if(sc.ballots)return sc.ballots;const b=[];sc.cols.forEach(c=>{for(let i=0;i<c.n;i++)b.push(c.r);});let s=7;const r=()=>{s=(s*9301+49297)%233280;return s/233280;};for(let i=b.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function searchVote(test,o,tries){for(let t=0;t<(tries||3000);t++){const sc=randVote(o);if(test(sc))return sc;}return null;}
+const uniq=w=>w&&w.length===1;
+
+/* ================= APPORTIONMENT ENGINE ================= */
+const RND={J:x=>Math.floor(x+1e-9),A:x=>Math.ceil(x-1e-9),W:x=>Math.floor(x+.5+1e-9)};
+const MN={H:'Hamilton',J:'Jefferson',A:'Adams',W:'Webster'};
+const RW={J:'down',A:'up',W:'to the nearest whole number'};
+function ham(st,M){const tot=d3.sum(st,d=>d.pop),sd=tot/M;
+  const rows=st.map((d,i)=>{const q=d.pop*M/tot,lq=Math.floor(q+1e-9);return{name:d.name,pop:d.pop,i,q,lq,uq:Math.ceil(q-1e-9),frac:Math.max(0,q-lq),bonus:0,rank:0};});
+  const used=d3.sum(rows,r=>r.lq),sur=M-used,order=rows.slice().sort((a,b)=>(b.frac-a.frac)||(b.pop-a.pop));
+  order.forEach((r,k)=>{r.rank=k+1;if(k<sur)r.bonus=1;});rows.forEach(r=>r.seats=r.lq+r.bonus);return{tot,sd,M,rows,used,sur,order};}
+function divTotal(st,d,m){return d3.sum(st,s=>RND[m](s.pop/d));}
+function nicePick(a,b){if(!(b>a))return(a+b)/2;let p=Math.pow(10,Math.ceil(Math.log10(Math.abs(b))));
+  for(let k=0;k<16;k++){for(const mm of[1,.5]){const step=p*mm;const v=Math.ceil((a+1e-9)/step)*step;if(v>a+1e-9&&v<b-1e-9)return Number(v.toFixed(6));}p/=10;}return(a+b)/2;}
+function divRange(st,M,m,pref){const tot=d3.sum(st,s=>s.pop),sd=tot/M,bps=[sd*.25,sd*4];
+  st.forEach(s=>{for(let k=0;k<=M+2;k++){const v=m==='W'?k+.5:k;if(v<=0)continue;const d=s.pop/v;if(d>sd*.25&&d<sd*4)bps.push(d);}});
+  bps.sort((a,b)=>a-b);let lo=null,hi=null;
+  for(let i=0;i<bps.length-1;i++){const a=bps[i],b=bps[i+1];if(b-a<1e-9)continue;if(divTotal(st,(a+b)/2,m)===M){if(lo===null)lo=a;hi=b;}else if(lo!==null)break;}
+  if(lo===null)return null;let d=(pref&&pref>lo&&pref<hi&&divTotal(st,pref,m)===M)?pref:nicePick(lo,hi);if(divTotal(st,d,m)!==M)d=(lo+hi)/2;
+  return{lo,hi,d,seats:st.map(s=>RND[m](s.pop/d))};}
+function seatsBy(sc,m){if(m==='H')return ham(sc.states,sc.seats).rows.map(r=>r.seats);const r=divRange(sc.states,sc.seats,m,sc.div&&sc.div[m]);return r?r.seats:null;}
+function dOf(sc,m){const r=divRange(sc.states,sc.seats,m,sc.div&&sc.div[m]);return r?r.d:null;}
+const NAMES=['Avon','Bramble','Corley','Dover','Easton','Fairview','Granger','Hollis'];
+function mkApp(st,M,title,ctx){return{id:'random',kind:'app',title:title||'Random data set',context:ctx||`Share ${M} seats among ${st.length} states by population.`,seats:M,unit:'people',states:st};}
+function randApp(o={}){const n=o.n||3+rnd(3),scale=[1,10,100][rnd(3)];const st=d3.shuffle(NAMES.slice()).slice(0,n).sort().map(name=>({name,pop:(20+rnd(480))*5*scale}));return mkApp(st,o.M||n+6+rnd(34));}
+function alaScen(){for(let t=0;t<6000;t++){const st=d3.shuffle(NAMES.slice()).slice(0,3).sort().map(name=>({name,pop:(20+rnd(380))*5}));const M=8+rnd(14);
+  const a=ham(st,M),b=ham(st,M+1);if(b.rows.some((r,i)=>r.seats<a.rows[i].seats))return mkApp(st,M);}return SC.art;}
+function popScen(){for(let t=0;t<8000;t++){const st=['A','B','C'].map(name=>({name,pop:(50+rnd(450))*10}));const M=8+rnd(12);const after=st.map(s=>Math.round(s.pop*(1+rnd(16)/100)/10)*10);
+  const a=ham(st,M).rows,b=ham(st.map((s,i)=>({name:s.name,pop:after[i]})),M).rows;const g=st.map((s,i)=>(after[i]-s.pop)/s.pop);
+  const L=a.findIndex((r,i)=>b[i].seats<r.seats),W=a.findIndex((r,i)=>b[i].seats>r.seats);if(L>=0&&W>=0&&g[L]>g[W]+.001){const sc=mkApp(st,M,'Random population change',`A country has ${M} seats shared among three states by Hamilton’s method. Ten years later the populations have changed.`);sc.after=after;return sc;}}
+  return SC.popcountry;}
+function newScen(){for(let t=0;t<8000;t++){const sd=[100,200,250,500][rnd(4)],M=20+rnd(40);const p1=Math.round(M*sd*(0.15+Math.random()*.3)/10)*10,p2=M*sd-p1;const np=Math.round(sd*(3+Math.random()*8)/10)*10,add=Math.round(np/sd);
+  const st=[{name:'East',pop:p1},{name:'West',pop:p2}],a=ham(st,M).rows,b=ham([...st,{name:'North',pop:np}],M+add).rows;if(a.some((r,i)=>r.seats!==b[i].seats)){const sc=mkApp(st,M,'Random new school',`East and West share ${M} counselors, about one per ${sd} students. North opens with ${fInt(np)} students and the district hires ${add} more.`);sc.add={name:'North',pop:np,seats:add};return sc;}}
+  return SC.counselors;}
+
+/* ================= QUESTION GENERATORS ================= */
+const vPool=(ids,o)=>randVote(Object.assign({nc:3+rnd(2),ncol:3+rnd(2),min:3,span:12},o||{}));
+const aPool=(ids)=>Math.random()<.45?SC[pick(ids||APOOL)]:randApp();
+const lab=sc=>c=>cname(sc,c);
+const listS=(st,arr)=>arr.map((v,k)=>`${st[k].name} ${v}`).join(', ');
+function G(qt){
+  const tryv=(f,n=60)=>{for(let i=0;i<n;i++){const q=f();if(q)return q;}return null;};
+  switch(qt){
+  /* ---- voting ---- */
+  case'ballot_first':return tryv(()=>{const sc=Math.random()<.3?SC.chess:randBallots(),x=pick(sc.cands),b=ballotsOf(sc),ans=b.filter(r=>r[0]===x).length;
+    return{sc,kind:'num',ans,prompt:`Look at the ballots. How many voters ranked ${cname(sc,x)} first?`,hint:'Read only the First row of each ballot and count.',sol:`${ans} ballot${ans===1?'':'s'} have ${x} in first place.`};});
+  case'ballot_stack':return tryv(()=>{const sc=Math.random()<.3?SC.chess:randBallots(),col=pick(sc.cols);
+    return{sc,kind:'num',ans:col.n,prompt:`Sort the ballots into stacks. How many voters submitted the ranking ${col.r.join(', ')}?`,hint:'Find every ballot with exactly this order, first to last, and count them.',sol:`The ${col.r.join('')} stack has ${col.n} ballot${col.n===1?'':'s'}.`};});
+  case'read':return tryv(()=>{const sc=vPool(['robotics','mascot','lunch','trip']),N=total(sc),k=rnd(5),x=pick(sc.cands);
+    if(k===0)return{sc,kind:'num',ans:N,prompt:'How many people voted?',hint:'Add the numbers in the top row.',sol:`${sc.cols.map(c=>c.n).join(' + ')} = ${N}`};
+    if(k===1){const a=d3.sum(sc.cols.filter(c=>c.r[0]===x),c=>c.n);return{sc,kind:'num',ans:a,prompt:`How many voters chose ${cname(sc,x)} as their first choice?`,hint:'Add the columns where this candidate is in the First row.',sol:`${a}`};}
+    if(k===2){const a=d3.sum(sc.cols.filter(c=>c.r[c.r.length-1]===x),c=>c.n);return{sc,kind:'num',ans:a,prompt:`How many voters ranked ${cname(sc,x)} last?`,hint:'Add the columns where this candidate is in the bottom row.',sol:`${a}`};}
+    if(k===3){const col=pick(sc.cols);return{sc,kind:'num',ans:col.n,prompt:`How many voters ranked the candidates in the order ${col.r.join(', ')}?`,hint:'Find the column with exactly this order.',sol:`That column has ${col.n} votes.`};}
+    const y=pick(sc.cands.filter(c=>c!==x)),a=prefCount(sc,x,y);return{sc,kind:'num',ans:a,prompt:`How many voters prefer ${cname(sc,x)} to ${cname(sc,y)}?`,hint:`Look down each column. If ${x} appears above ${y}, add that column’s votes.`,sol:`Columns with ${x} above ${y}: ${sc.cols.filter(c=>c.r.indexOf(x)<c.r.indexOf(y)).map(c=>c.n).join(' + ')||'none'} = ${a}`,cmp:[x,y]};});
+  case'majority':return tryv(()=>{if(Math.random()<.45){const N=7+rnd(115);return{noTable:true,kind:'num',ans:majOf(N),prompt:`An election has ${N} voters. What is the smallest number of votes that is a majority?`,hint:'A majority is more than half.',sol:`Half of ${N} is ${N/2}. More than half means ${majOf(N)} or more.`};}
+    const sc=vPool(),p=plurality(sc);if(!uniq(p.win))return null;const w=p.win[0],has=p.t[w]>total(sc)/2;
+    return{sc,kind:'choice',choices:['Yes, a majority','No, only a plurality'],answers:[has?'Yes, a majority':'No, only a plurality'],prompt:`The plurality winner is ${cname(sc,w)}. Does ${w} have a majority of the votes?`,hint:`Compare ${w}’s first-place votes with half of ${total(sc)}.`,sol:`${w} has ${p.t[w]} first-place votes. A majority of ${total(sc)} is ${majOf(total(sc))}.`};});
+  case'plurality':return tryv(()=>{const sc=vPool(),p=plurality(sc);if(!uniq(p.win))return null;return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:p.win,prompt:'Who wins by the plurality method?',hint:'Add each candidate’s first-place votes.',sol:`First-place votes: ${sc.cands.map(c=>`${c} ${p.t[c]}`).join(', ')}. Winner: ${p.win[0]}.`};});
+  case'borda_pts':return tryv(()=>{const sc=vPool(),b=borda(sc),x=pick(sc.cands);const parts=sc.cols.map(c=>`${c.n}×${b.k-c.r.indexOf(x)}`);
+    return{sc,kind:'num',ans:b.t[x],prompt:`Use the Borda count. How many points does ${cname(sc,x)} get?`,hint:`With ${b.k} candidates, first place is worth ${b.k} points. In each column multiply the votes by ${x}’s points.`,sol:`${parts.join(' + ')} = ${b.t[x]}`};});
+  case'borda':return tryv(()=>{const sc=vPool(),b=borda(sc);if(!uniq(b.win))return null;return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:b.win,prompt:'Who wins by the Borda count method?',hint:'Find every candidate’s total points.',sol:`Points: ${sc.cands.map(c=>`${c} ${b.t[c]}`).join(', ')}. Winner: ${b.win[0]}.`};});
+  case'elim_first':return tryv(()=>{const sc=vPool(),e=elimination(sc),r=e.rounds[0];if(r.w||r.out.length!==1)return null;
+    return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:r.out,prompt:'Use plurality with elimination. Which candidate is eliminated in Round 1?',hint:`First check for a majority (${majOf(total(sc))} votes). If none, find the fewest first-place votes.`,sol:`Round 1: ${sc.cands.map(c=>`${c} ${r.t[c]}`).join(', ')}. No majority, so ${r.out[0]} is eliminated.`};});
+  case'elim':return tryv(()=>{const sc=vPool(),e=elimination(sc);if(!uniq(e.win)||e.rounds.some(r=>!r.w&&r.out.length>1))return null;
+    return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:e.win,prompt:'Who wins by plurality with elimination?',hint:`A majority is ${majOf(total(sc))}. Eliminate the last-place candidate, move votes up, recount.`,sol:e.rounds.map((r,i)=>`Round ${i+1}: ${r.act.map(c=>`${c} ${r.t[c]}`).join(', ')}${r.w?` → ${r.w} wins`:` → eliminate ${r.out.join(', ')}`}`).join('. ')};});
+  case'h2h':return tryv(()=>{const sc=vPool(),x=pick(sc.cands),y=pick(sc.cands.filter(c=>c!==x)),a=prefCount(sc,x,y);
+    return{sc,kind:'num',ans:a,cmp:[x,y],prompt:`In the matchup ${x} vs. ${y}, how many voters rank ${cname(sc,x)} above ${cname(sc,y)}?`,hint:`Ignore the other candidates. Add the columns where ${x} is above ${y}.`,sol:`${x}: ${a}, ${y}: ${total(sc)-a}. The two counts add to ${total(sc)}.`};});
+  case'ncomp':{const n=3+rnd(10);return{noTable:true,n,kind:'num',ans:n*(n-1)/2,prompt:`How many comparisons are needed for ${n} candidates?`,hint:'C = n(n − 1) / 2',sol:`${n}(${n-1}) / 2 = ${n*(n-1)/2}`};}
+  case'pw_pts':return tryv(()=>{const sc=vPool(),p=pairwise(sc),x=pick(sc.cands);return{sc,kind:'num',ans:p.pts[x],tol:0,prompt:`Use pairwise comparison. How many points does ${cname(sc,x)} earn? (Type 0.5 for a half point.)`,hint:`List every matchup that includes ${x}. A win is 1 point, a tie is ½.`,sol:p.m.filter(r=>r.a===x||r.b===x).map(r=>`${r.a} vs. ${r.b}: ${r.na}–${r.nb}${r.w?` (${r.w})`:' (tie)'}`).join('; ')+`. ${x} has ${fHalf(p.pts[x])} point${p.pts[x]===1?'':'s'}.`};});
+  case'pairwise':return tryv(()=>{const sc=vPool(),p=pairwise(sc);if(!uniq(p.win))return null;return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:p.win,prompt:'Who wins by the pairwise comparison method?',hint:'Run every matchup, give 1 point per win, then add.',sol:`Points: ${sc.cands.map(c=>`${c} ${fHalf(p.pts[c])}`).join(', ')}.`};});
+  case'method3':case'method4':return tryv(()=>{const ms=qt==='method3'?['plurality','borda','elim']:['plurality','borda','elim','pairwise'],m=pick(ms),sc=vPool(),w=VM[m].f(sc);if(!uniq(w))return null;
+    return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:w,prompt:`Who wins by the ${VM[m].low} method?`,hint:'Use the steps for that method only.',sol:ms.map(k=>`${VM[k].name}: ${VM[k].f(sc).join(', ')}`).join('. '),vm:m};});
+  case'crit_majority':{const want=Math.random()<.55;const sc=Math.random()<.25?SC.committee:(searchVote(s=>{const mh=majHolder(s),b=borda(s);return mh&&uniq(b.win)&&((b.win[0]!==mh)===want);},{nc:3+rnd(2),ncol:3})||SC.committee);
+    const mh=majHolder(sc),b=borda(sc),ok=b.win[0]===mh;return{sc,kind:'choice',choices:['Yes, satisfied','No, violated'],answers:[ok?'Yes, satisfied':'No, violated'],prompt:'Does the Borda count method satisfy the majority criterion in this election?',hint:'Who has a majority of first-place votes? Who wins the Borda count? Are they the same?',sol:`${mh} has ${firsts(sc,sc.cands)[mh]} of ${total(sc)} first-place votes, a majority. Borda points: ${sc.cands.map(c=>`${c} ${b.t[c]}`).join(', ')}, so ${b.win[0]} wins.`};}
+  case'crit_h2h':return tryv(()=>{const sc=Math.random()<.3?SC.salsa:randVote({nc:3+rnd(2)}),cw=condorcet(sc),none='No head-to-head winner';const p=plurality(sc);
+    if(Math.random()<.5||!cw)return{sc,kind:'choice',choices:[...sc.cands,none],lab:lab(sc),answers:[cw||none],prompt:'Which candidate is favored head-to-head over every other candidate?',hint:'Compare every pair. The head-to-head winner beats all the others.',sol:pairwise(sc).m.map(r=>`${r.a} vs. ${r.b}: ${r.na}–${r.nb}`).join('; ')+'.'};
+    if(!uniq(p.win))return null;const ok=p.win[0]===cw;return{sc,kind:'choice',choices:['Yes, satisfied','No, violated'],answers:[ok?'Yes, satisfied':'No, violated'],prompt:`${cw} is favored head-to-head over every other candidate. Does the plurality method satisfy the head-to-head criterion here?`,hint:'Find the plurality winner and compare.',sol:`Plurality winner: ${p.win[0]}. Head-to-head winner: ${cw}.`};});
+  case'crit_mono':{let sc=null;if(Math.random()<.65){for(let t=0;t<4000&&!sc;t++){const s=randVote({nc:3,ncol:4,min:3,span:22});const e=elimination(s);if(!uniq(e.win)||e.rounds.some(r=>!r.w&&r.out.length>1))continue;const W=e.win[0];
+      const ix=s.cols.map((c,i)=>i).filter(i=>s.cols[i].r[1]===W);if(!ix.length)continue;const i=pick(ix);const nc=s.cols.map((c,j)=>j===i?{n:c.n,r:[W,c.r[0],c.r[2]]}:c);const after=mergeCols(nc);const e2=elimination(s,after);if(!uniq(e2.win)||e2.win[0]===W)continue;
+      s.after=after;s.afterTitle='Reelection';s.title='Random straw vote';s.context=`${total(s)} members hold a straw vote by plurality with elimination. Then ${s.cols[i].n} voters move ${W} from second to first.`;sc=s;}}
+    sc=sc||SC.straw;const e1=elimination(sc),e2=elimination(sc,sc.after),k=Math.random()<.5;
+    return{sc,kind:'choice',choices:sc.cands,lab:lab(sc),answers:k?e2.win:e1.win,prompt:k?'Who wins the reelection by plurality with elimination?':'Who wins the straw vote by plurality with elimination?',hint:'Check for a majority, eliminate the fewest first-place votes, and recount.',sol:`Straw vote winner: ${e1.win[0]}. Reelection winner: ${e2.win[0]}. ${e1.win[0]!==e2.win[0]?`${e1.win[0]} gained support and lost, so monotonicity is violated.`:''}`};}
+  case'crit_iia':return tryv(()=>{const sc=randVote({nc:3,ncol:3+rnd(2),min:3,span:12}),p=plurality(sc);if(!uniq(p.win))return null;const L=pick(sc.cands.filter(c=>c!==p.win[0]));const s2=withRemoved(sc,[L]),p2=plurality(s2);if(!uniq(p2.win))return null;
+    return{sc,removed:[L],kind:'choice',choices:sc.cands.filter(c=>c!==L),lab:lab(sc),answers:p2.win,prompt:`The plurality winner is ${p.win[0]}. Then ${cname(sc,L)} withdraws. Who wins the recount by plurality?`,hint:`Cross ${L} out of every column and move the candidates below it up.`,sol:`New first-place votes: ${s2.cands.map(c=>`${c} ${p2.t[c]}`).join(', ')}. ${p2.win[0]!==p.win[0]?'The winner changed, so the irrelevant alternatives criterion is violated.':'The winner stayed the same.'}`};});
+  case'arrow':{const c=pick(Object.keys(ARROW)),m=pick(Object.keys(VM)),v=ARROW[c][m];return{noTable:true,kind:'choice',choices:['Always satisfies','May not satisfy'],answers:[v?'Always satisfies':'May not satisfy'],prompt:`Does the ${VM[m].low} method always satisfy the ${c.toLowerCase()} criterion?`,hint:'Think of the examples from this lesson.',sol:`${VM[m].name}: ${v?'always satisfies':'may not satisfy'} the ${c.toLowerCase()} criterion.`,cell:[c,m]};}
+  /* ---- apportionment ---- */
+  }
+  return GA(qt);}
+const ARROW={'Majority':{plurality:1,borda:0,elim:1,pairwise:1},'Head-to-head':{plurality:0,borda:0,elim:0,pairwise:1},'Monotonicity':{plurality:1,borda:1,elim:0,pairwise:1},'Irrelevant alternatives':{plurality:0,borda:0,elim:0,pairwise:0}};
+const BYT=[['Hamilton','Always','Possible','Possible','Possible'],['Jefferson','May violate','No','No','No'],['Adams','May violate','No','No','No'],['Webster','May violate','No','No','No']];
+function GA(qt){
+  const tryv=(f,n=80)=>{for(let i=0;i<n;i++){const q=f();if(q)return q;}return null;};
+  const base=()=>{const sc=aPool(),st=sc.states,M=sc.seats,H=ham(st,M),i=rnd(st.length);return{sc,st,M,H,i,r:H.rows[i],u:sc.unit};};
+  const dec=a=>Math.max(.011,Math.abs(a)*1e-4);
+  if(qt.startsWith('test_')||qt.startsWith('final_')&&qt!=='final_h'){const m=qt.split('_')[1];return tryv(()=>{const{sc,st,M,H,i,r}=base();const R=divRange(st,M,m,sc.div&&sc.div[m]);if(!R)return null;
+    if(qt.startsWith('final_'))return{sc,m,d:R.d,kind:'num',ans:R.seats[i],prompt:`Use ${MN[m]}’s method. How many seats does ${r.name} get?`,hint:`Find a divisor d where every modified quota rounded ${RW[m]} adds to ${M}.`,sol:`Any d between ${f2(R.lo)} and ${f2(R.hi)} works. With d = ${fmtN(R.d)}: ${fInt(r.pop)} ÷ ${fmtN(R.d)} = ${f2(r.pop/R.d)} → ${R.seats[i]}.`};
+    const cand=[H.sd,R.d,R.d,nicePick(R.lo*.9,R.lo*.99),nicePick(R.hi*1.01,R.hi*1.1)].filter(x=>x>0);const d=pick(cand),t=divTotal(st,d,m);
+    if(Math.random()<.5)return{sc,m,d,kind:'num',ans:t,prompt:`Use ${MN[m]}’s method with d = ${fmtN(d)}. Round every modified quota ${RW[m]}. How many seats are used in total?`,hint:`Divide each population by d, round ${RW[m]}, then add.`,sol:`${listS(st,st.map(s=>RND[m](s.pop/d)))}. Total = ${t}.`};
+    const ch=['Make d smaller','Make d larger','Keep d, it works'];return{sc,m,d,kind:'choice',choices:ch,answers:[t<M?ch[0]:t>M?ch[1]:ch[2]],prompt:`${MN[m]}’s method: you need ${M} seats. With d = ${fmtN(d)}, what should you do next?`,hint:`Find the total with this d (round ${RW[m]}) and compare it to ${M}.`,sol:`With d = ${fmtN(d)} the total is ${t}. ${t<M?'Too few seats, so make d smaller.':t>M?'Too many seats, so make d larger.':'Exactly right.'}`};});}
+  switch(qt){
+  case'total':return tryv(()=>{const{sc,st,H}=base();return{sc,kind:'num',ans:H.tot,prompt:'What is the total population of all the groups?',hint:'Add every population in the table.',sol:`${st.map(d=>fInt(d.pop)).join(' + ')} = ${fInt(H.tot)}`};});
+  case'sd':return tryv(()=>{const{sc,M,H,u}=base();return{sc,kind:'num',ans:H.sd,tol:dec(H.sd),prompt:'Find the standard divisor. Round to two decimal places.',hint:`SD = total population ÷ ${M}.`,sol:`SD = ${fInt(H.tot)} ÷ ${M} = ${f2(H.sd)} ${u} per item`};});
+  case'quota':return tryv(()=>{const{sc,M,H,r}=base();return{sc,kind:'num',ans:r.q,tol:dec(r.q)+.005,prompt:`Find the standard quota for ${r.name}. Round to the nearest hundredth.`,hint:`First SD = total ÷ ${M}. Then divide ${r.name}’s population by the SD.`,sol:`SD = ${f2(H.sd)}. Quota = ${fInt(r.pop)} ÷ ${f2(H.sd)} = ${f2(r.q)}`};});
+  case'lowerupper':return tryv(()=>{const{sc,r}=base(),up=Math.random()<.5;return{sc,kind:'num',ans:up?r.uq:r.lq,prompt:`What is ${r.name}’s ${up?'upper':'lower'} quota?`,hint:`Find the standard quota, then round it ${up?'up':'down'}.`,sol:`Quota ${f2(r.q)} → lower ${r.lq}, upper ${r.uq}.`};});
+  case'roundsum':return tryv(()=>{const{sc,st,H}=base();const rr=H.rows.map(r=>RND.W(r.q));return{sc,kind:'num',ans:d3.sum(rr),prompt:'Round each standard quota to the nearest whole number. What is the sum?',hint:'Compute every quota, round normally, then add.',sol:`${listS(st,rr)}. Sum = ${d3.sum(rr)} (items available: ${sc.seats}).`};});
+  case'quotarule':return tryv(()=>{const{sc,r}=base(),big=Math.random()<.5;return{sc,kind:'num',ans:big?r.uq:r.lq,prompt:`Under the quota rule, what is the ${big?'largest':'smallest'} number of items ${r.name} may receive?`,hint:'The quota rule allows only the lower or the upper quota.',sol:`Quota ${f2(r.q)}: ${r.name} may receive ${r.lq}${r.uq!==r.lq?` or ${r.uq}`:''}.`};});
+  case'lower':return tryv(()=>{const{sc,st,M,H}=base();if(Math.random()<.5)return{sc,kind:'num',ans:H.used,prompt:'Find every lower quota. What is their sum?',hint:'Compute each standard quota, round down, then add.',sol:`Lower quotas: ${listS(st,H.rows.map(x=>x.lq))}. Sum = ${H.used}.`};
+    return{sc,kind:'num',ans:H.sur,prompt:'How many surplus items are left after every group gets its lower quota?',hint:`Surplus = ${M} − (sum of lower quotas).`,sol:`Lower quotas sum to ${H.used}, so surplus = ${M} − ${H.used} = ${H.sur}.`};});
+  case'surplus':return tryv(()=>{const{sc,st,H}=base();if(H.sur<1)return null;return{sc,kind:'choice',choices:st.map(d=>d.name),answers:[H.order[0].name],prompt:`There ${H.sur===1?'is 1 surplus item':`are ${H.sur} surplus items`}. Which group gets the first one?`,hint:'Compare only the decimal parts of the standard quotas.',sol:`Decimal parts: ${H.order.map(x=>`${x.name} ${x.frac.toFixed(2).slice(1)}`).join(', ')}.`};});
+  case'final_h':return tryv(()=>{const{sc,H,r}=base();return{sc,kind:'num',ans:r.seats,prompt:`Use Hamilton’s method. How many items does ${r.name} get?`,hint:'Lower quota, plus one if its decimal part is among the largest.',sol:`Quota ${f2(r.q)} → lower quota ${r.lq}. Its decimal ranks #${r.rank} with ${H.sur} surplus, so ${r.name} gets ${r.seats}.`};});
+  case'mq':return tryv(()=>{const{sc,M,st,r}=base(),R=divRange(st,M,'J',sc.div&&sc.div.J);if(!R)return null;const q=r.pop/R.d;return{sc,m:'J',d:R.d,kind:'num',ans:q,tol:dec(q)+.005,prompt:`Use the modified divisor d = ${fmtN(R.d)}. Find ${r.name}’s modified quota. Round to the nearest hundredth.`,hint:'Modified quota = population ÷ d.',sol:`${fInt(r.pop)} ÷ ${fmtN(R.d)} = ${f2(q)}, which rounds down to ${RND.J(q)}.`};});
+  case'bias':return tryv(()=>{let sc=null;if(Math.random()<.35)sc=SC.parador;else for(let t=0;t<300&&!sc;t++){const s=randApp({n:4+rnd(3)});const J=seatsBy(s,'J');if(!J)continue;const H=ham(s.states,s.seats);if((Math.random()<.6)===H.rows.some((x,k)=>J[k]>x.uq))sc=s;}
+    if(!sc)return null;const H=ham(sc.states,sc.seats),J=seatsBy(sc,'J');if(!J)return null;const v=H.rows.filter((x,k)=>J[k]>x.uq).map(x=>x.name),none='No group';
+    return{sc,m:'J',kind:'choice',choices:[...sc.states.map(d=>d.name),none],answers:v.length?v:[none],prompt:'Under Jefferson’s method, which group gets more than its upper quota?',hint:'Compare each Jefferson count with the standard quota rounded up.',sol:`Upper quotas: ${listS(sc.states,H.rows.map(x=>x.uq))}. Jefferson: ${listS(sc.states,J)}.`};});
+  case'roundway':{const q=Math.round((1+Math.random()*30)*100)/100,m=pick(['J','A','W']);return{noTable:true,kind:'num',ans:RND[m](q),prompt:`${MN[m]}’s method. A modified quota is ${q.toFixed(2)}. What does it round to?`,hint:`${MN[m]} rounds ${RW[m]}.`,sol:`${MN[m]} rounds ${RW[m]}: ${q.toFixed(2)} → ${RND[m](q)}.`,m};}
+  case'cmp4':return tryv(()=>{const{sc,st,i,r}=base(),m=pick(['H','J','A','W']),s=seatsBy(sc,m);if(!s)return null;return{sc,m,kind:'num',ans:s[i],prompt:`Use ${MN[m]}’s method. How many items does ${r.name} get?`,hint:m==='H'?'Lower quotas, then the largest decimals get the surplus.':`Find a d that works when you round ${RW[m]}.`,sol:['H','J','A','W'].map(k=>`${MN[k]}: ${(seatsBy(sc,k)||[])[i]}`).join(', ')+'.'};});
+  case'alabama':{const sc=Math.random()<.7?alaScen():(Math.random()<.5?SC.art:randApp({n:3,M:8+rnd(14)})),st=sc.states,M=sc.seats,a=ham(st,M),b=ham(st,M+1),lost=b.rows.filter((x,k)=>x.seats<a.rows[k].seats).map(x=>x.name),none='No group loses a seat';
+    return{sc,kind:'choice',choices:[...st.map(d=>d.name),none],answers:lost.length?lost:[none],prompt:`The seats increase from ${M} to ${M+1}. Populations stay the same. Using Hamilton’s method, which group loses a seat?`,hint:`Run Hamilton’s method with ${M} seats and again with ${M+1}.`,sol:`${M} seats: ${listS(st,a.rows.map(x=>x.seats))}. ${M+1} seats: ${listS(st,b.rows.map(x=>x.seats))}.`};}
+  case'popparadox':{const sc=Math.random()<.3?SC.popcountry:popScen(),st=sc.states,M=sc.seats,a=ham(st,M).rows,b=ham(st.map((s,k)=>({name:s.name,pop:sc.after[k]})),M).rows,lost=a.filter((x,k)=>b[k].seats<x.seats).map(x=>x.name),none='No state loses a seat';
+    return{sc,kind:'choice',choices:[...st.map(d=>d.name),none],answers:lost.length?lost:[none],prompt:'Apportion the new populations by Hamilton’s method. Which state loses a seat?',hint:'Find the new standard divisor and quotas, then run Hamilton’s method.',sol:`Original: ${listS(st,a.map(x=>x.seats))}. New: ${listS(st,b.map(x=>x.seats))}. Growth: ${st.map((s,k)=>`${s.name} ${((sc.after[k]-s.pop)/s.pop*100).toFixed(2)}%`).join(', ')}.`};}
+  case'newstates':{const sc=Math.random()<.3?SC.counselors:newScen(),st=sc.states,all=[...st,{name:sc.add.name,pop:sc.add.pop}],b=ham(all,sc.seats+sc.add.seats).rows,a=ham(st,sc.seats).rows,i=rnd(st.length);
+    return{sc,kind:'num',ans:b[i].seats,prompt:`After ${sc.add.name} is added with ${sc.add.seats} new items (${sc.seats+sc.add.seats} total), how many does ${st[i].name} get by Hamilton’s method?`,hint:`New SD = ${fInt(d3.sum(all,s=>s.pop))} ÷ ${sc.seats+sc.add.seats}. Then run Hamilton’s method on all three.`,sol:`Before: ${listS(st,a.map(x=>x.seats))}. After: ${listS(all,b.map(x=>x.seats))}.`};}
+  case'by':{const r=pick(BYT),k=1+rnd(4),cols=['the quota rule','the Alabama paradox','the population paradox','the new-states paradox'];
+    if(k===1)return{noTable:true,kind:'choice',choices:['Always satisfies','May violate'],answers:[r[1]==='Always'?'Always satisfies':'May violate'],prompt:`Does ${r[0]}’s method always satisfy the quota rule?`,hint:'Only one of the four methods always satisfies it.',sol:`${r[0]}: ${r[1]==='Always'?'always satisfies':'may violate'} the quota rule.`,cell:[r[0],1]};
+    return{noTable:true,kind:'choice',choices:['Yes, it can','No, it cannot'],answers:[r[k]==='Possible'?'Yes, it can':'No, it cannot'],prompt:`Can ${r[0]}’s method produce ${cols[k-1]}?`,hint:'Divisor methods avoid the paradoxes. One method does not.',sol:`${r[0]}’s method ${r[k]==='Possible'?'can':'cannot'} produce ${cols[k-1]}.`,cell:[r[0],k]};}
+  case'match':{const P=[['more seats','Alabama paradox'],['uneven population growth','Population paradox'],['a new group','New-states paradox']],x=pick(P);return{noTable:true,kind:'choice',choices:P.map(p=>p[1]),answers:[x[1]],prompt:`Which paradox is caused by ${x[0]}?`,hint:'Alabama: more seats. Population: uneven growth. New-states: a new group.',sol:`${x[0][0].toUpperCase()+x[0].slice(1)} → ${x[1]}.`};}
+  }
+  return null;}
+
+/* ================= TABLE BUILDERS ================= */
+function candChip(sc,c,cls){const i=(sc.allCands||sc.cands).indexOf(c);const e=h('span',{class:'cand'+(cls?' '+cls:''),title:(sc.names&&sc.names[c])||c,text:c});e.style.setProperty('--cc',CC(i<0?0:i));return e;}
+function prefTable(sc,o={}){const cols=o.cols||sc.cols,rm=o.removed||[],k=sc.cands.length-rm.length,base={...sc,allCands:sc.allCands||sc.cands};
+  const colOn=(c)=>o.cmp?c.r.indexOf(o.cmp[0])<c.r.indexOf(o.cmp[1]):false;
+  const t=h('table',{class:'tbl pt'});
+  t.append(h('thead',null,h('tr',null,h('th',{text:'Number of votes'}),cols.map(c=>h('th',{class:colOn(c)?'on':null,text:c.n})))));
+  const tb=h('tbody');for(let i=0;i<k;i++){tb.append(h('tr',null,h('td',{text:(o.points?`${ORD[i]}: ${k-i} pt${k-i===1?'':'s'}`:`${ORD[i]} choice`)}),cols.map(c=>{const r=c.r.filter(x=>!rm.includes(x)),x=r[i];
+    return h('td',{class:[colOn(c)?'on':'',o.hl===x?'hl':''].join(' ').trim()||null},x?candChip(base,x):'',o.points&&x?h('div',{class:'cap',text:`${c.n} × ${k-i} = ${c.n*(k-i)}`}):null);})));}
+  t.append(tb);return h('div',{class:'tw'},t);}
+function tbl(cols,rows,tot){const t=h('table',{class:'tbl'});t.append(h('thead',null,h('tr',null,cols.map(c=>h('th',{text:c.h})))));
+  const tb=h('tbody');rows.forEach(r=>tb.append(h('tr',null,cols.map(c=>{const v=c.f(r);return h('td',{class:c.cls?c.cls(r)||null:null},v&&v.nodeType?v:String(v??''));}))));
+  if(tot)tb.append(h('tr',{class:'tot'},cols.map((c,i)=>h('td',{text:tot[i]??''}))));t.append(tb);return h('div',{class:'tw'},t);}
+const ul=a=>h('ul',{class:'lines'},a.filter(Boolean).map(x=>h('li',null,x)));
+function popTable(sc){return tbl([{h:'Group',f:r=>r.name},{h:`Population (${sc.unit})`,f:r=>fInt(r.pop)}],sc.states,['Items to share',sc.seats]);}
+function ballotGrid(sc,limit){const b=ballotsOf(sc).slice(0,limit||60);return h('div',{class:'ballots'},b.map((r,i)=>h('div',{class:'ballot'},h('span',{class:'no',text:'#'+(i+1)}),r.map(c=>candChip(sc,c)))));}
+function scenView(sc,q){if(sc.kind==='vote'){if(q&&/^ballot_/.test(q.qt))return ballotGrid(sc);
+    if(sc.after)return h('div',null,h('div',{class:'cap',text:'Straw vote'}),prefTable(sc),h('div',{class:'cap',text:sc.afterTitle||'After'}),prefTable(sc,{cols:sc.after}));return prefTable(sc);}
+  if(sc.after)return tbl([{h:'State',f:r=>r.name},{h:'Original',f:r=>fInt(r.pop)},{h:'New',f:r=>fInt(sc.after[r.i])}],sc.states.map((s,i)=>({...s,i})),['Seats',sc.seats,sc.seats]);
+  if(sc.add)return tbl([{h:'School',f:r=>r.name},{h:'Enrollment',f:r=>fInt(r.pop)}],[...sc.states,{name:sc.add.name+' (new)',pop:sc.add.pop}],['Items',`${sc.seats} + ${sc.add.seats}`]);
+  return popTable(sc);}
+
+/* ================= WORKED EXAMPLES ================= */
+const EX={
+ ballots:sc=>h('div',null,ballotGrid(sc),ul([`Each ballot is one voter’s full ranking. There are ${ballotsOf(sc).length} ballots.`,`Ballot #1 ranks ${ballotsOf(sc)[0].join(', ')}: ${ballotsOf(sc)[0][0]} first and ${ballotsOf(sc)[0].slice(-1)[0]} last.`])),
+ buildtable:sc=>h('div',null,prefTable(sc),ul([`The stacks: ${sc.cols.map(c=>`${c.r.join('')} has ${c.n}`).join(', ')}.`,`Check: ${sc.cols.map(c=>c.n).join(' + ')} = ${total(sc)} voters. ✓`])),
+ reading:sc=>{const N=total(sc);const [x,y]=['B','C'];return h('div',null,prefTable(sc,{cmp:[x,y]}),ul([`(a) Members who voted: ${sc.cols.map(c=>c.n).join(' + ')} = ${N}.`,`(b) Order C, D, B, A: ${(sc.cols.find(c=>c.r.join('')==='CDBA')||{n:0}).n}.`,`(c) Avery first: ${d3.sum(sc.cols.filter(c=>c.r[0]==='A'),c=>c.n)}.`,`(d) Diaz last: ${d3.sum(sc.cols.filter(c=>c.r[3]==='D'),c=>c.n)}.`,`(e) Prefer Brooks to Chen (highlighted columns): ${sc.cols.filter(c=>c.r.indexOf(x)<c.r.indexOf(y)).map(c=>c.n).join(' + ')} = ${prefCount(sc,x,y)}.`]));},
+ plurality:sc=>{const p=plurality(sc);return h('div',null,tbl([{h:'Candidate',f:c=>candChip(sc,c)},{h:'Name',f:c=>sc.names[c]},{h:'First-place votes',f:c=>p.t[c],cls:c=>p.win.includes(c)?'hi':''}],sc.cands),ul([`Most first-place votes: ${p.win.map(c=>cname(sc,c)).join(', ')} with ${p.t[p.win[0]]}.`]));},
+ majority:sc=>{const p=plurality(sc),N=total(sc),w=p.win[0];const sec=d3.sum(sc.cols.filter(c=>c.r[1]==='D'),c=>c.n);return h('div',null,ul([`Majority of ${N}: more than ${N/2}, so ${majOf(N)} or more.`,`Plurality winner ${cname(sc,w)} has ${p.t[w]} votes. ${p.t[w]>=majOf(N)?'That is a majority.':'That is not a majority.'}`,`Think about it: Diaz has ${p.t.D} first-place votes, yet Diaz is the second choice of ${sec} members. Plurality ignores that.`]));},
+ bordapts:sc=>h('div',null,prefTable(sc,{points:true}),ul([`Four candidates, so first place = 4, second = 3, third = 2, fourth = 1.`,`Example: column 1 gives Avery 14 × 4 = 56 points.`])),
+ bordatotal:sc=>{const b=borda(sc),k=b.k;return h('div',null,tbl([{h:'Candidate',f:c=>candChip(sc,c)},{h:'Points by column',f:c=>sc.cols.map(col=>col.n*(k-col.r.indexOf(c))).join(' + ')},{h:'Total',f:c=>b.t[c],cls:c=>b.win.includes(c)?'hi':''}],sc.cands,['Total','',d3.sum(sc.cands,c=>b.t[c])]),
+   ul([`Borda winner: ${b.win.map(c=>cname(sc,c)).join(', ')}.`,`Check: each ballot hands out ${k*(k+1)/2} points, and ${total(sc)} × ${k*(k+1)/2} = ${total(sc)*k*(k+1)/2}. ✓`]));},
+ elim1:sc=>{const e=elimination(sc),r=e.rounds[0];return h('div',null,tbl([{h:'Candidate',f:c=>candChip(sc,c)},{h:'Round 1 first-place votes',f:c=>r.t[c],cls:c=>r.out.includes(c)?'bad':''}],sc.cands),ul([`A majority of ${total(sc)} is ${majOf(total(sc))}. ${r.w?`${r.w} has it.`:'Nobody has it.'}`,r.out.length?`Eliminate ${r.out.join(', ')} (fewest first-place votes).`:null]));},
+ elimall:sc=>{const e=elimination(sc);let rm=[];const out=[];e.rounds.forEach((r,i)=>{out.push(h('div',{class:'cap',text:`Round ${i+1}: ${r.act.map(c=>`${c} ${r.t[c]}`).join(', ')}${r.w?` → ${r.w} has a majority`:` → eliminate ${r.out.join(', ')}`}`}));if(i>0)out.splice(out.length-1,0,prefTable(sc,{removed:rm.slice()}));rm=rm.concat(r.out);});
+   return h('div',null,out,ul([`Winner: ${cname(sc,e.win[0])}.`]));},
+ methods3:sc=>tbl([{h:'Method',f:m=>VM[m].name},{h:'Winner',f:m=>VM[m].f(sc).map(c=>cname(sc,c)).join(', ')}],['plurality','borda','elim']),
+ methods4:sc=>tbl([{h:'Method',f:m=>VM[m].name},{h:'Winner',f:m=>VM[m].f(sc).map(c=>cname(sc,c)).join(', ')}],Object.keys(VM)),
+ h2h:sc=>h('div',null,prefTable(sc,{cmp:['A','B']}),ul([`A vs. B: columns with A above B are highlighted. A: ${prefCount(sc,'A','B')}, B: ${prefCount(sc,'B','A')}.`,`${prefCount(sc,'A','B')} + ${prefCount(sc,'B','A')} = ${total(sc)}, the number of voters. ✓`,`B wins this matchup and earns 1 point.`])),
+ ncomp:()=>tbl([{h:'Candidates, n',f:n=>n},{h:'Comparisons, C',f:n=>n*(n-1)/2}],[3,4,5,6,10]),
+ pwtable:sc=>{const p=pairwise(sc);return tbl([{h:'Comparison',f:r=>`${r.a} vs. ${r.b}`},{h:'First',f:r=>`${r.a}: ${r.na}`},{h:'Second',f:r=>`${r.b}: ${r.nb}`},{h:'Point',f:r=>r.w||'½ each',cls:()=>'hi'}],p.m);},
+ pwwinner:sc=>{const p=pairwise(sc);return h('div',null,tbl([{h:'Candidate',f:c=>candChip(sc,c)},{h:'Points',f:c=>fHalf(p.pts[c]),cls:c=>p.win.includes(c)?'hi':''}],sc.cands,['Total',fHalf(d3.sum(sc.cands,c=>p.pts[c]))]),ul([`Total points = number of comparisons = ${p.m.length}. ✓`,`Winner: ${p.win.map(c=>cname(sc,c)).join(', ')}.`]));},
+ crit_majority:sc=>{const b=borda(sc),mh=majHolder(sc),t=firsts(sc,sc.cands);return h('div',null,prefTable(sc),ul([`(a) A majority of ${total(sc)} is ${majOf(total(sc))}. ${mh} has ${t[mh]} first-place votes.`,`(b) Borda totals: ${sc.cands.map(c=>`${c} ${b.t[c]}`).join(', ')}. Borda winner: ${b.win[0]}.`,`(c) ${b.win[0]===mh?'Satisfied.':'Not satisfied. The Borda count violated the majority criterion.'}`]));},
+ crit_h2h:sc=>{const p=pairwise(sc),pl=plurality(sc),cw=condorcet(sc);return h('div',null,prefTable(sc),ul([...p.m.map(r=>`${r.a} vs. ${r.b}: ${r.a} ${r.na}, ${r.b} ${r.nb}`),`Head-to-head favorite: ${cw||'none'}. Plurality winner: ${pl.win.join(', ')}.`,cw&&pl.win[0]!==cw?'Not satisfied. Plurality violated the head-to-head criterion.':'Satisfied.']));},
+ crit_mono:sc=>{const e1=elimination(sc),e2=elimination(sc,sc.after);const f=e=>e.rounds.map((r,i)=>`Round ${i+1}: ${r.act.map(c=>`${c} ${r.t[c]}`).join(', ')}${r.w?` → ${r.w} wins`:` → eliminate ${r.out.join(', ')}`}`);
+   return h('div',null,h('div',{class:'cap',text:'Straw vote'}),prefTable(sc),ul(f(e1)),h('div',{class:'cap',text:sc.afterTitle||'Reelection'}),prefTable(sc,{cols:sc.after}),ul([...f(e2),e1.win[0]!==e2.win[0]?`${e1.win[0]} gained support and lost. Monotonicity is violated.`:'Same winner.']));},
+ crit_iia:sc=>{const p=plurality(sc),L=sc.remove||'C',s2=withRemoved(sc,[L]),p2=plurality(s2);return h('div',null,prefTable(sc),ul([`(a) Plurality: ${sc.cands.map(c=>`${c} ${p.t[c]}`).join(', ')}. Winner: ${p.win[0]}.`,`(b) ${L} withdraws: ${s2.cands.map(c=>`${c} ${p2.t[c]}`).join(', ')}. Winner: ${p2.win[0]}.`,p2.win[0]!==p.win[0]?'(c) Removing a losing candidate changed the winner, so the criterion is violated.':'(c) Same winner.']),prefTable(sc,{removed:[L]}));},
+ arrow:()=>tbl([{h:'Criterion',f:c=>c},...Object.keys(VM).map(m=>({h:VM[m].name,f:c=>ARROW[c][m]?'Always':'May not',cls:c=>ARROW[c][m]?'ok':'bad'}))],Object.keys(ARROW)),
+ what:sc=>h('div',null,popTable(sc),ul([`Total enrollment: ${sc.states.map(s=>fInt(s.pop)).join(' + ')} = ${fInt(d3.sum(sc.states,s=>s.pop))}.`,`${sc.seats} identical assistants must be shared in whole numbers.`])),
+ sd:sc=>{const H=ham(sc.states,sc.seats);return h('div',null,popTable(sc),ul([`Standard divisor = ${fInt(H.tot)} ÷ ${sc.seats} = ${f2(H.sd)}.`,`Meaning: one teaching assistant for every ${fmtN(H.sd)} students.`]));},
+ quota:sc=>{const H=ham(sc.states,sc.seats);return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Enrollment',f:r=>fInt(r.pop)},{h:'Standard quota',f:r=>f2(r.q)}],H.rows,['Total',fInt(H.tot),f2(sc.seats)]),ul([`Example: A = ${fInt(H.rows[0].pop)} ÷ ${fmtN(H.sd)} = ${f2(H.rows[0].q)}.`,`Check: the quotas add to ${sc.seats}. ✓`]));},
+ lowerupper:sc=>{const H=ham(sc.states,sc.seats);return tbl([{h:'School',f:r=>r.name},{h:'Standard quota',f:r=>f2(r.q)},{h:'Lower quota',f:r=>r.lq},{h:'Upper quota',f:r=>r.uq}],H.rows);},
+ roundsum:sc=>{const H=ham(sc.states,sc.seats),rr=H.rows.map(r=>RND.W(r.q));return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Quota',f:r=>f2(r.q)},{h:'Rounded',f:r=>rr[r.i],cls:()=>'hi'}],H.rows,['Total',f2(sc.seats),d3.sum(rr)]),ul([`${rr.join(' + ')} = ${d3.sum(rr)}. ${d3.sum(rr)===sc.seats?'That works here.':`That is not ${sc.seats}.`}`]));},
+ quotarule:sc=>{const H=ham(sc.states,sc.seats);return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Quota',f:r=>f2(r.q)},{h:'Allowed by the quota rule',f:r=>r.lq===r.uq?String(r.lq):`${r.lq} or ${r.uq}`}],H.rows),ul([`School D (quota 21.17) should receive 21 or 22.`,'Exit ticket: 10 ambulances, towns 620, 1,070, 1,310. SD = 300, quotas 2.07, 3.57, 4.37.']));},
+ h_lower:sc=>{const H=ham(sc.states,sc.seats);return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Quota',f:r=>f2(r.q)},{h:'Lower quota',f:r=>r.lq},{h:'Decimal part',f:r=>r.frac.toFixed(2).slice(1)}],H.rows,['Total',f2(sc.seats),H.used,'']),ul([`Sum of lower quotas: ${H.used}. Surplus: ${sc.seats} − ${H.used} = ${H.sur}.`]));},
+ h_surplus:sc=>{const H=ham(sc.states,sc.seats);return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Decimal part',f:r=>r.frac.toFixed(2).slice(1),cls:r=>r.bonus?'hi':''},{h:'Rank',f:r=>'#'+r.rank},{h:'Surplus',f:r=>r.bonus?'+1':'',cls:r=>r.bonus?'hi':''}],H.rows),ul([`${H.sur} surplus items go to ${H.order.slice(0,H.sur).map(r=>`${r.name} (${r.frac.toFixed(2).slice(1)})`).join(', ')}.`]));},
+ h_final:sc=>{const H=ham(sc.states,sc.seats);return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Quota',f:r=>f2(r.q)},{h:'Lower',f:r=>r.lq},{h:'Surplus',f:r=>r.bonus?'+1':''},{h:'Hamilton',f:r=>r.seats,cls:()=>'hi'}],H.rows,['Total',f2(sc.seats),H.used,'+'+H.sur,sc.seats]),ul([`Check: ${H.rows.map(r=>r.seats).join(' + ')} = ${sc.seats}. ✓`,'Every school got its lower or upper quota, so the quota rule holds.']));},
+ j_mq:sc=>{const d=dOf(sc,'J');return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Enrollment',f:r=>fInt(r.pop)},{h:`÷ ${fmtN(ham(sc.states,sc.seats).sd)} (SD)`,f:r=>RND.J(r.pop/ham(sc.states,sc.seats).sd)},{h:`÷ ${fmtN(d)}`,f:r=>f2(r.pop/d)},{h:'Rounded down',f:r=>RND.J(r.pop/d),cls:()=>'hi'}],sc.states),ul([`With d = SD = ${fmtN(ham(sc.states,sc.seats).sd)}, the rounded-down quotas sum to ${divTotal(sc.states,ham(sc.states,sc.seats).sd,'J')}. Too small.`,`So try a smaller divisor, d = ${fmtN(d)}.`]));},
+ j_test:sc=>trialTable(sc,'J'),j_final:sc=>finalTable(sc,'J',true),a_test:sc=>trialTable(sc,'A'),a_final:sc=>finalTable(sc,'A'),w_test:sc=>trialTable(sc,'W'),w_final:sc=>finalTable(sc,'W'),
+ j_bias:sc=>{const H=ham(sc.states,sc.seats),J=seatsBy(sc,'J');return h('div',null,tbl([{h:'State',f:r=>r.name},{h:'Quota',f:r=>f2(r.q)},{h:'Upper',f:r=>r.uq},{h:'Hamilton',f:r=>r.seats},{h:'Jefferson',f:r=>J[r.i],cls:r=>J[r.i]>r.uq?'bad':''}],H.rows),ul(H.rows.filter(r=>J[r.i]>r.uq).map(r=>`${r.name}: quota ${f2(r.q)}, upper quota ${r.uq}, Jefferson gives ${J[r.i]}. Quota rule violated.`)));},
+ rounding:sc=>tbl([{h:'Method',f:m=>MN[m]},{h:'Round each modified quota',f:m=>RW[m]},{h:'d compared with SD',f:m=>({J:'smaller',A:'larger',W:'either'})[m]},{h:'Example: 11.47 →',f:m=>RND[m](11.47)},{h:'5.62 →',f:m=>RND[m](5.62)}],['J','A','W']),
+ cmp4:sc=>{const H=ham(sc.states,sc.seats),S={};['H','J','A','W'].forEach(m=>S[m]=seatsBy(sc,m));return h('div',null,tbl([{h:'Method',f:m=>m==='H'?'Hamilton':`${MN[m]} (d = ${fmtN(dOf(sc,m))})`},...sc.states.map((s,i)=>({h:s.name,f:m=>S[m][i]}))],['H','J','A','W']),ul(['C and D change the most across the methods.','D prefers Jefferson (22). C prefers Adams or Webster (2).']));},
+ alabama:sc=>{const a=ham(sc.states,sc.seats),b=ham(sc.states,sc.seats+1);return h('div',null,tbl([{h:'Department',f:r=>r.name},{h:'Population',f:r=>fInt(r.pop)},{h:`Quota, ${sc.seats}`,f:r=>f2(r.q)},{h:`Hamilton, ${sc.seats}`,f:r=>r.seats},{h:`Quota, ${sc.seats+1}`,f:r=>f2(b.rows[r.i].q)},{h:`Hamilton, ${sc.seats+1}`,f:r=>b.rows[r.i].seats,cls:r=>b.rows[r.i].seats<r.seats?'bad':''}],a.rows,['Total',fInt(a.tot),'',sc.seats,'',sc.seats+1]),ul([`Standard divisors: ${sc.seats} seats → ${f2(a.sd)}; ${sc.seats+1} seats → ${f2(b.sd)}.`,`${a.rows.filter(r=>b.rows[r.i].seats<r.seats).map(r=>r.name).join(', ')||'Nobody'} lost a seat when the senate grew.`]));},
+ population:sc=>{const st2=sc.states.map((s,i)=>({name:s.name,pop:sc.after[i]})),a=ham(sc.states,sc.seats),b=ham(st2,sc.seats);return h('div',null,tbl([{h:'State',f:r=>r.name},{h:'Original',f:r=>fInt(r.pop)},{h:'Hamilton',f:r=>r.seats},{h:'New',f:r=>fInt(sc.after[r.i])},{h:'% increase',f:r=>((sc.after[r.i]-r.pop)/r.pop*100).toFixed(2)+'%'},{h:'New quota',f:r=>f2(b.rows[r.i].q)},{h:'Hamilton (new)',f:r=>b.rows[r.i].seats,cls:r=>b.rows[r.i].seats<r.seats?'bad':''}],a.rows),ul([`New standard divisor: ${fInt(b.tot)} ÷ ${sc.seats} = ${f2(b.sd)}.`,`State A grew fastest (12.00%) yet lost a seat to B (10.28%).`]));},
+ newstates:sc=>{const all=[...sc.states,{name:sc.add.name,pop:sc.add.pop}],a=ham(sc.states,sc.seats),b=ham(all,sc.seats+sc.add.seats);return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Enrollment',f:r=>fInt(r.pop)},{h:'Before',f:r=>r.i<sc.states.length?a.rows[r.i].seats:'–'},{h:'New quota',f:r=>f2(r.q)},{h:'After',f:r=>r.seats,cls:r=>r.i<sc.states.length&&r.seats!==a.rows[r.i].seats?'hi':''}],b.rows,['Total',fInt(b.tot),sc.seats,'',sc.seats+sc.add.seats]),ul([`New SD = ${fInt(b.tot)} ÷ ${sc.seats+sc.add.seats} = ${f2(b.sd)}.`,'East gains a counselor and West loses one, even though their enrollments did not change.']));},
+ by:()=>byTable(),match:()=>h('div',null,tbl([{h:'Cause',f:r=>r[0]},{h:'Paradox',f:r=>r[1]}],[['More seats','Alabama'],['Uneven growth','Population'],['A new group','New-states']]))
+};
+function byTable(hide){return tbl([{h:'Method',f:r=>r[0]},{h:'Quota rule',f:r=>hide?'?':r[1],cls:r=>hide?'':r[1]==='Always'?'ok':'bad'},{h:'Alabama',f:r=>hide?'?':r[2]},{h:'Population',f:r=>hide?'?':r[3]},{h:'New-states',f:r=>hide?'?':r[4]}],BYT);}
+function trialTable(sc,m){const H=ham(sc.states,sc.seats),R=divRange(sc.states,sc.seats,m,sc.div&&sc.div[m]);if(!R)return h('p',{class:'muted',text:'No divisor works for this data.'});
+  const tries=[H.sd,R.d];const rows=tries.map(d=>({d,t:divTotal(sc.states,d,m),fl:sc.states.map(s=>RND[m](s.pop/d))}));
+  return h('div',null,tbl([{h:'Try d',f:r=>fmtN(r.d)},...sc.states.map((s,k)=>({h:s.name,f:r=>r.fl[k]})),{h:'Total',f:r=>r.t},{h:'Verdict',f:r=>r.t<sc.seats?'too few ↓ d':r.t>sc.seats?'too many ↑ d':'works ✓',cls:r=>r.t===sc.seats?'ok':'bad'}],rows),
+    ul([`Round every modified quota ${RW[m]}. Need ${sc.seats}.`,`Any d greater than ${f2(R.lo)} and less than ${f2(R.hi)} works.`]));}
+function finalTable(sc,m,cmpH){const d=dOf(sc,m),S=seatsBy(sc,m),H=ham(sc.states,sc.seats);
+  return h('div',null,tbl([{h:'School',f:r=>r.name},{h:'Quota',f:r=>f2(r.q)},{h:`÷ ${fmtN(d)}`,f:r=>f2(r.pop/d)},{h:MN[m],f:r=>S[r.i],cls:()=>'hi'},cmpH?{h:'Hamilton',f:r=>r.seats}:null].filter(Boolean),H.rows,['Total',f2(sc.seats),'',d3.sum(S),cmpH?sc.seats:null].filter(x=>x!==null)),
+   ul([`Check: ${S.join(' + ')} = ${d3.sum(S)}. ✓`,cmpH?`Compared with Hamilton: ${H.rows.filter(r=>S[r.i]>r.seats).map(r=>r.name).join(', ')||'nobody'} gained, ${H.rows.filter(r=>S[r.i]<r.seats).map(r=>r.name).join(', ')||'nobody'} lost.`:null]));}
+
+/* ================= TEST GENERATORS (simple numbers) ================= */
+const TCTX=[
+ {t:'Tutors',c:'A district shares {M} tutors among {n} schools by enrollment.',u:'students',g:['North','South','East','West']},
+ {t:'Lab assistants',c:'A college shares {M} lab assistants among {n} departments by number of majors.',u:'students',g:['Biology','Chemistry','Physics','Math']},
+ {t:'Nurses',c:'A health network assigns {M} nurses to {n} clinics by weekly patients.',u:'patients',g:['Clinic A','Clinic B','Clinic C','Clinic D']},
+ {t:'Buses',c:'A school system shares {M} buses among {n} zones by riders.',u:'riders',g:['Zone 1','Zone 2','Zone 3','Zone 4']},
+ {t:'Council seats',c:'A town council has {M} seats to share among {n} wards by population.',u:'residents',g:['Ward A','Ward B','Ward C','Ward D']}];
+const SDS=[20,25,30,40,50,60,75,80,100,120,125,150,200,250];
+function appData(test,o={}){for(let t=0;t<20000;t++){const n=o.n||(3+rnd(2)),SD=pick(SDS),M=o.M?o.M():(10+rnd(31)),tot=SD*M;if(tot<150*n||tot>9000*n)continue;
+  const unit=tot%10===0?10:5,w=d3.range(n).map(()=>0.45+Math.random()),pops=w.map(x=>Math.round(x/d3.sum(w)*tot/unit)*unit);pops[n-1]=tot-d3.sum(pops.slice(0,n-1));
+  if(pops.some(p=>p<120||p>9995)||new Set(pops).size<n)continue;if(pops.some(p=>(p*M/tot)%1===0))continue;
+  const ctx=pick(TCTX);const sc={id:'random',kind:'app',title:ctx.t,context:ctx.c.replace('{M}',M).replace('{n}',n),seats:M,unit:ctx.u,states:pops.map((p,i)=>({name:ctx.g[i],pop:p}))};
+  if(!test||test(sc))return sc;}return null;}
+function divPair(sc,m){const st=sc.states,M=sc.seats,SD=d3.sum(st,s=>s.pop)/M;if(divTotal(st,SD,m)===M)return null;const R=divRange(st,M,m);if(!R)return null;
+  const ints=[];for(let k=Math.floor(R.lo)+1;k<R.hi;k++)if(divTotal(st,k,m)===M&&k!==SD)ints.push(k);if(!ints.length)return null;
+  const nice=ints.filter(k=>k%5===0);const good=pick(nice.length?nice:ints);const low=good<SD;if(m==='J'&&!low||m==='A'&&low)return null;
+  let wrong=Math.round(2*SD-good);if(wrong%5&&Math.abs(wrong-2*SD+good)<3)wrong=Math.round(wrong/5)*5;if(wrong<=0||(low?wrong<=SD:wrong>=SD)||divTotal(st,wrong,m)===M)return null;
+  return{good,wrong,pair:[good,wrong].sort((a,b)=>a-b),SD,seats:st.map(s=>RND[m](s.pop/good))};}
+function alaData(){for(let t=0;t<40000;t++){const M=6+rnd(14),k=1+rnd(Math.floor(9000/(M*(M+1)))),tot=k*M*(M+1);if(tot<400||tot>9999)continue;
+  const w=[0.4+Math.random(),0.4+Math.random(),0.15+Math.random()*.4],pops=w.map(x=>Math.round(x/d3.sum(w)*tot/10)*10);pops[2]=tot-pops[0]-pops[1];if(pops.some(p=>p<100||p>9995))continue;
+  const st=pops.map((p,i)=>({name:['A','B','C'][i],pop:p})),a=ham(st,M),b=ham(st,M+1);if(!b.rows.some((r,i)=>r.seats<a.rows[i].seats))continue;
+  return{id:'random',kind:'app',title:'Art school senate',context:`An art school has a ${M}-seat student senate shared among three departments by Hamilton’s method. Then the senate grows to ${M+1} seats.`,seats:M,unit:'students',states:st.map(s=>({name:'Dept '+s.name,pop:s.pop}))};}
+  return SC.art;}
+function TG(qt){const name=s=>s.states[rnd(s.states.length)];
+  switch(qt){
+  case't_sd':{const sc=appData();const H=ham(sc.states,sc.seats);return{sc,kind:'num',ans:H.sd,tol:0,prompt:`Find the standard divisor.`,hint:'',sol:`${fInt(H.tot)} ÷ ${sc.seats} = ${H.sd}`};}
+  case't_quota':{const sc=appData();const i=rnd(sc.states.length),H=ham(sc.states,sc.seats),r=H.rows[i];return{sc,kind:'num',ans:r.q,prompt:`Find the standard quota for ${r.name}. Round to two decimal places.`,sol:`${fInt(r.pop)} ÷ ${H.sd} = ${f2(r.q)}`};}
+  case't_ham':{const sc=appData(s=>{const H=ham(s.states,s.seats);return H.sur>=1&&H.order.length>1&&Math.abs(H.order[H.sur-1].frac-(H.order[H.sur]||{frac:-1}).frac)>.02;});const i=rnd(sc.states.length),r=ham(sc.states,sc.seats).rows[i];return{sc,m:'H',kind:'num',ans:r.seats,prompt:`Use Hamilton’s method. How many ${sc.title.toLowerCase()} does ${r.name} get?`};}
+  case't_jef':case't_adams':case't_web':{const m={t_jef:'J',t_adams:'A',t_web:'W'}[qt];let dp=null,sc=null;for(let t=0;t<200&&!dp;t++){sc=appData();dp=sc&&divPair(sc,m);}
+    const i=rnd(sc.states.length);sc.dpair=dp.pair;return{sc,m,dpair:dp.pair,dgood:dp.good,kind:'num',ans:dp.seats[i],prompt:`Use ${MN[m]}’s method. Two modified divisors are given: d = ${dp.pair[0]} and d = ${dp.pair[1]}. Only one of them works. How many ${sc.title.toLowerCase()} does ${sc.states[i].name} get?`};}
+  case't_ala':{const sc=alaData(),st=sc.states,M=sc.seats,a=ham(st,M),b=ham(st,M+1),lost=b.rows.filter((x,k)=>x.seats<a.rows[k].seats).map(x=>x.name);
+    return{sc,kind:'choice',choices:[...st.map(d=>d.name),'No department loses a seat'],answers:lost.length?lost:['No department loses a seat'],prompt:`The senate grows from ${M} to ${M+1} seats. Using Hamilton’s method both times, which department loses a seat?`};}
+  }
+  return G(qt);}
+
+/* ================= TEST SETTINGS ================= */
+const CFG={name:'Unit 6 Test Review',version:'review-1',edition:'Full test (15 questions)',minutes:90,decTol:0.02,tablePts:10,tableChecks:3,salt:'u6-review-2026',
+  blueprint:[
+   {qt:'read',topic:'Reading a preference table',sec:'13.1'},
+   {qt:'plurality',topic:'Plurality method',sec:'13.1'},
+   {qt:'borda',topic:'Borda count method',sec:'13.1'},
+   {qt:'elim',topic:'Plurality with elimination',sec:'13.1'},
+   {qt:'pairwise',topic:'Pairwise comparison',sec:'13.1'},
+   {qt:'crit_iia',topic:'Irrelevant alternatives criterion',sec:'13.2'},
+   {qt:'arrow',topic:'Fairness criteria',sec:'13.2'},
+   {qt:'t_sd',topic:'Standard divisor',sec:'13.3'},
+   {qt:'t_quota',topic:'Standard quota',sec:'13.3'},
+   {qt:'t_ham',topic:'Hamilton’s method',sec:'13.3',graded:1},
+   {qt:'t_jef',topic:'Jefferson’s method',sec:'13.3',graded:1},
+   {qt:'t_adams',topic:'Adams’s method',sec:'13.3',graded:1},
+   {qt:'t_web',topic:'Webster’s method',sec:'13.3',graded:1},
+   {qt:'t_ala',topic:'The Alabama paradox',sec:'13.4',graded:1},
+   {qt:'match',topic:'Causes of the paradoxes',sec:'13.4'}]};
+const NQ=CFG.blueprint.length,DEC2=['sd','quota','mq','t_quota'];
+const PTS=q=>q.kind==='choice'?(q.choices.length<=2?[3]:[3,1]):[3,2,1];
+const TR=q=>PTS(q).length;
+const QMAX=i=>3+(CFG.blueprint[i].graded?CFG.tablePts:0);
+const MAXPTS=d3.sum(CFG.blueprint,(b,i)=>QMAX(i));
+const r1=x=>Math.round(x*10)/10;
+
+/* ================= STATE ================= */
+const T={view:'signin',id:null,rec:null,preview:false,confirmFinish:false,cover:false,ans:'',msg:null,codes:'',sort:'id',pick:null,confirmDel:false};
+let DB=null,CANEDIT=!!window.TEACHER_PAGE,DL=null,tickT=null,saveT=null,away=null,LIVE=[],OLD=0,liveUnsub=null,liveState='waiting';
+const KEY=id=>CFG.version+'.'+id;
+const $=id=>document.getElementById(id);
+
+/* ================= RESULTS STORAGE (Google Sheet web app) ================= */
+const API='https://script.google.com/macros/s/AKfycbxeaL4zEHHgBkkfni_Xmkwm-O8-oUoRqtrs2Vdvel0QZOWPvJiNmRQDEDol-79riCcAtQ/exec';
+let lastPush=0,pushT=null;
+const api={ready:()=>/^https:\/\/script\.google(usercontent)?\.com\//.test(API),
+  post(body){if(!api.ready())return;try{fetch(API,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)}).catch(()=>{});}catch(e){}},
+  async get(params){if(!api.ready())throw new Error('not set up');const u=API+'?'+Object.entries(params).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');const r=await fetch(u);return r.json();}};
+function pushNow(){const r=T.rec;if(!r||T.preview)return;lastPush=Date.now();clearTimeout(pushT);pushT=null;api.post({action:'save',app:CFG.version,id:r.id,summary:summary(r)});}
+
+function hash(s){let x=2166136261;for(let i=0;i<s.length;i++){x^=s.charCodeAt(i);x=Math.imul(x,16777619)>>>0;}return x.toString(36).toUpperCase().padStart(7,'0').slice(-4);}
+function save(now){const r=T.rec;if(!r||T.preview)return;r.updated=Date.now();try{localStorage.setItem(KEY(r.id),JSON.stringify(r));}catch(e){}
+  if(now||Date.now()-lastPush>15000)pushNow();else if(!pushT)pushT=setTimeout(pushNow,15000-(Date.now()-lastPush));}
+function summary(r){const s=score(r);return{id:r.id,version:CFG.version,startedAt:r.startedAt,submittedAt:r.submittedAt,reason:r.reason,points:s.pts,max:MAXPTS,leaves:r.leaves.length,awayMs:d3.sum(r.leaves,l=>l.away),fsExits:r.fsExits,reopens:r.reopens,updated:r.updated,code:r.code||null,
+  q:r.resp.map((p,i)=>({tries:p.tries,correct:p.correct,pts:p.pts,tpts:s.t[i],given:p.given,work:p.work,checks:p.checks||0,scratch:p.scratch})),qs:r.qs,events:r.leaves.slice(-60)};}
+
+/* ================= WORK TABLE GRADING ================= */
+function expected(q){const sc=q.sc,E={};if(!sc||sc.kind!=='app')return E;const st=sc.states,M=sc.seats,tot=d3.sum(st,s=>s.pop),put=(k,v,tol,blank0)=>{E[k]={v,tol:tol||0,blank0:!!blank0};};
+  put('pop:tot',tot);
+  if(q.qt==='t_ala'){[['1',M],['2',M+1]].forEach(([s,m])=>{const H=ham(st,m);put('sd'+s,H.sd,CFG.decTol);H.rows.forEach((r,j)=>{put(`q${s}:${j}`,r.q,CFG.decTol);put(`l${s}:${j}`,r.lq);put(`d${s}:${j}`,r.frac,CFG.decTol);put(`h${s}:${j}`,r.seats);});});return E;}
+  const H=ham(st,M);put('sd',H.sd,CFG.decTol);H.rows.forEach((r,j)=>put(`sq:${j}`,r.q,CFG.decTol));
+  if(q.m==='H')H.rows.forEach((r,j)=>{put(`lq:${j}`,r.lq);put(`dp:${j}`,r.frac,CFG.decTol);put(`sp:${j}`,r.bonus,0,true);put(`fa:${j}`,r.seats);});
+  if(q.m&&q.m!=='H'&&q.dgood){const m=q.m,d=q.dgood;E.dpick={v:d,tol:0};st.forEach((s,j)=>{const qq=H.rows[j].q;if(m==='J')put(`lq:${j}`,Math.floor(qq+1e-9));if(m==='A')put(`uq:${j}`,Math.ceil(qq-1e-9));if(m==='W')put(`rq:${j}`,RND.W(qq));
+    put(`mq:${j}`,s.pop/d,CFG.decTol);const rk={J:'rd',A:'ru',W:'rn'}[m];put(`${rk}:${j}`,RND[m](s.pop/d));put(`fa:${j}`,RND[m](s.pop/d));});}
+  return E;}
+function gradeWork(q,W){const E=expected(q),keys=Object.keys(E);if(!keys.length)return null;const marks={};let right=0;W=W||{};
+  keys.forEach(k=>{const e=E[k],raw=norm(W[k]);let ok;if(raw===''){ok=e.blank0&&e.v===0;}else{let v=Number(raw.replace(/^\./,'0.'));if(!isFinite(v)){ok=false;}else ok=Math.abs(v-e.v)<=e.tol+1e-9;}marks[k]=ok;if(ok)right++;});
+  return{right,total:keys.length,pct:right/keys.length,pts:r1(CFG.tablePts*right/keys.length),marks};}
+function score(r){const t=r.qs.map((q,i)=>CFG.blueprint[i].graded?(gradeWork(q,r.resp[i].work)||{pts:0}).pts:0);
+  return{t,pts:r1(d3.sum(r.resp,p=>p.pts)+d3.sum(t)),correct:r.resp.filter(p=>p.correct).length,done:r.resp.filter((p,i)=>p.correct||p.tries>=TR(r.qs[i])).length};}
+
+function serialQ(q,b){const labels=q.choices?q.choices.map(c=>q.lab?q.lab(c):c):null;const sc=q.sc?JSON.parse(JSON.stringify(q.sc)):null;
+  return{qt:b.qt,m:q.m||null,dpair:q.dpair||null,dgood:q.dgood||null,kind:q.kind,ans:q.ans,tol:DEC2.includes(b.qt)?CFG.decTol:(q.tol||0),choices:q.choices||null,labels,answers:q.answers||null,prompt:q.prompt,sc,noTable:!!q.noTable};}
+function makeRec(id){const qs=CFG.blueprint.map(b=>{let q=null;for(let t=0;t<30&&!q;t++)q=TG(b.qt);return serialQ(q,b);});
+  return{id,version:CFG.version,qs,resp:qs.map(()=>({tries:0,correct:false,pts:0,given:[],work:{},checks:0,lastCheck:null,scratch:''})),cur:0,leaves:[],fsExits:0,reopens:0,startedAt:null,deadline:null,submittedAt:null,reason:null,code:null,updated:0};}
+
+/* ================= LEAVING THE SCREEN ================= */
+function leftScreen(kind){if(T.view!=='test'||away)return;away={t:Date.now(),kind};}
+function backToScreen(){if(!away)return;const ms=Date.now()-away.t,k=away.kind;away=null;if(T.view!=='test'||ms<1000)return;T.rec.leaves.push({t:Date.now()-ms,away:ms,kind:k});T.cover=true;save(true);render();}
+document.addEventListener('visibilitychange',()=>{document.hidden?leftScreen('Switched tab or minimized'):backToScreen();});
+window.addEventListener('blur',()=>leftScreen('Clicked outside the test'));
+window.addEventListener('focus',backToScreen);
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&T.view==='test'&&T.rec){T.rec.fsExits++;save();renderBar();}});
+document.addEventListener('contextmenu',e=>{if(T.view==='test')e.preventDefault();});
+function goFull(){try{const el=document.documentElement;const p=el.requestFullscreen&&el.requestFullscreen();if(p&&p.catch)p.catch(()=>{});}catch(e){}}
+
+/* ================= FLOW ================= */
+function fromRemote(x){if(!x||x.version!==CFG.version||!x.qs||x.qs.length!==NQ)return null;
+  return{id:String(x.id),version:x.version,qs:x.qs,resp:x.q.map(p=>({tries:p.tries||0,correct:!!p.correct,pts:p.pts||0,given:p.given||[],work:p.work||{},checks:p.checks||0,lastCheck:null,scratch:p.scratch||''})),cur:0,leaves:x.events||[],fsExits:x.fsExits||0,reopens:x.reopens||0,
+    startedAt:x.startedAt||null,deadline:x.startedAt?x.startedAt+CFG.minutes*60000:null,submittedAt:x.submittedAt||null,reason:x.reason||null,code:x.code||null,updated:x.updated||0};}
+async function signIn(id){let r=null;try{r=JSON.parse(localStorage.getItem(KEY(id))||'null');}catch(e){}if(r&&(r.version!==CFG.version||!r.qs||r.qs.length!==NQ))r=null;
+  if(api.ready()){try{const j=await api.get({action:'one',app:CFG.version,id});const rr=j&&j.data?fromRemote(j.data):null;if(rr&&(!r||rr.submittedAt&&!r.submittedAt||(rr.updated||0)>(r.updated||0)))r=rr;}catch(e){}}
+  if(!r)r=makeRec(id);T.id=id;T.rec=r;T.preview=false;T.ans='';T.msg=null;
+  if(r.submittedAt){T.view='done';T.returned=true;}else if(r.startedAt){if(Date.now()>=r.deadline){T.rec=r;submit('Time ran out');return;}r.reopens++;T.view='test';T.cover=true;startTick();}else T.view='intro';save(true);render();}
+function preview(){T.id='PREVIEW';T.rec=makeRec('PREVIEW');T.preview=true;T.view='intro';T.ans='';T.msg=null;render();}
+function start(){const r=T.rec;r.startedAt=Date.now();r.deadline=r.startedAt+CFG.minutes*60000;T.view='test';goFull();startTick();save(true);render();}
+function startTick(){clearInterval(tickT);tickT=setInterval(()=>{if(T.view!=='test')return;if(Date.now()>=T.rec.deadline){submit('Time ran out');return;}const c=$('clock');if(c)paintClock(c);},1000);}
+function makeCode(r){const s=score(r);const body=['U6F',r.id,r.resp.map((p,i)=>Math.round((p.pts+s.t[i])*10)).join('-'),r.resp.map(p=>Math.min(p.tries,9)).join(''),r.leaves.length,Math.round(d3.sum(r.leaves,l=>l.away)/1000),r.fsExits,Math.round((r.submittedAt-r.startedAt)/60000)].join('.');return body+'.'+hash(CFG.salt+body);}
+function submit(reason){const r=T.rec;if(r.submittedAt)return;r.submittedAt=Date.now();r.reason=reason;r.code=makeCode(r);clearInterval(tickT);T.view='done';T.confirmFinish=false;T.cover=false;save(true);try{if(document.fullscreenElement)document.exitFullscreen();}catch(e){}render();}
+const norm=v=>String(v??'').replace(/[,\s]/g,'').replace(/½/,'.5');
+function check(){const r=T.rec,i=r.cur,q=r.qs[i],p=r.resp[i],P=PTS(q);if(p.correct||p.tries>=P.length)return;const raw=norm(T.ans);let ok;
+  if(q.kind==='num'){const v=Number(raw);if(raw===''||!isFinite(v)){T.msg={cls:'info',t:'Type a number first.'};renderQ();return;}ok=Math.abs(v-q.ans)<=q.tol+1e-9;}else{if(!T.ans){T.msg={cls:'info',t:'Pick an answer first.'};renderQ();return;}ok=q.answers.includes(T.ans);}
+  if(p.given.map(norm).includes(raw)){T.msg={cls:'info',t:'You already tried that answer. Try a different one.'};renderQ();return;}
+  p.tries++;p.given.push(String(T.ans));if(ok){p.correct=true;p.pts=P[p.tries-1]||0;T.msg={cls:'ok',t:`Correct. +${p.pts} point${p.pts===1?'':'s'}.`};}
+  else{const left=P.length-p.tries;T.msg=left?{cls:'bad',t:`Not correct. ${left} ${left===1?'try':'tries'} left.`}:{cls:'bad',t:P.length===1?'Not correct. This question had one try.':'Not correct. You are out of tries for this question.'};}
+  save();renderQ();renderBar();}
+function checkTable(){const r=T.rec,i=r.cur,q=r.qs[i],p=r.resp[i];if((p.checks||0)>=CFG.tableChecks)return;const g=gradeWork(q,p.work);p.checks=(p.checks||0)+1;p.lastCheck={right:g.right,total:g.total};save();renderQ();}
+function go(i){const r=T.rec;r.cur=Math.max(0,Math.min(NQ-1,i));T.ans='';T.msg=null;save();renderQ();renderBar();window.scrollTo({top:0});}
+
+/* ================= WORK TABLES ================= */
+function workSpec(q){const sc=q.sc;if(!sc)return null;
+  if(sc.kind==='app'){const g=sc.states.map(s=>s.name),M=sc.seats,P=['pop','Population'];
+    if(q.qt==='t_ala')return{kind:'app',cols:g,divs:[['sd1',`SD with ${M} seats`],['sd2',`SD with ${M+1} seats`]],rows:[P,['q1',`Standard quota (${M} seats)`],['l1','Lower quota'],['d1','Decimal part'],['h1',`Hamilton (${M} seats)`,1],['q2',`Standard quota (${M+1} seats)`],['l2','Lower quota'],['d2','Decimal part'],['h2',`Hamilton (${M+1} seats)`,1]]};
+    if(q.qt==='t_sd')return{kind:'app',cols:g,divs:[['sd','Standard divisor (SD)']],rows:[P]};
+    if(q.qt==='t_quota')return{kind:'app',cols:g,divs:[['sd','Standard divisor (SD)']],rows:[P,['sq','Standard quota',1]]};
+    const m=q.m,rows=[P,['sq','Standard quota']];
+    if(m==='H')rows.push(['lq','Lower quota'],['dp','Decimal part'],['sp','Surplus (+1)'],['fa','Hamilton’s apportionment',1]);
+    const first={J:['lq','Lower quota (rounded down)'],A:['uq','Upper quota (rounded up)'],W:['rq','Rounded quota (nearest)']}[m];
+    const rnd2={J:['rd','Rounded down'],A:['ru','Rounded up'],W:['rn','Rounded to nearest']}[m];
+    if(first)rows.push(first,['CHOOSE'],['mq','Modified quota (pop ÷ d)'],rnd2,['fa',`${MN[m]}’s apportionment`,1]);
+    return{kind:'app',cols:g,divs:[['sd','Standard divisor (SD)']],rows,dpair:q.dpair,m};}
+  if(sc.kind==='vote'){const cs=sc.cands;
+    if(q.qt==='borda'||q.qt==='borda_pts')return{kind:'vote',title:'Borda points',cols:[...sc.cols.map((c,j)=>`Col ${j+1} (${c.n})`)],rows:cs.map(c=>[c,c]),total:'Total points'};
+    if(q.qt==='pairwise'||q.qt==='pw_pts'||q.qt==='h2h'){const rows=[];for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++)rows.push([`${cs[i]}${cs[j]}`,`${cs[i]} vs. ${cs[j]}`]);return{kind:'vote',title:'Matchups',cols:['First','Second','Point to'],rows};}
+    return{kind:'vote',title:'Vote tally',cols:['Round 1','Round 2','Round 3'],rows:cs.map(c=>[c,c])};}
+  return null;}
+function workTable(q,p,ro,marks){const spec=workSpec(q);if(!spec)return null;const W=p.work||(p.work={});const wrap=h('div',null);
+  const mk=k=>marks&&k in marks?(marks[k]?' mok':' mbad'):'';
+  const inpt=(k,lbl,wd)=>{if(ro)return h('span',{class:'roval'+mk(k),text:W[k]||'–'});const i=h('input',{class:'wcell',inputmode:'decimal',value:W[k]||'','aria-label':lbl,id:'w-'+k,style:wd?`width:${wd}`:null});i.addEventListener('input',e=>{W[k]=e.target.value;save();const rk=k.split(':')[0],t=wrap.querySelector(`[data-tot="${rk}"]`);if(t)t.textContent=rowTot(rk);});return i;};
+  const rowTot=rk=>{const n=spec.cols.map((c,j)=>Number(norm(W[`${rk}:${j}`]))).filter(x=>isFinite(x)&&x!==0);return n.length?fmtN(Math.round(d3.sum(n)*1000)/1000):'';};
+  const ncol=spec.cols.length+2;
+  if(spec.kind==='app'){const sc=q.sc;
+    wrap.append(h('div',{class:'row',style:'gap:14px;margin-bottom:8px;align-items:flex-end'},spec.divs.map(([k,l])=>h('label',{class:'divin'},h('span',{class:'cap',text:l}),inpt(k,l,'8rem'))),h('span',{class:'cap',text:`Items to share: ${sc.seats}${q.qt==='t_ala'?` and then ${sc.seats+1}`:''}`})));
+    const t=h('table',{class:'tbl wtbl'});t.append(h('thead',null,h('tr',null,h('th',{text:''}),spec.cols.map(c=>h('th',{text:c})),h('th',{text:'Total'}))));
+    const tb=h('tbody');spec.rows.forEach(([rk,label,fin])=>{
+      if(rk==='CHOOSE'){const pickB=d=>{const on=String(W.dpick)===String(d);if(ro)return h('span',{class:'pill '+(on?(marks?(marks.dpick?'d':'s'):'d'):'n'),text:`d = ${d}`});return h('button',{class:'btn sm'+(on?' sel':''),onclick:()=>{W.dpick=on?'':String(d);save();renderQ();}},`d = ${d}`);};
+        tb.append(h('tr',{class:'choose'},h('td',{colspan:ncol},h('div',{class:'row'},h('span',{class:'cap',text:'Compare the Total above with the items to share. Which modified divisor works?'}),spec.dpair.map(pickB)))));return;}
+      tb.append(h('tr',{class:fin?'fin':null},h('th',{scope:'row',text:label}),spec.cols.map((c,j)=>rk==='pop'?h('td',{class:'pre',text:fInt(sc.states[j].pop)}):h('td',null,inpt(`${rk}:${j}`,`${label}, ${c}`))),
+        rk==='pop'?h('td',null,inpt('pop:tot','Total population')):h('td',{class:'tot','data-tot':rk,text:rowTot(rk)})));});
+    t.append(tb);wrap.append(h('div',{class:'tw'},t));
+    if(spec.dpair)wrap.append(h('div',{class:'cap',text:`Modified divisors given: d = ${spec.dpair[0]} or d = ${spec.dpair[1]}.${W.dpick?` You chose d = ${W.dpick}.`:''}`}));}
+  else{const t=h('table',{class:'tbl wtbl'});t.append(h('thead',null,h('tr',null,h('th',{text:''}),spec.cols.map(c=>h('th',{text:c})),spec.total?h('th',{text:spec.total}):null)));
+    const tb=h('tbody');spec.rows.forEach(([rk,label])=>tb.append(h('tr',null,h('th',{scope:'row'},rk.length===1?candChip(q.sc,rk):label),spec.cols.map((c,j)=>h('td',null,inpt(`${rk}:${j}`,`${label}, ${c}`))),spec.total?h('td',{class:'tot','data-tot':rk,text:rowTot(rk)}):null)));
+    t.append(tb);wrap.append(h('div',{class:'cap',text:spec.title}),h('div',{class:'tw'},t));}
+  return wrap;}
+
+
+/* ================= RENDER ================= */
+function render(){['signin','intro','test','done','teacher'].forEach(v=>$('v-'+v).hidden=T.view!==v);$('cover').hidden=!(T.view==='test'&&T.cover);
+  if(T.view!=='teacher'&&liveUnsub){try{liveUnsub();}catch(e){}liveUnsub=null;}
+  ({signin:rSignin,intro:rIntro,test:rTest,done:rDone,teacher:rTeacher})[T.view]();if(T.view==='test'&&T.cover)rCover();}
+function rSignin(){if(window.TEACHER_PAGE)return rPin();const b=clear($('v-signin'));const inp=h('input',{class:'in',id:'sid',inputmode:'numeric',autocomplete:'off',placeholder:'Student ID','aria-label':'Student ID number'}),err=h('div',{class:'err',role:'alert'});
+  const go2=()=>{const v=inp.value.trim();if(!IDS.includes(v)){err.textContent=v?'That ID is not on the class list. Check the number with your teacher.':'Type your student ID number.';return;}err.textContent='Checking your ID…';signIn(v);};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')go2();});
+  b.append(h('div',{class:'eyebrow',text:'Discrete Mathematics · Unit 6'}),h('h1',{text:CFG.name}),h('p',{class:'p muted',text:`Voting and apportionment · ${NQ} questions · ${MAXPTS} points · ${CFG.minutes} minutes`}),inp,err,h('button',{class:'btn pri',style:'justify-content:center;padding:11px',onclick:go2},'Sign in'));setTimeout(()=>{try{inp.focus();}catch(e){}},0);}
+function rPin(){const b=clear($('v-signin'));const inp=h('input',{class:'in',id:'pin',type:'password',inputmode:'numeric',autocomplete:'off',placeholder:'Teacher PIN','aria-label':'Teacher PIN'}),err=h('div',{class:'err',role:'alert'});
+  const go2=async()=>{const v=inp.value.trim();if(!v){err.textContent='Type your PIN.';return;}if(!api.ready()){err.textContent='The results sheet is not connected yet. Finish the setup steps first.';return;}err.textContent='Checking…';
+    try{const j=await api.get({action:'all',app:CFG.version,pin:v});if(j.error){err.textContent=j.error==='pin'?'That PIN is not correct.':'The results sheet answered with an error: '+j.error;return;}T.pin=v;T.view='teacher';render();}catch(e){err.textContent='Could not reach the results sheet. Check the web app link and that access is set to Anyone.';}};
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')go2();});
+  b.append(h('div',{class:'eyebrow',text:'Discrete Mathematics · Unit 6'}),h('h1',{text:'Teacher results'}),h('p',{class:'p muted',text:'Enter your teacher PIN to see every student’s results for the Test Review and the Test.'}),inp,err,h('button',{class:'btn pri',style:'justify-content:center;padding:11px',onclick:go2},'Open results'));setTimeout(()=>{try{inp.focus();}catch(e){}},0);}
+function setApp(k){const a=window.APPS[k];CFG.name=a[0];CFG.version=a[1];CFG.salt=a[2];LIVE=[];OLD=0;T.pick=null;liveState='connecting';render();}
+function rIntro(){const b=clear($('v-intro'));b.append(h('div',{class:'eyebrow',text:T.preview?'Teacher preview · nothing is recorded':`Student ID ${T.id}`}),h('h1',{style:'font-size:30px;margin:4px 0 10px',text:`${CFG.name}: before you start`}),
+  h('ol',{class:'rules'},h('li',null,`You have ${CFG.minutes} minutes. The timer starts when you press Start and keeps running even if you close the page.`),
+    h('li',null,`There are ${NQ} questions worth ${MAXPTS} points.`),
+    h('li',null,h('b',null,'Number answers: '),'3 tries. 3 points on the first try, 2 on the second, 1 on the third.'),
+    h('li',null,h('b',null,'Multiple choice with 3 or more options: '),'2 tries. 3 points on the first try, 1 on the second.'),
+    h('li',null,h('b',null,'Two-option questions: '),'1 try for 3 points.'),
+    h('li',null,'You see right or wrong after each try. Correct answers are not shown.'),
+    h('li',null,`Answers to two decimal places are accepted within ${CFG.decTol} of the exact value.`),
+    h('li',null,h('b',null,'Questions 10 to 14: '),`your work table is graded too, worth ${CFG.tablePts} more points. You can check how many cells are correct up to ${CFG.tableChecks} times. The table is graded when you finish.`),
+    h('li',null,'For Jefferson, Adams and Webster you get two modified divisors. Only one works: compare your rounded total with the number of items to choose it.'),
+    h('li',null,h('b',null,'Stay on this screen. '),'The test runs in full screen. Every time you switch tabs, open another app, or click outside the test, it is recorded with the time and shown to your teacher.'),
+    h('li',null,'Your numbers are different from your classmates’ numbers.')),
+  h('div',{class:'row',style:'margin-top:16px'},h('button',{class:'btn pri',style:'padding:11px 22px;font-size:16px',onclick:start},'Start the test'),h('button',{class:'btn',onclick:()=>{T.view=T.preview?'teacher':'signin';T.rec=null;render();}},'Back')));}
+function paintClock(c){const ms=Math.max(0,T.rec.deadline-Date.now()),m=Math.floor(ms/60000),s=Math.floor(ms/1000)%60;c.textContent=`${m}:${String(s).padStart(2,'0')}`;c.className='clock'+(ms<5*60000?' bad':ms<15*60000?' warn':'');}
+function rTest(){const b=clear($('v-test'));b.append(h('div',{class:'tbar',id:'tbar'}),h('div',{id:'fsnote'}),h('div',{id:'q'}));renderBar();renderQ();}
+function renderBar(){const bar=$('tbar');if(!bar)return;clear(bar);const r=T.rec,s=score(r),n=r.leaves.length;
+  const ck=h('div',{class:'clock',id:'clock'});paintClock(ck);
+  bar.append(h('div',{class:'row',style:'gap:14px'},h('div',null,h('div',{class:'eyebrow',text:T.preview?'Preview':`ID ${r.id}`}),h('strong',{text:CFG.name})),h('div',null,h('div',{class:'eyebrow',text:'Time left'}),ck)),
+    h('div',{class:'dots',role:'navigation','aria-label':'Questions'},r.qs.map((q,i)=>{const p=r.resp[i];return h('button',{class:'dot'+(i===r.cur?' cur':'')+(p.correct?' ok':p.tries>=TR(q)?' out':p.tries?' tried':''),onclick:()=>go(i),'aria-label':`Question ${i+1}`},String(i+1));})),
+    h('div',{class:'row'},h('span',{class:'leaves'+(n?' on':''),text:`Left screen: ${n}`}),h('span',{class:'cap',text:`${s.done}/${NQ} answered`}),h('button',{class:'btn',onclick:()=>{T.confirmFinish=true;renderQ();window.scrollTo({top:0});}},'Finish test')));
+  const fs=$('fsnote');if(fs){clear(fs);if(!document.fullscreenElement&&document.fullscreenEnabled)fs.append(h('div',{class:'alert',style:'border-color:var(--warn);background:var(--warn-soft)'},h('span',null,'The test works best in full screen.'),h('button',{class:'btn sm',onclick:()=>{goFull();setTimeout(renderBar,300);}},'Return to full screen')));}}
+function renderQ(){const box=$('q');if(!box)return;clear(box);const r=T.rec,i=r.cur,q=r.qs[i],p=r.resp[i],bp=CFG.blueprint[i],P=PTS(q),locked=p.correct||p.tries>=P.length;
+  if(T.confirmFinish){const left=r.resp.filter((x,k)=>!x.correct&&x.tries<TR(r.qs[k])).length;box.append(h('div',{class:'alert',style:'margin-bottom:12px'},h('span',null,h('b',null,'Finish the test? '),left?`${left} question${left===1?' is':'s are'} not answered. `:'All questions are answered. ','You cannot change answers or work tables after this.'),h('div',{class:'row'},h('button',{class:'btn pri',onclick:()=>submit('Student finished')},'Yes, finish'),h('button',{class:'btn',onclick:()=>{T.confirmFinish=false;renderQ();}},'Keep working'))));}
+  const left=h('section',{class:'card'});
+  left.append(h('div',{class:'row',style:'justify-content:space-between'},h('span',{class:'qnum',text:`Question ${i+1} of ${NQ} · ${bp.sec} ${bp.topic} · ${QMAX(i)} points`}),h('span',{class:'tries'},P.length===1?'1 try':'Tries:',d3.range(P.length).map(k=>h('i',{class:k<p.tries?(p.correct&&k===p.tries-1?'okd':'used'):''})))));
+  if(!q.noTable&&q.sc)left.append(h('p',{class:'cap',style:'margin-top:8px',text:`${q.sc.title}: ${q.sc.context}`}),scenView(q.sc,{qt:q.qt}));
+  left.append(h('div',{class:'prompt',style:'margin:12px 0',text:q.prompt}));
+  if(q.kind==='num'){const inp=h('input',{class:'in'+(p.correct?' ok':locked?' bad':''),id:'ans',inputmode:'decimal',placeholder:'Your answer','aria-label':'Your answer',value:locked?(p.given.slice(-1)[0]||''):(T.ans||''),disabled:locked,style:'width:12rem'});
+    inp.addEventListener('input',e=>{T.ans=e.target.value;});inp.addEventListener('keydown',e=>{if(e.key==='Enter')check();});left.append(inp);}
+  else left.append(h('div',{class:'row'},q.choices.map((c,k)=>{const last=p.given.slice(-1)[0],sel=locked?last===c:T.ans===c,tried=!locked&&p.given.includes(c);return h('button',{class:'btn choice'+(sel?' sel':'')+(locked&&sel?(p.correct?' right':' wrong'):''),disabled:locked||tried,onclick:()=>{T.ans=c;T.msg=null;renderQ();}},q.labels?q.labels[k]:c);})));
+  const nxt=P[p.tries];left.append(h('div',{class:'row',style:'margin-top:12px'},h('button',{class:'btn pri',disabled:locked,onclick:check},'Check answer'),h('span',{class:'cap',text:locked?(p.correct?`Answer: +${p.pts} points`:'Answer: 0 points'):`${P.length-p.tries} ${P.length-p.tries===1?'try':'tries'} left · a correct answer now earns ${nxt} pt${nxt===1?'':'s'}`})));
+  if(DEC2.includes(q.qt))left.append(h('div',{class:'cap',style:'margin-top:6px',text:`Two-decimal answers within ${CFG.decTol} are accepted.`}));
+  const msg=T.msg||(locked?(p.correct?{cls:'ok',t:`Correct. +${p.pts} points.`}:{cls:'bad',t:P.length===1?'Not correct. This question had one try.':'Out of tries for this question.'}):p.tries?{cls:'bad',t:`Your last answer (${p.given.slice(-1)[0]}) was not correct.`}:null);
+  if(msg)left.append(h('div',{class:`fb ${msg.cls}`,style:'margin-top:12px',role:'status'},h('b',{text:msg.t})));
+  left.append(h('div',{class:'nav'},h('button',{class:'btn',disabled:i===0,onclick:()=>go(i-1)},'← Previous'),i<NQ-1?h('button',{class:'btn pri',onclick:()=>go(i+1)},'Next question →'):h('button',{class:'btn pri',onclick:()=>{T.confirmFinish=true;renderQ();window.scrollTo({top:0});}},'Finish test')));
+  const ta=h('textarea',{class:'scratch',id:'scratch','aria-label':'Other work',placeholder:'Other work: divisor tries, tallies, notes…'});ta.value=p.scratch||'';ta.addEventListener('input',e=>{p.scratch=e.target.value;save();});
+  const wt=workTable(q,p,false),graded=bp.graded;
+  let gbox=null;if(graded){const used=p.checks||0,lc=p.lastCheck;gbox=h('div',{class:'tscore'},h('div',null,h('div',{class:'eyebrow',text:`Work table · ${CFG.tablePts} points`}),
+      lc?h('div',{class:'tsv',text:`${lc.right} of ${lc.total} cells correct (${Math.round(100*lc.right/lc.total)}%)`}):h('div',{class:'cap',text:'Fill in every cell, then check your table.'}),
+      lc?h('div',{class:'cap',text:'Score at your last check. The table is graded again when you finish the test.'}):null),
+    h('div',{style:'display:flex;flex-direction:column;gap:4px;align-items:flex-end'},h('button',{class:'btn pri',disabled:used>=CFG.tableChecks,onclick:checkTable},'Check my table'),h('span',{class:'cap',text:`${CFG.tableChecks-used} check${CFG.tableChecks-used===1?'':'s'} left`})));}
+  const right=h('section',{class:'card'},h('h3',{style:'font-size:17px;margin-bottom:2px',text:'Show your work'}),h('p',{class:'cap',style:'margin:0 0 10px',text:wt?(graded?'Every cell you fill in is graded. Add the total population yourself; the other Total boxes add your entries.':'Fill in the table as you solve. Add the total population yourself. Your teacher sees this table.'):'Write your work here. Your teacher sees it.'}),gbox,wt,h('div',{style:'margin-top:10px'},ta));
+  box.append(h('div',{class:'qgrid'+(wt&&q.sc&&q.sc.kind==='app'?' wide':'')},left,right));}
+function rCover(){const c=clear($('cover')),n=T.rec.leaves.length,last=T.rec.leaves[n-1];
+  c.append(h('div',{class:'card',role:'alertdialog','aria-label':'You left the test'},h('div',{class:'eyebrow',text:'You left the test screen'}),h('h2',{style:'font-size:24px',text:last?`Recorded: away for ${Math.max(1,Math.round(last.away/1000))} seconds`:'Welcome back'}),
+    h('p',{class:'p',text:`You have left the test screen ${n} time${n===1?'':'s'}${T.rec.reopens?` and reopened the test ${T.rec.reopens} time${T.rec.reopens===1?'':'s'}`:''}. Your teacher can see this. The timer kept running.`}),
+    h('button',{class:'btn pri',style:'justify-content:center;padding:11px',onclick:()=>{T.cover=false;goFull();render();}},'Return to the test')));}
+function rDone(){const b=clear($('v-done')),r=T.rec,s=score(r);
+  b.append(h('div',{class:'eyebrow',text:T.preview?'Teacher preview':`Student ID ${r.id}`}),h('h1',{style:'font-size:30px;margin:4px 0',text:`${CFG.name} submitted`}),T.returned&&!T.preview?h('div',{class:'fb info',style:'margin:8px 0'},h('b',{text:'You have already finished. '}),'You cannot take it again. Your results are below.'):'',h('p',{class:'p muted',text:`${r.reason}. Submitted ${new Date(r.submittedAt).toLocaleString()}.${T.preview?'':' Your results were sent to your teacher. You can close this page.'}`}),
+    h('div',{class:'kpis'},[[`${s.pts}/${MAXPTS}`,'points'],[`${Math.round(100*s.pts/MAXPTS)}%`,'score'],[`${s.correct}/${NQ}`,'answers correct'],[String(r.leaves.length),'times left the screen'],[`${Math.round((r.submittedAt-r.startedAt)/60000)} min`,'time used']].map(([v,t])=>h('div',{class:'kpi'},h('div',{class:'v',text:v}),h('div',{class:'cap',text:t})))),
+    h('div',{class:'sec'},h('h3',{text:'Your results'}),tbl([{h:'#',f:x=>x.i+1},{h:'Topic',f:x=>h('span',{style:'display:block;text-align:left',text:CFG.blueprint[x.i].topic})},{h:'Answer',f:x=>x.p.correct?`Correct (${x.p.pts})`:'Not correct (0)',cls:x=>x.p.correct?'ok':'bad'},{h:'Work table',f:x=>CFG.blueprint[x.i].graded?`${s.t[x.i]} / ${CFG.tablePts}`:'–'},{h:'Points',f:x=>`${r1(x.p.pts+s.t[x.i])} / ${QMAX(x.i)}`}],r.resp.map((p,i)=>({p,i})))),
+    h('div',{class:'sec'},h('h3',{text:'Backup results code'}),h('p',{class:'cap',style:'margin:0 0 8px',text:'Only needed if your teacher asks for it.'}),h('span',{class:'code',id:'code',style:'font-size:14px;word-break:break-all',text:r.code})),
+    T.preview?h('div',{class:'row',style:'margin-top:12px'},h('button',{class:'btn pri',onclick:preview},'Preview again with new numbers'),h('button',{class:'btn',onclick:()=>{T.view='teacher';render();}},'Teacher results')):'');}
+
+/* ================= TEACHER RESULTS ================= */
+function parseCodes(txt){const out=[],bad=[];const re=/U6F\.(\d+)\.([\d-]+)\.(\d+)\.(\d+)\.(\d+)\.(\d+)\.(\d+)\.([0-9A-Z]{4})/gi;let m;
+  while((m=re.exec(txt))){const body='U6F.'+m.slice(1,8).join('.');const pts=m[2].split('-').map(x=>Number(x)/10);const ok=hash(CFG.salt+body)===m[8].toUpperCase()&&IDS.includes(m[1])&&pts.length===NQ;
+    if(!ok){bad.push(m[0]);continue;}out.push({id:m[1],src:'code',pts,tries:m[3].split('').map(Number),leaves:+m[4],awayS:+m[5],fsExits:+m[6],mins:+m[7]});}
+  return{out,bad};}
+function liveRows(){return LIVE.map(x=>({id:String(x.id),src:'live',pts:(x.q||[]).map(p=>r1((p.pts||0)+(p.tpts||0))),tries:(x.q||[]).map(p=>p.tries||0),leaves:x.leaves||0,awayS:Math.round((x.awayMs||0)/1000),fsExits:x.fsExits||0,mins:x.submittedAt&&x.startedAt?Math.round((x.submittedAt-x.startedAt)/60000):(x.startedAt?Math.round((Date.now()-x.startedAt)/60000):null),status:x.submittedAt?'Submitted':x.startedAt?'In progress':'Signed in',raw:x}));}
+function allRows(){const m=new Map();parseCodes(T.codes).out.forEach(r=>m.set(r.id,{...r,status:'Submitted'}));liveRows().forEach(r=>m.set(r.id,r));
+  return[...m.values()].map(r=>({...r,total:r1(d3.sum(r.pts)),pct:Math.round(100*d3.sum(r.pts)/MAXPTS)}));}
+let pollT=null;
+async function pull(){try{const j=await api.get({action:'all',app:CFG.version,pin:T.pin||''});if(j.error){liveState='error';T.pinErr=j.error;}else{const all=(j.records||[]).filter(Boolean);LIVE=all.filter(x=>x.version===CFG.version&&IDS.includes(String(x.id)));OLD=all.length-LIVE.length;liveState='on';}}catch(e){liveState='error';}
+  if(T.view==='teacher'&&$('tbody'))rTeacherBody();}
+function startLive(){liveState=api.ready()?'connecting':'error';clearInterval(pollT);pull();pollT=setInterval(()=>{if(T.view==='teacher')pull();},20000);}
+function csvOf(rows){const head=['Student ID','Status','Points','Max','Percent',...CFG.blueprint.map((b,i)=>`Q${i+1} points`),...CFG.blueprint.map((b,i)=>`Q${i+1} tries`),'Times left screen','Seconds away','Full-screen exits','Minutes'];
+  return[head,...rows.map(r=>[r.id,r.status||'',r.total,MAXPTS,r.pct,...r.pts,...r.tries,r.leaves,r.awayS,r.fsExits,r.mins??''])].map(a=>a.join(',')).join('\n');}
+function rTeacher(){const b=clear($('v-teacher'));
+  b.append(h('div',{class:'row',style:'justify-content:space-between'},h('div',null,h('div',{class:'eyebrow',text:'Teacher'}),h('h1',{style:'font-size:28px',text:`${CFG.name}: class results`})),
+    h('div',{class:'row'},window.APPS?h('div',{class:'seg'},Object.entries(window.APPS).map(([k,a])=>h('button',{'aria-selected':String(CFG.version===a[1]),onclick:()=>{setApp(k);}},a[0]))):'',h('button',{class:'btn',onclick:preview},'Preview as a student'),h('button',{class:'btn',onclick:pull},'Refresh now'))));
+  b.append(h('div',{id:'livestat',class:'cap',style:'margin:6px 0'}),h('div',{id:'tbody'}));
+  const ta=h('textarea',{class:'scratch',id:'codes',style:'min-height:80px',placeholder:'Backup: paste results codes here if some students could not send results automatically.'});ta.value=T.codes;
+  b.append(h('details',{class:'sec'},h('summary',{class:'cap',style:'cursor:pointer',text:'Add backup results codes'}),ta,h('div',{class:'row',style:'margin-top:6px'},h('button',{class:'btn pri',onclick:()=>{T.codes=ta.value;rTeacherBody();}},'Analyze'),h('span',{class:'cap',id:'codemsg'}))));
+  startLive();rTeacherBody();}
+function bars(items,max,fmt){return h('div',{class:'hb'},items.map(it=>h('div',{class:'hbr'},h('span',{class:'hbl',text:it.l}),h('span',{class:'hbt'},h('i',{style:`width:${max?100*it.v/max:0}%;background:${it.c||'var(--accent)'}`})),h('span',{class:'hbv',text:fmt?fmt(it):String(it.v)}))));}
+function rTeacherBody(){const box=$('tbody');if(!box)return;clear(box);const st=$('livestat');
+  if(st){clear(st);st.append(h('span',{class:'pill '+(liveState==='on'?'d':liveState==='error'?'s':'n'),text:liveState==='on'?'● Live':liveState==='error'?(api.ready()?'Could not reach the results sheet':'Results sheet not connected yet'):'Connecting…'}),liveState==='on'?` ${LIVE.length} student record${LIVE.length===1?'':'s'}. Refreshes every 20 seconds. Last update ${new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit',second:'2-digit'})}.${OLD?` (${OLD} from an earlier version of the test not shown.)`:''}`:'');}
+  const pc=parseCodes(T.codes),msg=$('codemsg');if(msg)msg.textContent=T.codes.trim()?`${pc.out.length} valid code${pc.out.length===1?'':'s'}${pc.bad.length?`, ${pc.bad.length} not valid`:''}.`:'';
+  const rows=allRows();
+  if(!rows.length){box.append(h('p',{class:'muted',style:'margin:14px 0',text:'No results yet. Results appear here as soon as students sign in and start working.'}));rTeacherSettings(box);return;}
+  const subm=rows.filter(r=>r.status==='Submitted'),base=subm.length?subm:rows,pcts=base.map(r=>r.pct);
+  const kp=(v,t)=>h('div',{class:'kpi'},h('div',{class:'v',text:v}),h('div',{class:'cap',text:t}));
+  box.append(h('div',{class:'kpis'},kp(`${subm.length}/${rows.length}`,'submitted / started'),kp(`${Math.round(d3.mean(pcts))}%`,'class average'),kp(`${Math.round(d3.median(pcts))}%`,'median'),kp(`${d3.max(pcts)}% / ${d3.min(pcts)}%`,'highest / lowest'),kp(d3.mean(rows,r=>r.leaves).toFixed(1),'avg. times left screen'),kp(String(rows.filter(r=>r.leaves>=3).length),'left 3+ times')));
+  const bins=d3.range(0,10).map(k=>({l:k===9?'90–100%':`${k*10}–${k*10+9}%`,v:base.filter(r=>Math.min(9,Math.floor(r.pct/10))===k).length}));
+  const items=CFG.blueprint.map((bp,i)=>{const a=d3.mean(base,r=>(r.pts[i]||0)/QMAX(i))||0;return{l:`Q${i+1} ${bp.topic}`,v:Math.round(100*a),c:a<.5?'var(--bad)':a<.75?'var(--amber)':'var(--ok)'};});
+  box.append(h('div',{class:'qgrid',style:'margin-top:6px'},h('div',{class:'card'},h('h3',{style:'font-size:17px',text:'Score distribution'}),h('p',{class:'cap',text:'Number of students in each score range.'}),bars(bins.slice().reverse(),d3.max(bins,b=>b.v))),
+    h('div',{class:'card'},h('h3',{style:'font-size:17px',text:'Question analysis'}),h('p',{class:'cap',text:'Average percent of points earned on each question. Red means under half: reteach.'}),bars(items,100,it=>`${it.v}%`))));
+  const weak=items.filter(it=>it.v<50);if(weak.length)box.append(h('div',{class:'fb info',style:'margin-top:12px'},h('b',{text:'Reteach: '}),weak.map(w=>w.l).join(', ')));
+  const sorters={id:(a,b)=>a.id.localeCompare(b.id),score:(a,b)=>b.pct-a.pct,leaves:(a,b)=>b.leaves-a.leaves};rows.sort(sorters[T.sort]);
+  const sortBtn=(k,l)=>h('button',{class:'btn sm'+(T.sort===k?' sel':''),onclick:()=>{T.sort=k;rTeacherBody();}},l);
+  if(T.pick){const r=rows.find(x=>x.id===T.pick);if(r)box.append(studentDetail(r));}
+  const t=tbl([{h:'Student ID',f:r=>h('button',{class:'btn sm',onclick:()=>openPick(r.id)},r.id)},{h:'Status',f:r=>r.status||''},{h:'Score',f:r=>`${r.total}/${MAXPTS} (${r.pct}%)`},...CFG.blueprint.map((bp,i)=>({h:`Q${i+1}`,f:r=>r.pts[i]==null?'':String(r.pts[i]),cls:r=>r.pts[i]==null?'':r.pts[i]>=QMAX(i)?'ok':r.pts[i]===0&&r.tries[i]>0?'bad':''})),{h:'Left screen',f:r=>r.leaves,cls:r=>r.leaves>=3?'bad':''},{h:'Away',f:r=>`${r.awayS} s`},{h:'Minutes',f:r=>r.mins??''},{h:'Source',f:r=>r.src==='live'?'Live':'Code'}],rows);
+  t.querySelectorAll('tbody tr').forEach((tr,k)=>{tr.style.cursor='pointer';tr.addEventListener('click',e=>{if(e.target.closest('button'))return;openPick(rows[k].id);});});
+  box.append(h('div',{class:'sec'},h('div',{class:'row',style:'justify-content:space-between'},h('h3',{text:'Every student (click a row to open)'}),h('div',{class:'row'},h('span',{class:'cap',text:'Sort:'}),sortBtn('id','ID'),sortBtn('score','Score'),sortBtn('leaves','Times left'),h('button',{class:'btn sm',onclick:()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csvOf(rows)],{type:'text/csv'}));a.download=CFG.version+'-results.csv';document.body.appendChild(a);a.click();a.remove();}},'Download CSV'))),t));
+  rTeacherSettings(box);}
+function openPick(id){T.pick=id;T.confirmDel=false;rTeacherBody();const el=$('pick');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function studentDetail(r){const d=h('div',{class:'card',id:'pick',style:'margin-top:14px;border:2px solid var(--accent)'},h('div',{class:'row',style:'justify-content:space-between'},h('div',null,h('div',{class:'eyebrow',text:r.status||''}),h('h2',{style:'font-size:22px',text:`Student ${r.id}: ${r.total}/${MAXPTS} (${r.pct}%)`})),h('button',{class:'btn sm',onclick:()=>{T.pick=null;rTeacherBody();}},'Close')));
+  if(r.src!=='live'||!r.raw){d.append(tbl([{h:'Question',f:x=>`Q${x.i+1} ${CFG.blueprint[x.i].topic}`},{h:'Tries',f:x=>r.tries[x.i]},{h:'Points',f:x=>`${r.pts[x.i]} / ${QMAX(x.i)}`}],CFG.blueprint.map((b,i)=>({i}))),h('p',{class:'cap',text:`Left the screen ${r.leaves} times (${r.awayS} s away). This result came from a backup code, so work tables are not available.`}));return d;}
+  const x=r.raw;d.append(h('div',{class:'kpis'},[[String(x.leaves||0),'times left the screen'],[`${Math.round((x.awayMs||0)/1000)} s`,'time away'],[String(x.fsExits||0),'full-screen exits'],[String(x.reopens||0),'reopened'],[x.startedAt?new Date(x.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'–','started'],[x.submittedAt?new Date(x.submittedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}):'–','submitted']].map(([v,t])=>h('div',{class:'kpi'},h('div',{class:'v',style:'font-size:20px',text:v}),h('div',{class:'cap',text:t})))));
+  if((x.events||[]).length)d.append(h('details',{class:'sec'},h('summary',{style:'cursor:pointer;font-weight:700',text:`Times away from the test (${x.events.length})`}),h('div',{class:'log'},x.events.map(e=>h('div',null,h('time',{text:new Date(e.t).toLocaleTimeString()}),h('span',{text:`${e.kind}: ${Math.round(e.away/1000)} s`}))))));
+  (x.qs||[]).forEach((q,i)=>{const p=x.q[i]||{},g=CFG.blueprint[i]&&CFG.blueprint[i].graded?gradeWork(q,p.work):null;
+    const ans=q.kind==='num'?fmtN(q.ans):(q.answers||[]).map(a=>q.labels&&q.choices?q.labels[q.choices.indexOf(a)]||a:a).join(', ');
+    d.append(h('div',{class:'sec',style:'border-top:1px solid var(--line);padding-top:12px'},h('h3',{text:`Q${i+1} · ${CFG.blueprint[i].topic} · ${r1((p.pts||0)+(g?g.pts:0))} / ${QMAX(i)} points`}),h('p',{class:'cap',style:'margin:2px 0',text:q.prompt}),
+      h('p',{style:'margin:4px 0'},`Answers tried: `,h('b',{text:(p.given||[]).join(', ')||'none'}),` · correct answer: `,h('b',{text:ans}),` · answer points: ${p.pts||0}`),
+      g?h('p',{style:'margin:4px 0'},'Work table: ',h('b',{text:`${g.right} of ${g.total} cells correct (${Math.round(100*g.pct)}%) = ${g.pts} / ${CFG.tablePts} points`}),` · checks used: ${p.checks||0}`):null,
+      !q.noTable&&q.sc?h('details',null,h('summary',{class:'cap',style:'cursor:pointer',text:'Show the question data'}),scenView(q.sc,{qt:q.qt})):null,
+      workTable(q,{work:p.work||{}},true,g?g.marks:null),p.scratch?h('pre',{class:'cap',style:'white-space:pre-wrap',text:p.scratch}):''));});
+  if(CANEDIT)d.append(h('div',{class:'sec'},T.confirmDel?h('div',{class:'confirm'},h('span',{text:`Delete student ${r.id}’s record? This cannot be undone.`}),h('button',{class:'btn pri sm',onclick:()=>{api.post({action:'delete',app:CFG.version,id:r.id,pin:T.pin});T.pick=null;T.confirmDel=false;LIVE=LIVE.filter(x=>String(x.id)!==r.id);rTeacherBody();setTimeout(pull,2500);}},'Delete'),h('button',{class:'btn sm',onclick:()=>{T.confirmDel=false;rTeacherBody();}},'Cancel')):h('button',{class:'btn sm',onclick:()=>{T.confirmDel=true;rTeacherBody();}},'Delete this record')));
+  return d;}
+function rTeacherSettings(box){box.append(h('div',{class:'sec'},h('h3',{text:'Test settings'}),tbl([{h:'Setting',f:x=>x[0]},{h:'Value',f:x=>h('span',{style:'display:block;text-align:left;white-space:normal',text:String(x[1])})}],[['Questions',CFG.blueprint.map((q,i)=>`${i+1}. ${q.topic} (${QMAX(i)} pts)`).join(' · ')],['Total points',MAXPTS],['Time limit',`${CFG.minutes} minutes`],['Number answers','3 tries: 3 / 2 / 1 points'],['Multiple choice, 3+ options','2 tries: 3 / 1 points'],['Two-option questions','1 try: 3 points'],['Work tables (Q10 to Q14)',`${CFG.tablePts} points each, by share of correct cells; ${CFG.tableChecks} checks allowed`],['Decimal leniency',`±${CFG.decTol}`]])));}
+render();
+
+})();
+</script>
+</body>
+</html>
